@@ -1,4 +1,6 @@
-﻿using Clarity.Web.UI.Utility;
+﻿using Clarity.Web.UI.BusinessLogic.Interfaces;
+using Clarity.Web.UI.BusinessLogic.Services;
+using Clarity.Web.UI.Utility;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Mvc;
@@ -20,17 +22,21 @@ namespace Clarity.Web.UI
 
             services.AddMvc().AddNewtonsoftJson(options =>
             {
-                // Configure JSON serialization options here
                 options.SerializerSettings.ContractResolver = new DefaultContractResolver();
-                // Add any other JSON configuration settings you require
             });
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
 
             services.AddAntiforgery(o => o.HeaderName = "XSRF-TOKEN");
+
             var coreConfig = configuration.GetSection("CoreConfig");
+
             services.Configure<CoreConfig>(coreConfig);
+
             services.AddDirectoryBrowser();
+
+            services.AddScoped<IRolesService, RolesService>();
+
             services.AddSession(options =>
             {
                 options.IdleTimeout = TimeSpan.FromMinutes(30);
@@ -43,15 +49,14 @@ namespace Clarity.Web.UI
                 options.SlidingExpiration = true;
                 options.AccessDeniedPath = "/Forbidden/";
                 options.Cookie.Name = "allowCookies";
-                options.Cookie.IsEssential = true; // to bypass consent check
-                options.Cookie.HttpOnly = true; // Only send cookie through HTTP
+                options.Cookie.IsEssential = true;
+                options.Cookie.HttpOnly = true;
                 options.Cookie.SameSite = SameSiteMode.None;
                 options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
             });
         }
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -63,10 +68,8 @@ namespace Clarity.Web.UI
 
             app.UseStaticFiles(new StaticFileOptions
             {
-                //ContentTypeProvider = provider,
                 OnPrepareResponse = ctx =>
                 {
-                    // Disable caching for all static files
                     ctx.Context.Response.Headers["Cache-Control"] = "no-cache, no-store";
                     ctx.Context.Response.Headers["Pragma"] = "no-cache";
                     ctx.Context.Response.Headers["Expires"] = "-1";
@@ -77,13 +80,13 @@ namespace Clarity.Web.UI
             app.UseAuthentication();
             app.UseAuthorization();
             app.UseSession();
-            
+
 
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Account}/{action=Login}/{id?}");
+                    pattern: "{controller=Roles}/{action=Index}/{id?}");
             });
         }
     }
