@@ -1,4 +1,6 @@
 ﻿using Clarity.Web.Service.DBConfiguration;
+using Clarity.Web.Service.Interfaces;
+using Clarity.Web.Service.Repository;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -21,10 +23,10 @@ namespace Clarity.Web.Service
 
             sqlServerOptionsAction: sqlOptions =>
             {
-            sqlOptions.EnableRetryOnFailure(
-            maxRetryCount: 5, // Maximum number of retries
-            maxRetryDelay: TimeSpan.FromSeconds(30), // Maximum delay between retries
-            errorNumbersToAdd: null); // SQL error codes to retry on (you can specify error codes if needed)
+               sqlOptions.EnableRetryOnFailure(
+               maxRetryCount: 5,
+               maxRetryDelay: TimeSpan.FromSeconds(30), 
+               errorNumbersToAdd: null); 
             }));
 
             services.AddControllers().AddNewtonsoftJson(options =>
@@ -35,15 +37,17 @@ namespace Clarity.Web.Service
 
             services.AddMvc().AddXmlSerializerFormatters();
 
+            services.AddScoped<IRoleService, RoleService>();
+
             services.AddCors(options =>
             {
-                options.AddPolicy("CorsPolicy",
-                     builder => builder
-                    .AllowAnyOrigin()
-                    .AllowAnyHeader()
-                    .AllowAnyMethod()
-                    .WithMethods("GET", "PUT", "DELETE", "POST", "PATCH") //not really necessary when AllowAnyMethods is used.
-            );
+                      options.AddPolicy("CorsPolicy",
+                                         builder => builder
+                                        .AllowAnyOrigin()
+                                        .AllowAnyHeader()
+                                        .AllowAnyMethod()
+                                        .WithMethods("GET", "PUT", "DELETE", "POST", "PATCH") 
+                                        );
             });
 
             services.AddSwaggerGen(c =>
@@ -52,7 +56,7 @@ namespace Clarity.Web.Service
                 {
                     Version = "v1",
                     Title = "Clarity API",
-                    Description = "Clarity Fashion Business API",
+                    Description = "Clarity Business API",
                     TermsOfService = new Uri("https://Clarity.com"),
                     Contact = new OpenApiContact
                     {
@@ -70,9 +74,11 @@ namespace Clarity.Web.Service
         }
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
+          
             app.UseRouting();
+
             app.UseCors("CorsPolicy");
+            
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
@@ -85,11 +91,9 @@ namespace Clarity.Web.Service
 
             app.UseSwagger();
 
-            // This middleware serves the Swagger documentation UI;
             app.UseSwaggerUI(c =>
             {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "Smaya Global API Services V1");
-                //c.RoutePrefix = string.Empty;
             });
         }
 
