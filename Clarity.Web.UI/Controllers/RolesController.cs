@@ -12,7 +12,7 @@ namespace Clarity.Web.UI.Controllers
         }
         public async Task<IActionResult> Index()
         {
-            var responce = await rolesService.fetchAllRoles();
+            //var responce = await rolesService.fetchAllRoles();
 
             return View();
         }
