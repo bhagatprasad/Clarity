@@ -3,13 +3,13 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Clarity.Web.Service.Models
 {
-    [Table("Department")]
-    public class Department: Common
+    [Table("Designation")]
+    public class Designation : Common
     {
+
         [Key]
-        public long DepartmentId { get; set; }
+        public long DesignationId { get; set; }
         public string Name { get; set; }
-        public string Description { get; set; }
         public string Code { get; set; }
     }
 }
