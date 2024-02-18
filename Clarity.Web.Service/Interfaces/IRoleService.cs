@@ -9,5 +9,7 @@ namespace Clarity.Web.Service.Interfaces
         Task<bool> InsertOrUpdateRole(Roles roles);
 
         Task<bool> DeleteRole(long roleId);
+
+        Task<Roles> fetchRole(long  roleId);
     }
 }

@@ -4,6 +4,9 @@ using Clarity.Web.UI.Utility;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
+using System.Net.Http;
+using System.Reflection;
+using System.Text;
 using System.Text.Json.Serialization;
 
 namespace Clarity.Web.UI.BusinessLogic.Services
@@ -40,9 +43,35 @@ namespace Clarity.Web.UI.BusinessLogic.Services
             return new List<Roles>();
         }
 
-        public Task<bool> InsertOrUpdateRole(Roles roles)
+        public async Task<Roles> fetchRole(long roleId)
         {
-            throw new NotImplementedException();
+            var urlcontent = Path.Combine("Roles/fetchRole", roleId.ToString());
+            var responce = await _httpClient.GetAsync(urlcontent);
+            if (responce.IsSuccessStatusCode)
+            {
+                var content = await responce.Content.ReadAsStringAsync();
+                var contentReqponce = JsonConvert.DeserializeObject<Roles>(content);
+                return contentReqponce != null ? contentReqponce : new Roles();
+            }
+            return new Roles();
+        }
+
+        public async Task<bool> InsertOrUpdateRole(Roles roles)
+        {
+            var inputContent = JsonConvert.SerializeObject(roles);
+
+            var requestContent = new StringContent(inputContent, Encoding.UTF8, "application/json");
+
+            var responce = await _httpClient.PostAsync("Roles/InsertOrUpdateRole", requestContent);
+
+            if (responce.IsSuccessStatusCode)
+            {
+                var content = await responce.Content.ReadAsStringAsync();
+                var responceContent = JsonConvert.DeserializeObject<bool>(content);
+                return responceContent != null ? responceContent : false;
+            }
+            return false;
+
         }
     }
 }

@@ -42,6 +42,11 @@ namespace Clarity.Web.Service.Repository
             return roles;
         }
 
+        public async Task<Roles> fetchRole(long roleId)
+        {
+            return await context.roles.Where(x => x.Id == roleId).FirstOrDefaultAsync();
+        }
+
         public async Task<bool> InsertOrUpdateRole(Roles roles)
         {
             if (roles.Id > 0)
