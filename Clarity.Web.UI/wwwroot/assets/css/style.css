@@ -14440,11 +14440,12 @@ dl {
       width: 100%; } }
 
 .content-wrapper {
-  background: #f2edf3;
-  padding: 2.75rem 2.25rem;
-  width: 100%;
-  -webkit-box-flex: 1;
-  -ms-flex-positive: 1;
-  flex-grow: 1; }
+    background: #f2edf3;
+    padding: 0.75rem 1.25rem;
+    width: 100%;
+    -webkit-box-flex: 1;
+    -ms-flex-positive: 1;
+    flex-grow: 1;
+}
 
 /*# sourceMappingURL=style.css.map */
