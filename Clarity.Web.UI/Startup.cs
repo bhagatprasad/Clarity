@@ -1,4 +1,6 @@
-﻿using Clarity.Web.UI.BusinessLogic.Interfaces;
+﻿using AspNetCoreHero.ToastNotification;
+using AspNetCoreHero.ToastNotification.Extensions;
+using Clarity.Web.UI.BusinessLogic.Interfaces;
 using Clarity.Web.UI.BusinessLogic.Services;
 using Clarity.Web.UI.Utility;
 using Microsoft.AspNetCore.Authentication.Cookies;
@@ -54,6 +56,12 @@ namespace Clarity.Web.UI
                 options.Cookie.SameSite = SameSiteMode.None;
                 options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
             });
+            services.AddNotyf(config =>
+            {
+                config.DurationInSeconds = 10;
+                config.IsDismissable = true;
+                config.Position = NotyfPosition.TopCenter;
+            });
         }
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
@@ -80,8 +88,7 @@ namespace Clarity.Web.UI
             app.UseAuthentication();
             app.UseAuthorization();
             app.UseSession();
-
-
+            app.UseNotyf();
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(

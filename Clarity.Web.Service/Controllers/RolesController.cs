@@ -61,5 +61,19 @@ namespace Clarity.Web.Service.Controllers
                 throw ex;
             }
         }
+        [HttpGet]
+        [Route("fetchRole/{id}")]
+        public async Task<IActionResult> fetchRole(long id)
+        {
+            try
+            {
+                var responce = await roleService.fetchRole(id);
+                return Ok(responce);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
     }
 }

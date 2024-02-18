@@ -10,5 +10,7 @@ namespace Clarity.Web.UI.BusinessLogic.Interfaces
         Task<bool> InsertOrUpdateRole(Roles roles);
 
         Task<bool> DeleteRole(long roleId);
+
+        Task<Roles> fetchRole(long roleId);
     }
 }
