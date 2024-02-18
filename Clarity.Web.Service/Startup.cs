@@ -40,6 +40,9 @@ namespace Clarity.Web.Service
 
             services.AddScoped<IRoleService, RoleService>();
             services.AddScoped<ICountryService, CountryService>();
+            services.AddScoped<IDepartmentService, DepartmentService>();
+            services.AddScoped<IDesignationService,DesignationService>();
+            services.AddScoped<IStateService, StateService>();
 
             services.AddCors(options =>
             {

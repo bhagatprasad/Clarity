@@ -16,5 +16,9 @@ namespace Clarity.Web.Service.DBConfiguration
 
         public DbSet<Roles> roles { get; set; }
         public DbSet<Country> countries { get; set; }
+        public DbSet<Department> department { get; set; }
+        public DbSet<Designation> designation { get; set; }
+        public DbSet<State> state { get; set; }
+
     }
 }

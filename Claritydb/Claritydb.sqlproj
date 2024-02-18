@@ -67,5 +67,7 @@
     <Build Include="dbo\Tables\Roles.sql" />
     <Build Include="dbo\Tables\State.sql" />
     <Build Include="dbo\Tables\Country.sql" />
+    <Build Include="dbo\Tables\Department_1.sql" />
+    <Build Include="dbo\Tables\Designation.sql" />
   </ItemGroup>
 </Project>
