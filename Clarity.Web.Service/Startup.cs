@@ -39,6 +39,7 @@ namespace Clarity.Web.Service
             services.AddMvc().AddXmlSerializerFormatters();
 
             services.AddScoped<IRoleService, RoleService>();
+            services.AddScoped<ICountryService, CountryService>();
 
             services.AddCors(options =>
             {
