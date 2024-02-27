@@ -1,11 +1,16 @@
 ﻿using Clarity.Web.Service.DBConfiguration;
 using Clarity.Web.Service.Interfaces;
 using Clarity.Web.Service.Repository;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
+using Microsoft.IdentityModel.Tokens;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Newtonsoft.Json;
+using System.Text;
 
 namespace Clarity.Web.Service
 {
@@ -43,7 +48,8 @@ namespace Clarity.Web.Service
             services.AddScoped<IDepartmentService, DepartmentService>();
             services.AddScoped<IDesignationService,DesignationService>();
             services.AddScoped<IStateService, StateService>();
-
+            services.AddScoped<IUserService, UserService>();
+            
             services.AddCors(options =>
             {
                       options.AddPolicy("CorsPolicy",
@@ -53,6 +59,33 @@ namespace Clarity.Web.Service
                                         .AllowAnyMethod()
                                         .WithMethods("GET", "PUT", "DELETE", "POST", "PATCH") 
                                         );
+            });
+
+            var usedGenaratesTokenKey = _configuration.GetValue<string>("UsedGenaratesTokenKey");
+
+           
+
+            services.AddScoped<IAuthService>
+                (x => new AuthService
+                (usedGenaratesTokenKey, x.GetRequiredService<ApplicationDBContext>()));
+
+
+            var key = Encoding.ASCII.GetBytes(usedGenaratesTokenKey);
+
+            services.AddAuthentication(options =>
+            {
+                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            }).AddJwtBearer(options =>
+            {
+                options.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuerSigningKey = true,
+                    IssuerSigningKey = new SymmetricSecurityKey(key),
+                    ValidateIssuer = false,
+                    ValidateAudience = false
+                };
+
             });
 
             services.AddSwaggerGen(c =>
@@ -75,6 +108,28 @@ namespace Clarity.Web.Service
                         Url = new Uri("https://Clarity.com"),
                     }
                 });
+                c.AddSecurityDefinition("Authorization", new OpenApiSecurityScheme
+                {
+                    In = ParameterLocation.Header,
+                    Description = "Please enter the Authorization header using the Bearer scheme.",
+                    Name = "Authorization",
+                    Type = SecuritySchemeType.ApiKey
+                });
+
+                c.AddSecurityRequirement(new OpenApiSecurityRequirement
+                 {
+                        {
+                            new OpenApiSecurityScheme
+                            {
+                                Reference = new OpenApiReference
+                                {
+                                    Type = ReferenceType.SecurityScheme,
+                                    Id = "Authorization"
+                                }
+                            },
+                            Array.Empty<string>()
+                        }
+                    });
             });
         }
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -82,16 +137,18 @@ namespace Clarity.Web.Service
           
             app.UseRouting();
 
+            app.UseAuthentication();
+
+            app.UseAuthorization();
+
+
             app.UseCors("CorsPolicy");
-            
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
-                endpoints.MapGet("/", async context =>
-                {
-                    await context.Response.WriteAsync("Hello World!");
-                });
             });
+
             app.UseStaticFiles();
 
             app.UseSwagger();

@@ -8,6 +8,7 @@ namespace Clarity.Web.Service.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [ClarityAuthorize]
     public class DepartmentController : ControllerBase
     {
         private readonly IDepartmentService departmentServices;
