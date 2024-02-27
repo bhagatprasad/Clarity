@@ -2,7 +2,7 @@
 
 namespace Clarity.Web.UI.BusinessLogic.Interfaces
 {
-    public interface IAuthenticationService
+    public interface IClarityAuthenticationService
     {
         Task<AuthResponse> Authenticateuser(Authenticateuser authenticateuser);
         Task<ApplicationUser> GenarateUserClaims(AuthResponse authResponse);

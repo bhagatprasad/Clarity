@@ -1,5 +1,8 @@
-﻿using Clarity.Web.UI.BusinessLogic.Interfaces;
+﻿using AspNetCoreHero.ToastNotification.Abstractions;
+using Clarity.Web.UI.BusinessLogic.Interfaces;
 using Clarity.Web.UI.Models;
+using Clarity.Web.UI.Utility;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
@@ -8,16 +11,19 @@ namespace Clarity.Web.UI.Controllers
 {
     public class AccountController : Controller
     {
-        private readonly IAuthenticationService authenticationService;
+        private readonly IClarityAuthenticationService authenticationService;
         private readonly IHttpContextAccessor httpContextAccessor;
-        public AccountController(IAuthenticationService authenticationService,
-            IHttpContextAccessor httpContextAccessor)
+        private readonly INotyfService notyfService;
+        public AccountController(IClarityAuthenticationService authenticationService,
+            IHttpContextAccessor httpContextAccessor,
+            INotyfService notyfService)
         {
             this.authenticationService = authenticationService;
             this.httpContextAccessor = httpContextAccessor;
+            this.notyfService = notyfService;
         }
 
-       [HttpGet]
+        [HttpGet]
         public IActionResult Login()
         {
             return View();
@@ -37,10 +43,11 @@ namespace Clarity.Web.UI.Controllers
                     {
                         httpContextAccessor.HttpContext.Session.SetString("AccessToken", responce.JwtToken);
 
-                        var claimsIdentity = await authenticationService.GenarateUserClaims(responce);
+                        var userClaimes = await authenticationService.GenarateUserClaims(responce);
 
-                        await HttpContext.SignInAsync(
-                                                          CookieAuthenticationDefaults.AuthenticationScheme,
+                        var claimsIdentity = UserPrincipal.GenarateUserPrincipal(userClaimes);
+
+                        await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme,
                                                            new ClaimsPrincipal(claimsIdentity),
                                                            new AuthenticationProperties
                                                            {
@@ -50,12 +57,18 @@ namespace Clarity.Web.UI.Controllers
 
                         return RedirectToAction("Index", "Roles", null);
                     }
+
+                    notyfService.Error(responce.StatusMessage);
+                }
+                else
+                {
+                    notyfService.Error("Something went wrong");
                 }
 
             }
             catch (Exception ex)
             {
-                throw ex;
+                notyfService.Error(ex.Message);
             }
 
             return View();

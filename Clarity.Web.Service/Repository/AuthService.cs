@@ -85,10 +85,10 @@ namespace Clarity.Web.Service.Repository
         {
             try
             {
-                var tokenkey = Encoding.ASCII.GetBytes(authResponse.JwtToken);
+                var tokenkey = Encoding.ASCII.GetBytes(usedGenaratesTokenKey);
                 var tokhand = new JwtSecurityTokenHandler();
                 SecurityToken securityToken;
-                var principle = tokhand.ValidateToken(usedGenaratesTokenKey,
+                var principle = tokhand.ValidateToken(authResponse.JwtToken,
                     new TokenValidationParameters
                     {
                         ValidateIssuerSigningKey = true,
@@ -98,11 +98,8 @@ namespace Clarity.Web.Service.Repository
                     }, out securityToken);
 
                 var jwttoken = securityToken as JwtSecurityToken;
+
                 if (jwttoken != null && jwttoken.Header.Alg.Equals(SecurityAlgorithms.HmacSha256))
-                {
-                    throw new SecurityTokenException("token invalid");
-                }
-                else
                 {
                     string Username = principle.Identity.Name;
                     User user = dbcontext.users.Where(x => (x.Email == Username || x.Phone == Username) && x.IsActive).FirstOrDefault();
@@ -119,12 +116,17 @@ namespace Clarity.Web.Service.Repository
                     }
 
                     return null;
+                   
+                }
+                else
+                {
+                    throw new SecurityTokenException("token invalid");
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
 
-                throw;
+                throw ex;
             }
         }
     }

@@ -7,7 +7,7 @@ using System.Text;
 
 namespace Clarity.Web.UI.BusinessLogic.Services
 {
-    public class AuthenticationService : IAuthenticationService
+    public class AuthenticationService : IClarityAuthenticationService
     {
         private readonly HttpClient _httpClient = null;
 
