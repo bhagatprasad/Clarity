@@ -38,6 +38,10 @@ namespace Clarity.Web.UI
             services.AddDirectoryBrowser();
 
             services.AddScoped<IRolesService, RolesService>();
+            services.AddScoped<IClarityAuthenticationService, AuthenticationService>();
+
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+
 
             services.AddSession(options =>
             {

@@ -16,14 +16,19 @@ namespace Clarity.Web.UI.BusinessLogic.Services
         private readonly HttpClient _httpClient = null;
 
         private readonly CoreConfig coreConfig;
+        private readonly IHttpContextAccessor httpContextAccessor;
 
-        public RolesService(IOptions<CoreConfig> _coreConfig)
+        public RolesService(IOptions<CoreConfig> _coreConfig, IHttpContextAccessor httpContextAccessor)
         {
+            this.httpContextAccessor = httpContextAccessor;
             _httpClient = new HttpClient();
             coreConfig = _coreConfig.Value;
             _httpClient.BaseAddress = new Uri(coreConfig.BaseUrl);
             _httpClient.DefaultRequestHeaders.Clear();
+            var sessionstring = this.httpContextAccessor.HttpContext.Session.GetObjectFromJson<string>("AccessToken");
+            _httpClient.DefaultRequestHeaders.Add("Authorization", "");
             _httpClient.Timeout.Add(new TimeSpan(0, 0, 60));
+
         }
         public Task<bool> DeleteRole(long roleId)
         {
