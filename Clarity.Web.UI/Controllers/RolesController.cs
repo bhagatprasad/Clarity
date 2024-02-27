@@ -1,10 +1,12 @@
 ﻿using AspNetCoreHero.ToastNotification.Abstractions;
 using Clarity.Web.UI.BusinessLogic.Interfaces;
 using Clarity.Web.UI.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Clarity.Web.UI.Controllers
 {
+    [Authorize]
     public class RolesController : Controller
     {
         private readonly IRolesService rolesService;

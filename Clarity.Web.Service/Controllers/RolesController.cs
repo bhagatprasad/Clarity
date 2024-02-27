@@ -1,4 +1,5 @@
 ﻿using Clarity.Web.Service.DBConfiguration;
+using Clarity.Web.Service.Helpers;
 using Clarity.Web.Service.Interfaces;
 using Clarity.Web.Service.Models;
 using Microsoft.AspNetCore.Http;
@@ -9,6 +10,7 @@ namespace Clarity.Web.Service.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [ClarityAuthorize]
     public class RolesController : ControllerBase
     {
         private readonly IRoleService roleService;

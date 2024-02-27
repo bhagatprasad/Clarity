@@ -1,4 +1,5 @@
-﻿using Clarity.Web.Service.Interfaces;
+﻿using Clarity.Web.Service.Helpers;
+using Clarity.Web.Service.Interfaces;
 using Clarity.Web.Service.Models;
 using Clarity.Web.Service.Repository;
 using Microsoft.AspNetCore.Http;
@@ -8,6 +9,7 @@ namespace Clarity.Web.Service.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [ClarityAuthorize]
     public class CountryController : ControllerBase
     {
         private readonly ICountryService countryService;

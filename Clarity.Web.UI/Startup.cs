@@ -40,6 +40,10 @@ namespace Clarity.Web.UI
             services.AddScoped<IRolesService, RolesService>();
             services.AddScoped<IDepartmentService, DepartmentService>();
             services.AddScoped<IStateService, StateService>();
+            services.AddScoped<IClarityAuthenticationService, AuthenticationService>();
+
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+
 
             services.AddSession(options =>
             {
@@ -95,7 +99,7 @@ namespace Clarity.Web.UI
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Roles}/{action=Index}/{id?}");
+                    pattern: "{controller=Account}/{action=Login}/{id?}");
             });
         }
     }
