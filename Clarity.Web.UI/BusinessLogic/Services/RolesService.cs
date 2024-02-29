@@ -18,15 +18,13 @@ namespace Clarity.Web.UI.BusinessLogic.Services
         private readonly CoreConfig coreConfig;
         private readonly IHttpContextAccessor httpContextAccessor;
 
-        public RolesService(IOptions<CoreConfig> _coreConfig, IHttpContextAccessor httpContextAccessor)
+        public RolesService(IOptions<CoreConfig> _coreConfig, IHttpClientFactory httpClientFactory)
         {
-            this.httpContextAccessor = httpContextAccessor;
-            _httpClient = new HttpClient();
+
+            _httpClient = httpClientFactory.CreateClient("AuthorizedClient");
             coreConfig = _coreConfig.Value;
             _httpClient.BaseAddress = new Uri(coreConfig.BaseUrl);
             _httpClient.DefaultRequestHeaders.Clear();
-            var sessionstring = this.httpContextAccessor.HttpContext.Session.GetString("AccessToken");
-            _httpClient.DefaultRequestHeaders.Add("Authorization", sessionstring);
             _httpClient.Timeout.Add(new TimeSpan(0, 0, 60));
 
         }

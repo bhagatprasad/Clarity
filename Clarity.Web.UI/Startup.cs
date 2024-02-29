@@ -37,6 +37,13 @@ namespace Clarity.Web.UI
 
             services.AddDirectoryBrowser();
 
+            services.AddHttpContextAccessor();
+
+            services.AddTransient<TokenAuthorizationHttpClientHandler>();
+
+            services.AddHttpClient("AuthorizedClient")
+                    .AddHttpMessageHandler<TokenAuthorizationHttpClientHandler>();
+
             services.AddScoped<IRolesService, RolesService>();
             services.AddScoped<IClarityAuthenticationService, AuthenticationService>();
 
