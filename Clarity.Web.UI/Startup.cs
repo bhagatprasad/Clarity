@@ -45,6 +45,8 @@ namespace Clarity.Web.UI
                     .AddHttpMessageHandler<TokenAuthorizationHttpClientHandler>();
 
             services.AddScoped<IRolesService, RolesService>();
+            services.AddScoped<IDepartmentService, DepartmentService>();
+            services.AddScoped<IStateService, StateService>();
             services.AddScoped<IClarityAuthenticationService, AuthenticationService>();
 
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();

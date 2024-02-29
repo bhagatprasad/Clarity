@@ -83,7 +83,13 @@
   <ItemGroup>
     <PackageReference Include="AspNetCoreHero.ToastNotification" Version="1.1.0" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="7.0.0" />
+    <PackageReference Include="Microsoft.VisualStudio.Services.Client" Version="16.143.1" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Clarity.Web.Service\Clarity.Web.Service.csproj" />
+    <ProjectReference Include="..\Claritydb\Claritydb.sqlproj" />
   </ItemGroup>
 
 </Project>
