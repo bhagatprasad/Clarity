@@ -49,7 +49,7 @@ namespace Clarity.Web.Service
             services.AddScoped<IDesignationService,DesignationService>();
             services.AddScoped<IStateService, StateService>();
             services.AddScoped<IUserService, UserService>();
-            
+            services.AddScoped<IEmployeeService, EmployeeService>();
             services.AddCors(options =>
             {
                       options.AddPolicy("CorsPolicy",

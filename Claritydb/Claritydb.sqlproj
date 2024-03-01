@@ -71,5 +71,12 @@
     <Build Include="dbo\Tables\Designation.sql" />
     <Build Include="dbo\Tables\City.sql" />
     <Build Include="dbo\Tables\User.sql" />
+    <Build Include="dbo\Tables\TaskItem.sql" />
+    <Build Include="dbo\Tables\TaskCode.sql" />
+    <Build Include="dbo\Tables\Employee.sql" />
+    <Build Include="dbo\Tables\EmployeeEducation.sql" />
+    <Build Include="dbo\Tables\EmployeeEmployment.sql" />
+    <Build Include="dbo\Tables\EmployeeEmergencyContact.sql" />
+    <Build Include="dbo\Tables\EmployeeAddress.sql" />
   </ItemGroup>
 </Project>
