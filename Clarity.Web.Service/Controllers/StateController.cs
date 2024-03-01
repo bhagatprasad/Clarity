@@ -21,16 +21,8 @@ namespace Clarity.Web.Service.Controllers
         {
             try
             {
-                string statuscode = "";
-                var verifyState = await stateService.VerifyStateAlreadyExists(state.Name);
-                if (verifyState)
-                    statuscode = "100";
-                if (!verifyState)
-                {
-                    await stateService.CreateState(state);
-                    statuscode = "99";
-                }
-                return Ok(new HttpRequestResponseMessage<string>(statuscode));
+                await stateService.CreateState(state);
+                return Ok(true);
             }
             catch (Exception ex)
             {
@@ -45,8 +37,6 @@ namespace Clarity.Web.Service.Controllers
             {
                 await stateService.UpdateState(stateId, state);
                 return Ok(true);
-                var data = await stateService.UpdateState(stateId, state);
-                return Ok(new HttpRequestResponseMessage<bool>(data));
             }
             catch (Exception ex)
             {
@@ -86,7 +76,7 @@ namespace Clarity.Web.Service.Controllers
             try
             {
                 var state = await stateService.GetAllState();
-                return Ok(new HttpRequestResponseMessage<List<State>>(state));
+                return Ok(state);
             }
             catch (Exception ex)
             {

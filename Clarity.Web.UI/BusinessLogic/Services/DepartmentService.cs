@@ -4,7 +4,6 @@ using Clarity.Web.UI.Utility;
 using Microsoft.Extensions.Options;
 using Microsoft.TeamFoundation.Common;
 using Newtonsoft.Json;
-using Clarity.Web.Service.Helpers;
 using System.Text;
 
 namespace Clarity.Web.UI.BusinessLogic.Services
@@ -12,15 +11,16 @@ namespace Clarity.Web.UI.BusinessLogic.Services
     public class DepartmentService :IDepartmentService
     {
         private readonly HttpClient httpClient = null;
+
         private readonly CoreConfig coreConfig;
 
-        public DepartmentService(IOptions<CoreConfig> _coreConfig )
+        public DepartmentService(IOptions<CoreConfig> _coreConfig, IHttpClientFactory httpClientFactory)
         {
-            httpClient = new HttpClient();
-            this.coreConfig = _coreConfig.Value;
+            httpClient = httpClientFactory.CreateClient("AuthorizedClient");
+            coreConfig = _coreConfig.Value;
             httpClient.BaseAddress = new Uri(coreConfig.BaseUrl);
-            httpClient.Timeout = new TimeSpan(0,0,30);
             httpClient.DefaultRequestHeaders.Clear();
+            httpClient.Timeout.Add(new TimeSpan(0, 0, 60));
         }
 
         public async Task<bool> CreateDepartment(Department department)
@@ -47,9 +47,9 @@ namespace Clarity.Web.UI.BusinessLogic.Services
             {
                 var content = await response.Content.ReadAsStringAsync();
 
-                var responceContent = JsonConvert.DeserializeObject<HttpRequestResponseMessage<bool>>(content);
+                var responceContent = JsonConvert.DeserializeObject<bool>(content);
 
-                return responceContent != null ? responceContent.Data : false;
+                return responceContent != null ? responceContent : false;
             }
             return false;
         }
@@ -64,9 +64,9 @@ namespace Clarity.Web.UI.BusinessLogic.Services
             {
                 var content = await response.Content.ReadAsStringAsync();
 
-                var responceContent = JsonConvert.DeserializeObject<HttpRequestResponseMessage<List<Department>>>(content);
+                var responceContent = JsonConvert.DeserializeObject<List<Department>>(content);
 
-                return responceContent != null ? responceContent.Data : departmentList;
+                return responceContent != null ? responceContent : departmentList;
             }
             return departmentList;
         }
@@ -78,8 +78,8 @@ namespace Clarity.Web.UI.BusinessLogic.Services
             if (response.IsSuccessStatusCode)
             {
                 var content = await response.Content.ReadAsStringAsync();
-                var responceContent = JsonConvert.DeserializeObject<HttpRequestResponseMessage<Department>>(content);
-                return responceContent != null ? responceContent.Data : new Department();
+                var responceContent = JsonConvert.DeserializeObject<Department>(content);
+                return responceContent != null ? responceContent : new Department();
             }
             return new Department();
         }
@@ -93,8 +93,8 @@ namespace Clarity.Web.UI.BusinessLogic.Services
             if (responce.IsSuccessStatusCode)
             {
                 var content = await responce.Content.ReadAsStringAsync();
-                var responceContent = JsonConvert.DeserializeObject<HttpRequestResponseMessage<bool>>(content);
-                return responceContent != null ? responceContent.Data : false;
+                var responceContent = JsonConvert.DeserializeObject<bool>(content);
+                return responceContent != null ? responceContent : false;
             }
             return false;
         }

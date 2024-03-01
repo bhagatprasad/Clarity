@@ -1,0 +1,83 @@
+﻿@{
+    ViewData["Title"] = "Employee";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="container-xxl flex-grow-1 container-p-y">
+    <div class="row" style="padding-top:15px">
+    </div>
+    <!-- Bordered Table -->
+    <div class="card">
+        <div class="card-header">
+            <div class="col-md-8 float-left" style="text-align: right;float: right;">
+                <button id="AddDepartments" class="btn btn-success">
+                    <i class="fas fa-plus"></i> Add Departments
+                </button>
+                <button id="importData" class="btn btn-primary">
+                    <i class="fas fa-download"></i> Import
+                </button>
+                <button id="ExportData" class="btn btn-info">
+                    <i class="fas fa-upload"></i> Export
+                </button>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive text-nowrap">
+                <table class="table table-striped table-bordered text-nowrap" style="width:100%" id="EmployeesGrid">
+                    <thead>
+                        <tr>
+                            <th>Code</th>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Phone</th>
+                            <th>Department</th>
+                            <th>Role</th>
+                            <th>Designation</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+        </div>
+    </div>
+    <!--/ Bordered Table -->
+    <form id="addDepartmentForm">
+        <div class="modal fade" id="addEditDepartmentModel" tabindex="-1" aria-labelledby="addEditDepartmentModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="addEditDepartmentModalLabel"></h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body" style="padding:15px !important">
+                        <input type="hidden" id="DepartmentId" />
+                        <div class="mb-3">
+                            <label for="Name"> Name : </label>
+                            <input type="text" class="form-control" id="Name" name="Name" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="Description">Description : </label>
+                            <input type="Text" class="form-control" id="Description" name="Description" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="Code"> DepartmentCode :</label>
+                            <input type="text" class="form-control" id="Code" name="DepartmentCode" required>
+                        </div>
+                    </div>
+                    <div class="modal-footer" style="padding:10px !important">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="model">Cancel</button>
+                        <button type="button" class="btn btn-success" id="addEditDepartment">Save</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<script src="~/lib/jquery/dist/jquery.js"></script>
+<script src="~/js/EmployeeController.js"></script>
+<script type="text/javascript">
+    $(function () {
+        var ctrl = new EmployeeController();
+        ctrl.init();
+    });
+</script>

@@ -7,11 +7,11 @@ using System.Runtime.InteropServices;
 
 namespace Clarity.Web.UI.Controllers
 {
-    public class DepartmentController1 : Controller
+    public class DepartmentController : Controller
     {
         private readonly IDepartmentService departmentServices;
         private readonly INotyfService notyfService;
-        public DepartmentController1(DepartmentService _departmentServices,
+        public DepartmentController(IDepartmentService _departmentServices,
                                     INotyfService _notyfService)
         {
             this.departmentServices = _departmentServices;

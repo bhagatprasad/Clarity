@@ -1,0 +1,27 @@
+﻿using Clarity.Web.UI.BusinessLogic.Interfaces;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+
+namespace Clarity.Web.UI.Controllers
+{
+    [Authorize]
+    public class CityController : Controller
+    {
+        private readonly ICityService _cityService;
+        public CityController(ICityService _cityService)
+        {
+            this._cityService = _cityService;
+        }
+        public IActionResult Index()
+        {
+            return View();
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> fetchAllCities()
+        {
+            var responce = await _cityService.fetchAllCities();
+            return Json(new { data = responce });
+        }
+    }
+}
