@@ -9,6 +9,11 @@ namespace Clarity.Web.Service.Repository
     public class CountryService : ICountryService
     {
         private readonly ApplicationDBContext context;
+       
+        public CountryService(ApplicationDBContext dbcontext)
+        {
+            this.context = dbcontext;
+        }
         public async Task<List<Country>> fetchAllCountries()
         {
             var countries = await context.countries.Where(x => x.IsActive).ToListAsync();

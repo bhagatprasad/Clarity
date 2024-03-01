@@ -20,6 +20,11 @@ namespace Clarity.Web.Service.DBConfiguration
         public DbSet<Designation> designation { get; set; }
         public DbSet<State> state { get; set; }
         public DbSet<City> cities { get; set; }
+        public DbSet<Employee> employees { get; set; }
+        public DbSet<EmployeeAddress> employeeAddresses { get; set; }
+        public DbSet<EmployeeEducation> employeeEducations { get; set; }
+        public DbSet<EmployeeEmployment> employeeEmployments { get; set; }
+        public DbSet<EmployeeEmergencyContact> employeeEmergencyContacts { get; set; }
 
     }
 }
