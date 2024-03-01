@@ -94,5 +94,13 @@ namespace Clarity.Web.UI.Controllers
 
             return View(role);
         }
+
+        [HttpGet]
+        public async Task<IActionResult> LoadRoles()
+        {
+            var roles = await rolesService.fetchAllRoles();
+            return Json(new { data = roles });
+
+        }
     }
 }

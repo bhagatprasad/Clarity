@@ -19,20 +19,13 @@ namespace Clarity.Web.Service.Controllers
         }
 
         [HttpPost]
+        [Route("CreateDesignation")]
         public async Task<IActionResult> CreateDesignation(Designation designation)
         {
             try
             {
-                string statuscode = "";
-                var verifyDesignation = await designationService.VerifyDesignationAlreadyExists(statuscode);
-                if (verifyDesignation)
-                    statuscode = "100";
-                if (!verifyDesignation)
-                {
-                    await designationService.CreateDesignation(designation);
-                    statuscode = "99";
-                }
-                return Ok(new HttpRequestResponseMessage<string>(statuscode));
+                await designationService.CreateDesignation(designation);
+                return Ok(true);
 
             }
             catch (Exception ex)
@@ -84,12 +77,13 @@ namespace Clarity.Web.Service.Controllers
             }
         }
         [HttpGet]
+        [Route("GetAllDesignation")]
         public async Task<IActionResult> GetAllDesignation()
         {
             try
             {
                 var designation = await designationService.GetAllDesignation();
-                return Ok(new HttpRequestResponseMessage<List<Designation>>(designation));
+                return Ok(designation);
             }
             catch (Exception ex)
             {

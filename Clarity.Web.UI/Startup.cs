@@ -45,10 +45,13 @@ namespace Clarity.Web.UI
                     .AddHttpMessageHandler<TokenAuthorizationHttpClientHandler>();
 
             services.AddScoped<IRolesService, RolesService>();
+            services.AddScoped<IDesignationService, DesignationService>();
             services.AddScoped<IDepartmentService, DepartmentService>();
+            services.AddScoped<ICityService, CityService>();
+            services.AddScoped<ICountryService, CountryService>();
             services.AddScoped<IStateService, StateService>();
             services.AddScoped<IClarityAuthenticationService, AuthenticationService>();
-
+            services.AddScoped<IEmployeeService, EmployeeService>();
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
 

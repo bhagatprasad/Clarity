@@ -21,16 +21,9 @@ namespace Clarity.Web.Service.Controllers
         {
             try
             {
-                string statuscode = "";
-                var verifyDepartment = await departmentServices.VerifyDepartmentAlreadyExists(statuscode);
-                if (verifyDepartment)
-                    statuscode = "100";
-                if (!verifyDepartment)
-                {
-                    await departmentServices.CreateDepartment(department);
-                    statuscode = "99";
-                }
-                return Ok(new HttpRequestResponseMessage<string>(statuscode));
+                ;
+                await departmentServices.CreateDepartment(department);
+                return Ok(true);
 
             }
             catch (Exception ex)
@@ -45,7 +38,7 @@ namespace Clarity.Web.Service.Controllers
             try
             {
                 var department = await departmentServices.DeleteDepartment(departmentId);
-                return Ok(new HttpRequestResponseMessage<bool>(department));
+                return Ok(department);
             }
             catch (Exception ex)
             {
@@ -60,8 +53,6 @@ namespace Clarity.Web.Service.Controllers
             {
                 await departmentServices.UpdateDepartment(departmentId, department);
                 return Ok(true);
-                var data = await departmentServices.UpdateDepartment(departmentId, department);
-                return Ok(new HttpRequestResponseMessage<bool>(data));
             }
             catch (Exception ex)
             {
@@ -87,7 +78,7 @@ namespace Clarity.Web.Service.Controllers
             try
             {
                 var department = await departmentServices.GetAllDepartment();
-                return Ok(new HttpRequestResponseMessage<List<Department>>(department));
+                return Ok(department);
             }
             catch (Exception ex)
             {

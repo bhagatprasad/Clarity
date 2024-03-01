@@ -1,5 +1,4 @@
-﻿using Clarity.Web.Service.Helpers;
-using Clarity.Web.UI.BusinessLogic.Interfaces;
+﻿using Clarity.Web.UI.BusinessLogic.Interfaces;
 using Clarity.Web.UI.Models;
 using Clarity.Web.UI.Utility;
 using Microsoft.Extensions.Options;
@@ -12,16 +11,18 @@ namespace Clarity.Web.UI.BusinessLogic.Services
     public class StateService : IStateService
     {
         private readonly HttpClient httpClient = null;
-        private readonly CoreConfig coreConfig;
-        public StateService(IOptions<CoreConfig> _coreConfig) 
-        {
-            httpClient = new HttpClient();
-            this.coreConfig = _coreConfig.Value;
 
+        private readonly CoreConfig coreConfig;
+
+        public StateService(IOptions<CoreConfig> _coreConfig, IHttpClientFactory httpClientFactory)
+        {
+            httpClient = httpClientFactory.CreateClient("AuthorizedClient");
+            coreConfig = _coreConfig.Value;
             httpClient.BaseAddress = new Uri(coreConfig.BaseUrl);
-            httpClient.Timeout = new TimeSpan(0, 0, 30);
             httpClient.DefaultRequestHeaders.Clear();
+            httpClient.Timeout.Add(new TimeSpan(0, 0, 60));
         }
+
         public async Task<bool> CreateState(State _state)
         {
             var state = JsonConvert.SerializeObject(_state);
@@ -31,59 +32,12 @@ namespace Clarity.Web.UI.BusinessLogic.Services
             {
                 var content = await response.Content.ReadAsStringAsync();
 
-                var responceContent = JsonConvert.DeserializeObject<HttpRequestResponseMessage<bool>>(content);
+                var responceContent = JsonConvert.DeserializeObject<bool>(content);
 
-                return responceContent != null ? responceContent.Data : false;
+                return responceContent != null ? responceContent : false;
             }
             return false;
         }
-
-        public async Task<bool> DeleteState(long stateId)
-        {
-            var uri = Path.Combine("State", stateId.ToString());
-            var response = await httpClient.DeleteAsync(uri);
-            if (response.IsSuccessStatusCode)
-            {
-                var content = await response.Content.ReadAsStringAsync();
-
-                var responceContent = JsonConvert.DeserializeObject<HttpRequestResponseMessage<bool>>(content);
-
-                return responceContent != null ? responceContent.Data : false;
-            }
-            return false;
-        }
-
-        public async Task<List<CommonStates>> GetAllStates()
-        {
-            var states = new List<CommonStates>();
-
-            var response = await httpClient.GetAsync("CommonState");
-            if (response.IsSuccessStatusCode)
-            {
-                var content = await response.Content.ReadAsStringAsync();
-
-                var responceContent = JsonConvert.DeserializeObject<HttpRequestResponseMessage<List<CommonStates>>>(content);
-
-                return responceContent != null ? responceContent.Data : states;
-            }
-            return states;
-        }
-
-        public async Task<State> GetState(long stateId)
-        {
-            var uri = Path.Combine("State", stateId.ToString());
-            var response = await httpClient.GetAsync(uri);
-            if (response.IsSuccessStatusCode)
-            {
-                var content = await response.Content.ReadAsStringAsync();
-
-                var responceContent = JsonConvert.DeserializeObject<HttpRequestResponseMessage<State>>(content);
-
-                return responceContent != null ? responceContent.Data : new State();
-            }
-            return new State();
-        }
-
         public async Task<List<State>> GetStates()
         {
             var states = new List<State>();
@@ -94,28 +48,11 @@ namespace Clarity.Web.UI.BusinessLogic.Services
             {
                 var content = await response.Content.ReadAsStringAsync();
 
-                var responceContent = JsonConvert.DeserializeObject<HttpRequestResponseMessage<List<State>>>(content);
+                var responceContent = JsonConvert.DeserializeObject<List<State>>(content);
 
-                return responceContent != null ? responceContent.Data : states;
+                return responceContent != null ? responceContent : states;
             }
             return states;
-        }
-
-        public async Task<bool> UpdateState(long stateId, State _state)
-        {
-            var state = JsonConvert.SerializeObject(_state);
-            var requestContent = new StringContent(state, Encoding.UTF8, "application/json");
-            var uri = Path.Combine("State", stateId.ToString());
-            var response = await httpClient.PutAsync(uri, requestContent);
-            if (response.IsSuccessStatusCode)
-            {
-                var content = await response.Content.ReadAsStringAsync();
-
-                var responceContent = JsonConvert.DeserializeObject<HttpRequestResponseMessage<bool>>(content);
-
-                return responceContent != null ? responceContent.Data : false;
-            }
-            return false;
         }
     }
 }

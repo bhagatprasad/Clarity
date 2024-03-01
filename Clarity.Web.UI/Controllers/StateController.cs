@@ -22,7 +22,7 @@ namespace Clarity.Web.UI.Controllers
         [HttpGet]
         public async Task<IActionResult> Index()
         {
-            var States = await stateService.GetAllStates();
+            var States = await stateService.GetStates();
             return View();
         }
 
@@ -33,10 +33,8 @@ namespace Clarity.Web.UI.Controllers
             if (state != null)
             {
                 bool response = false;
-                if (state.StateId > 0)
-                    response = await stateService.UpdateState(state.StateId, state);
-                else
-                    response = await stateService.CreateState(state);
+
+                response = await stateService.CreateState(state);
                 if (response)
                 {
                     if (state.StateId > 0)
@@ -58,7 +56,7 @@ namespace Clarity.Web.UI.Controllers
         [HttpGet]
         public async Task<IActionResult> LoadStates()
         {
-            var states = await stateService.GetAllStates();
+            var states = await stateService.GetStates();
             return Json(new { data = states });
         }
     }
