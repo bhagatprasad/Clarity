@@ -1,0 +1,59 @@
+﻿<div class="form-row">
+    <div class="col-4 mb-3">
+        <label for="HNo" class="form-label">H No</label>
+        <input type="text" class="form-control" id="HNo" name="HNo" autofocus />
+    </div>
+    <div class="col-4 mb-3">
+        <label for="AddressLineOne" class="form-label">AddressLine 1</label>
+        <input type="text" class="form-control" id="AddressLineOne" name="AddressLineOne" />
+    </div>
+    <div class="col-4 mb-3">
+        <label for="AddressLineTwo" class="form-label">AddressLine 2</label>
+        <input type="text" class="form-control" id="AddressLineTwo" name="AddressLineTwo" placeholder="SMYA...." />
+    </div>
+</div>
+<div class="form-row">
+    <div class="col-4 mb-3">
+        <label for="CountryId" class="form-label">Country</label>
+        <select id="CountryId" class="form-control custom-select" autofocus required>
+        </select>
+    </div>
+    <div class="col-4 mb-3">
+        <label for="StateId" class="form-label">State</label>
+        <select id="StateId" class="form-control custom-select" autofocus required>
+        </select>
+    </div>
+    <div class="col-4 mb-3">
+        <label for="CityId" class="form-label">City</label>
+        <select id="CityId" class="form-control custom-select" autofocus required>
+        </select>
+    </div>
+</div>
+<div class="form-row">
+    <div class="col-4 mb-3">
+        <label for="Landmark" class="form-label">Landmark</label>
+        <input type="text" class="form-control" id="Landmark" name="Landmark" autofocus />
+    </div>
+    <div class="col-4 mb-3">
+        <label for="Zipcode" class="form-label">Zipcode</label>
+        <input type="text" class="form-control" id="Zipcode" name="Zipcode" autofocus />
+    </div>
+    <div class="col-4 mb-3 mt-3">
+        <button type="button" class="btn btn-success" id="AddEditEmployeeAddress">Add</button>
+    </div>
+</div>
+<div class="table-responsive text-nowrap">
+    <table class="table table-striped table-bordered text-nowrap" style="width:100%" id="EmployeeAddressGrid">
+        <thead>
+            <tr>
+                <th>HNo</th>
+                <th>Address Line1</th>
+                <th>Address Line2</th>
+                <th>City</th>
+                <th>State</th>
+                <th>Country</th>
+                <th>Zipcode</th>
+            </tr>
+        </thead>
+    </table>
+</div>

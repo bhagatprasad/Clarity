@@ -8,7 +8,7 @@ namespace Clarity.Web.Service.Models
         public long Id { get; set; }
         public string Name { get; set; }
         public string Code { get; set; }
-        public long? CountryId { get; set; }
+        public long? ContryId { get; set; }
         public long? StateId { get; set; }
     }
 }

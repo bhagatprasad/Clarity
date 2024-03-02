@@ -1,0 +1,79 @@
+﻿<div class="form-row">
+    <div class="col-4 mb-3">
+        <label for="Degree" class="form-label">Degree</label>
+        <select id="Degree" class="form-control custom-select" autofocus required>
+            <option value="SSC">SSC</option>
+            <option value="INTER">INTER</option>
+            <option value="B-TECH">B-TECH</option>
+            <option value="BSC">BSC</option>
+            <option value="MSC">MSC</option>
+            <option value="M-TECH">M-TECH</option>
+        </select>
+    </div>
+    <div class="col-4 mb-3">
+        <label for="FieldOfStudy" class="form-label">Field Of Study</label>
+        <select id="FieldOfStudy" class="form-control custom-select" autofocus required>
+            <option value="Computer Science">Computer Science</option>
+            <option value="Electrical Engineering">Electrical Engineering</option>
+            <option value="Mechanical Engineering">Mechanical Engineering</option>
+            <option value="Civil Engineering">Civil Engineering</option>
+            <option value="Chemical Engineering">Chemical Engineering</option>
+            <option value="Biochemistry">Biochemistry</option>
+            <option value="Aerospace Engineering">Aerospace Engineering</option>
+            <option value="Software Engineering">Software Engineering</option>
+            <option value="Environmental Science">Environmental Science</option>
+            <option value="Biotechnology">Biotechnology</option>
+            <option value="Physics">Physics</option>
+            <option value="Mathematics">Mathematics</option>
+            <option value="Economics">Economics</option>
+            <option value="Psychology">Psychology</option>
+            <option value="Political Science">Political Science</option>
+            <option value="Sociology">Sociology</option>
+            <option value="Anthropology">Anthropology</option>
+            <option value="History">History</option>
+            <option value="English Literature">English Literature</option>
+            <option value="Journalism">Journalism</option>
+            <option value="Fine Arts">Fine Arts</option>
+            <option value="Graphic Design">Graphic Design</option>
+            <option value="Fashion Design">Fashion Design</option>
+            <option value="Interior Design">Interior Design</option>
+            <option value="Marketing">Marketing</option>
+            <option value="Finance">Finance</option>
+            <option value="Accounting">Accounting</option>
+            <option value="Medicine">Medicine</option>
+            <option value="Nursing">Nursing</option>
+        </select>
+    </div>
+    <div class="col-4 mb-3">
+        <label for="Institution" class="form-label">Institution</label>
+        <input type="text" class="form-control" id="Institution" name="Institution"  />
+    </div>
+</div>
+<div class="form-row">
+    
+    <div class="col-4 mb-3">
+        <label for="YearOfCompletion" class="form-label">YearOfCompletion</label>
+        <input type="text" class="form-control" id="YearOfCompletion" name="YearOfCompletion" autofocus />
+    </div>
+    <div class="col-4 mb-3">
+        <label for="PercentageMarks" class="form-label">PercentageMarks</label>
+        <input type="text" class="form-control" id="PercentageMarks" name="PercentageMarks" autofocus />
+    </div>
+    <div class="col-4 mb-3">
+        <button type="button" class="btn btn-success" id="AddEditEducation">Add</button>
+    </div>
+</div>
+
+<div class="table-responsive text-nowrap">
+    <table class="table table-striped table-bordered text-nowrap" style="width:100%" id="EducationGrid">
+        <thead>
+            <tr>
+                <th>Degree</th>
+                <th>FieldOfStudy</th>
+                <th>Institution</th>
+                <th>YearOfCompletion</th>
+                <th>PercentageMarks</th>
+            </tr>
+        </thead>
+    </table>
+</div>
