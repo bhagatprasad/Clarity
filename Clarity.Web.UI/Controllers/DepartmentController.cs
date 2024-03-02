@@ -51,6 +51,7 @@ namespace Clarity.Web.UI.Controllers
 
         [HttpGet]
         public async Task<IActionResult> LoadDepartments()
+        
         {
             var departments = await departmentServices.GetAllDepartment();
             return Json(new { data = departments });
