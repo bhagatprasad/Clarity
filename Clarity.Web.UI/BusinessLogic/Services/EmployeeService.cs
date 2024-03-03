@@ -2,7 +2,9 @@
 using Clarity.Web.UI.Models;
 using Clarity.Web.UI.Utility;
 using Microsoft.Extensions.Options;
+using Microsoft.TeamFoundation.Common;
 using Newtonsoft.Json;
+using System.Globalization;
 using System.Text;
 
 namespace Clarity.Web.UI.BusinessLogic.Services
@@ -66,5 +68,16 @@ namespace Clarity.Web.UI.BusinessLogic.Services
             return false;
 
         }
+
+        //private AddEditEmployee ValidateEmployeeInput(AddEditEmployee employeeDetails)
+        //{
+        //    if (employeeDetails.employee.DateOfBirth == null)
+        //    {
+        //        // Parse the date string only if DateOfBirth is null
+        //        employeeDetails.employee.DateOfBirth = DateTimeOffset.Parse(employeeDetails.employee.DateOfBirth, new CultureInfo("en-US", true));
+        //    }
+
+        //    return employeeDetails;
+        //}
     }
 }

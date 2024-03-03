@@ -9,8 +9,10 @@
     <link rel="stylesheet" href="~/assets/vendors/css/vendor.bundle.base.css">
     <link rel="stylesheet" href="~/assets/css/style.css">
     <link rel="shortcut icon" href="~/assets/images/logo-mini.svg" />
+    <link href="~/css/loader.css" rel="stylesheet" />
 </head>
 <body>
+    <div class="se-pre-con"></div>
     <div class="container-scroller">
         <div class="container-fluid page-body-wrapper full-page-wrapper">
             <div class="content-wrapper d-flex align-items-center auth">
@@ -27,5 +29,24 @@
             </div>
         </div>
     </div>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="~/js/storageservice.js"></script>
+    <script src="~/js/constants.js"></script>
+    @await Component.InvokeAsync("Notyf")
+    @await RenderSectionAsync("Scripts", required: false)
+    <script>
+        $(window).on('load', function () {
+            $(".se-pre-con").hide();
+        });
+
+        $(document).ajaxStart(function () {
+            $(".se-pre-con").show();
+        });
+
+        $(document).ajaxComplete(function () {
+            $(".se-pre-con").hide();
+        });
+    </script>
 </body>
 </html>
