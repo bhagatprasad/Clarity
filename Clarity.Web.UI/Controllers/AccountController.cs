@@ -30,8 +30,7 @@ namespace Clarity.Web.UI.Controllers
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Login(Authenticateuser authenticateuser)
+        public async Task<JsonResult> Login([FromBody] Authenticateuser authenticateuser)
         {
             try
             {
@@ -55,7 +54,7 @@ namespace Clarity.Web.UI.Controllers
                                                                ExpiresUtc = DateTime.UtcNow.AddMinutes(20)
                                                            });
 
-                        return RedirectToAction("Index", "Roles", null);
+                        return Json(new { appUser = userClaimes, status = true });
                     }
 
                     notyfService.Error(responce.StatusMessage);
@@ -71,7 +70,13 @@ namespace Clarity.Web.UI.Controllers
                 notyfService.Error(ex.Message);
             }
 
-            return View();
+            return Json(new { appUser = default(object), status = false });
+
+        }
+        public async Task<IActionResult> Logout()
+        {
+            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            return RedirectToAction("Login", "Account", null);
         }
     }
 }

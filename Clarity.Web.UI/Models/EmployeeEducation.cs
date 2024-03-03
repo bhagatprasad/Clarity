@@ -5,7 +5,7 @@
         public long EmployeeEducationId { get; set; }
         public long? EmployeeId { get; set; }
         public string Degree { get; set; }
-        public string FieldOfStudy { get; set; }
+        public string FeildOfStudy { get; set; }
         public string Institution { get; set; }
         public DateTimeOffset? YearOfCompletion { get; set; }
         public string PercentageMarks { get; set; }

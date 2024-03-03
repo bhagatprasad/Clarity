@@ -19,17 +19,17 @@ namespace Clarity.Web.Service.Repository
             var employees = new List<AddEditEmployee>();
 
             employees = (from emp in context.employees
-                         join empEmployment in context.employeeEmployments on emp.EmployeeId equals empEmployment.EmployeeId into employmentGroup
-                         join empEducation in context.employeeEducations on emp.EmployeeId equals empEducation.EmployeeId into empEducationGroup
-                         join empAdress in context.employeeAddresses on emp.EmployeeId equals empAdress.EmployeeId into empAdressGroup
-                         join empContact in context.employeeEmergencyContacts on emp.EmployeeId equals empContact.EmployeeId into empContactGroup
+                             //join empEmployment in context.employeeEmployments on emp.EmployeeId equals empEmployment.EmployeeId into employmentGroup
+                             //join empEducation in context.employeeEducations on emp.EmployeeId equals empEducation.EmployeeId into empEducationGroup
+                             //join empAdress in context.employeeAddresses on emp.EmployeeId equals empAdress.EmployeeId into empAdressGroup
+                             //join empContact in context.employeeEmergencyContacts on emp.EmployeeId equals empContact.EmployeeId into empContactGroup
                          select new AddEditEmployee
                          {
                              employee = emp,
-                             employeeAddresses = empAdressGroup.ToList(),
-                             employeeEducations = empEducationGroup.ToList(),
-                             employeeEmergencyContacts = empContactGroup.ToList(),
-                             employeeEmployments = employmentGroup.ToList()
+                             employeeAddresses = new List<EmployeeAddress>(),
+                             employeeEducations = new List<EmployeeEducation>(),
+                             employeeEmergencyContacts = new List<EmployeeEmergencyContact>(),
+                             employeeEmployments = new List<EmployeeEmployment>()
                          }).ToList();
 
             return employees;
@@ -88,6 +88,7 @@ namespace Clarity.Web.Service.Repository
                 else
                 {
                     await context.employees.AddAsync(employee.employee);
+                    await context.SaveChangesAsync();
 
                     long employeeId = employee.employee.EmployeeId;
 

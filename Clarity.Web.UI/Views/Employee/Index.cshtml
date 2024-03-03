@@ -1,6 +1,6 @@
 ﻿@{
     ViewData["Title"] = "Employee";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 <div class="container-xxl flex-grow-1 container-p-y">
     <div class="row" style="padding-top:15px">
@@ -39,23 +39,23 @@
             </div>
         </div>
     </div>
+</div>
+<partial name="~/Views/Employee/_AddEditEmployeeDetailsPartial.cshtml" />
+<style>
+    .form-row {
+        display: inline-flex !important;
+        width: 100% !important;
+    }
 
-    <partial name="~/Views/Employee/_AddEditEmployeeDetailsPartial.cshtml" />
-    <style>
-        .form-row {
-            display: inline-flex !important;
-            width: 100% !important;
-        }
-
-        .col-4 {
-            padding: 5px !important;
-        }
-    </style>
-    <script src="~/lib/jquery/dist/jquery.js"></script>
-    <script src="~/js/EmployeeController.js"></script>
-    <script type="text/javascript">
-        $(function () {
-            var ctrl = new EmployeeController();
-            ctrl.init();
-        });
-    </script>
+    .col-4 {
+        padding: 5px !important;
+    }
+</style>
+<script src="~/lib/jquery/dist/jquery.js"></script>
+<script src="~/js/EmployeeController.js"></script>
+<script type="text/javascript">
+    $(function () {
+        var ctrl = new EmployeeController();
+        ctrl.init();
+    });
+</script>
