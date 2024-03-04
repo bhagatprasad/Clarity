@@ -21,6 +21,9 @@
                                 <li class="nav-item" role="presentation">
                                     <button class="nav-link" id="size-tab" data-bs-toggle="tab" data-bs-target="#productSizePanel" type="button" role="tab" aria-controls="productSizePanel" aria-selected="false">Contacts</button>
                                 </li>
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link" id="bank-tab" data-bs-toggle="tab" data-bs-target="#bankPanel" type="button" role="tab" aria-controls="bankPanel" aria-selected="false">Account Details</button>
+                                </li>
                             </ul>
                         </div>
                     </div>
@@ -45,6 +48,9 @@
                                 </div>
                                 <div class="tab-pane fade" id="productSizePanel" role="tabpanel" aria-labelledby="size-tab">
                                     <partial name="_AddEditContactDetails.cshtml" />
+                                </div>
+                                <div class="tab-pane fade" id="bankPanel" role="tabpanel" aria-labelledby="bank-tab">
+                                    <partial name="_BankAccountDetailsPartial.cshtml" />
                                 </div>
                             </div>
                         </div>
