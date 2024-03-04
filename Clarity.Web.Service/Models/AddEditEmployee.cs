@@ -15,5 +15,12 @@
         public List<EmployeeEducation> employeeEducations { get; set; }
         public List<EmployeeEmergencyContact> employeeEmergencyContacts { get; set; }
         public List<EmployeeEmployment> employeeEmployments { get; set; }
+        public string PAN { get; set; }
+        public string Adhar { get; set; }
+        public string BankAccount { get; set; }
+        public string BankName { get; set; }
+        public string IFSC { get; set; }
+
+
     }
 }

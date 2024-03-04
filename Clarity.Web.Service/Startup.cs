@@ -29,10 +29,10 @@ namespace Clarity.Web.Service
 
             sqlServerOptionsAction: sqlOptions =>
             {
-               sqlOptions.EnableRetryOnFailure(
-               maxRetryCount: 5,
-               maxRetryDelay: TimeSpan.FromSeconds(30), 
-               errorNumbersToAdd: null); 
+                sqlOptions.EnableRetryOnFailure(
+                maxRetryCount: 5,
+                maxRetryDelay: TimeSpan.FromSeconds(30),
+                errorNumbersToAdd: null);
             }));
 
             services.AddControllers().AddNewtonsoftJson(options =>
@@ -46,25 +46,26 @@ namespace Clarity.Web.Service
             services.AddScoped<IRoleService, RoleService>();
             services.AddScoped<ICountryService, CountryService>();
             services.AddScoped<IDepartmentService, DepartmentService>();
-            services.AddScoped<IDesignationService,DesignationService>();
+            services.AddScoped<IDesignationService, DesignationService>();
             services.AddScoped<IStateService, StateService>();
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IEmployeeService, EmployeeService>();
             services.AddScoped<ICityService, CityService>();
+            services.AddScoped<IMonthlySalaryService, MonthlySalaryService>();
             services.AddCors(options =>
             {
-                      options.AddPolicy("CorsPolicy",
-                                         builder => builder
-                                        .AllowAnyOrigin()
-                                        .AllowAnyHeader()
-                                        .AllowAnyMethod()
-                                        .WithMethods("GET", "PUT", "DELETE", "POST", "PATCH") 
-                                        );
+                options.AddPolicy("CorsPolicy",
+                                   builder => builder
+                                  .AllowAnyOrigin()
+                                  .AllowAnyHeader()
+                                  .AllowAnyMethod()
+                                  .WithMethods("GET", "PUT", "DELETE", "POST", "PATCH")
+                                  );
             });
 
             var usedGenaratesTokenKey = _configuration.GetValue<string>("UsedGenaratesTokenKey");
 
-           
+
 
             services.AddScoped<IAuthService>
                 (x => new AuthService
@@ -135,7 +136,7 @@ namespace Clarity.Web.Service
         }
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-          
+
             app.UseRouting();
 
             app.UseAuthentication();
