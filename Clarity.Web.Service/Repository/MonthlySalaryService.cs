@@ -51,7 +51,7 @@ namespace Clarity.Web.Service.Repository
                 employeeSalary.Title = monthlySalary.Title;
                 employeeSalary.SalaryMonth = monthlySalary.SalaryMonth;
                 employeeSalary.SalaryYear = monthlySalary.SalaryYear;
-                employeeSalary.LOCATION = "Hyderabad";
+                employeeSalary.LOCATION = monthlySalary.Location;
                 employeeSalary.STDDAYS = stadardDays;
                 employeeSalary.LOPDAYS = lopDays;
                 employeeSalary.WRKDAYS = stadardDays;

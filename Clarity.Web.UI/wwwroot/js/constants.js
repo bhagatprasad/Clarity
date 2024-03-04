@@ -11,7 +11,7 @@
 function generateNextCode(data) {
 
     if (data.length == 0)
-        return "EN0097";
+        return "EN10002";
 
     var maxNumericPart = 0;
     data.forEach(function (item) {

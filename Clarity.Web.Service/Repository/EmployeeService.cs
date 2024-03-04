@@ -19,7 +19,7 @@ namespace Clarity.Web.Service.Repository
         {
             var employees = new List<AddEditEmployee>();
 
-            employees = (from emp in context.employees
+            employees = (from emp in context.employees.Where(x => x.IsActive == true)
                              //join empEmployment in context.employeeEmployments on emp.EmployeeId equals empEmployment.EmployeeId into employmentGroup
                              //join empEducation in context.employeeEducations on emp.EmployeeId equals empEducation.EmployeeId into empEducationGroup
                              //join empAdress in context.employeeAddresses on emp.EmployeeId equals empAdress.EmployeeId into empAdressGroup
@@ -121,7 +121,9 @@ namespace Clarity.Web.Service.Repository
                         decimal grossDeductions = pfAmount + insurance + professionalTax;
                         decimal netPay = grossEarnings - grossDeductions;
 
-                        string inWords = IndianSalaryConverter.ConvertToWords((double)netPay);
+                        decimal otherAmount = monthlyGross - grossEarnings;
+                        decimal finalGrossEarnings = grossEarnings + otherAmount;
+                        //string inWords = IndianSalaryConverter.ConvertToWords((double)netPay);
 
                         EmployeeSalaryStructure employeeSalaryStructure = new EmployeeSalaryStructure()
                         {
@@ -137,16 +139,14 @@ namespace Clarity.Web.Service.Repository
                             SPECIALALLOWANCE = special_allowance,
                             SPECIALBONUS = 0,
                             STATUTORYBONUS = statunory,
-                            OTHERS = monthlyGross - grossEarnings,
+                            OTHERS = otherAmount,
                             EmployeeId = employeeId,
                             ESIC = insurance,
                             GROSSDEDUCTIONS = grossDeductions,
-                            GROSSEARNINGS = grossEarnings,
+                            GROSSEARNINGS = finalGrossEarnings,
                             GroupHealthInsurance = insurance,
-                            NETPAY = netPay,
                             PF = pfAmount,
                             PROFESSIONALTAX = professionalTax,
-                            INWords = inWords,
                             CreatedBy = employee.employee.CreatedBy,
                             ModifiedBy = employee.employee.ModifiedBy,
                             CreatedOn = employee.employee.CreatedOn,

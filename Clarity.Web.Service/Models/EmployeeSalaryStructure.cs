@@ -28,8 +28,6 @@ namespace Clarity.Web.Service.Models
         public decimal? GroupHealthInsurance { get; set; }
         public decimal? GROSSEARNINGS { get; set; }
         public decimal? GROSSDEDUCTIONS { get; set; }
-        public decimal? NETPAY { get; set; }
-        public string INWords { get; set; }
         public long? CreatedBy { get; set; }
         public DateTimeOffset? CreatedOn { get; set; }
         public long? ModifiedBy { get; set; }
