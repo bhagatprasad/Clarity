@@ -1,4 +1,5 @@
 ﻿using Clarity.Web.Service.DBConfiguration;
+using Clarity.Web.Service.Helpers;
 using Clarity.Web.Service.Interfaces;
 using Clarity.Web.Service.Models;
 using EFCore.BulkExtensions;
@@ -101,6 +102,60 @@ namespace Clarity.Web.Service.Repository
                     context.employeeEducations.AddRange(employee.employeeEducations);
                     context.employeeEmployments.AddRange(employee.employeeEmployments);
                     context.employeeEmergencyContacts.AddRange(employee.employeeEmergencyContacts);
+
+                    //GENARATEs salary structure 
+
+                    if (employee.employee.CurrentPrice.HasValue && employee.employee.CurrentPrice.Value > 0)
+                    {
+                        decimal monthlyGross = employee.employee.CurrentPrice.Value / 12;
+                        decimal basic = monthlyGross * 0.4m;
+                        decimal hra = basic * 0.5m;
+
+                        decimal pfAmount = 3600;
+                        decimal insurance = 1000;
+                        decimal professionalTax = 200;
+                        decimal special_allowance = 5000;
+                        decimal statunory = 2000;
+
+                        decimal grossEarnings = basic + hra + special_allowance + statunory;
+                        decimal grossDeductions = pfAmount + insurance + professionalTax;
+                        decimal netPay = grossEarnings - grossDeductions;
+
+                        string inWords = IndianSalaryConverter.ConvertToWords((double)netPay);
+
+                        EmployeeSalaryStructure employeeSalaryStructure = new EmployeeSalaryStructure()
+                        {
+                            Adhar = employee.Adhar,
+                            BankAccount = employee.BankAccount,
+                            BankName = employee.BankName,
+                            IFSC = employee.IFSC,
+                            PAN = employee.PAN,
+                            BASIC = basic,
+                            HRA = hra,
+                            CONVEYANCE = 0,
+                            MEDICALALLOWANCE = 0,
+                            SPECIALALLOWANCE = special_allowance,
+                            SPECIALBONUS = 0,
+                            STATUTORYBONUS = statunory,
+                            OTHERS = monthlyGross - grossEarnings,
+                            EmployeeId = employeeId,
+                            ESIC = insurance,
+                            GROSSDEDUCTIONS = grossDeductions,
+                            GROSSEARNINGS = grossEarnings,
+                            GroupHealthInsurance = insurance,
+                            NETPAY = netPay,
+                            PF = pfAmount,
+                            PROFESSIONALTAX = professionalTax,
+                            INWords = inWords,
+                            CreatedBy = employee.employee.CreatedBy,
+                            ModifiedBy = employee.employee.ModifiedBy,
+                            CreatedOn = employee.employee.CreatedOn,
+                            ModifiedOn = employee.employee.ModifiedOn,
+                            IsActive = true
+                        };
+
+                        await context.employeeSalaryStructures.AddAsync(employeeSalaryStructure);
+                    }
 
                     var responce = await context.SaveChangesAsync();
 
