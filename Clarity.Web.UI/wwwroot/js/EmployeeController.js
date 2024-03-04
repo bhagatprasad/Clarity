@@ -361,8 +361,11 @@
             var OfferPrice = $("#OfferPrice").val();
             var CurrentPrice = $("#CurrentPrice").val();
             var JoiningBonus = $("#JoiningBonus").val();
-
-
+            var PAN = $("#PAN").val();
+            var Adhar = $("#Adhar").val();
+            var BankAccount = $("#BankAccount").val();
+            var BankName = $("#BankName").val();
+            var IFSC = $("#IFSC").val();
             var employeeDetail = {
                 EmployeeId: 0,
                 EmployeeCode: Code,
@@ -399,7 +402,12 @@
                 employeeEducations: self.employeeEducations,
                 employeeEmployments: self.employeeEmployments,
                 employeeAddresses: self.employeeAddresses,
-                employeeEmergencyContacts: self.employeeEmergencyContacts
+                employeeEmergencyContacts: self.employeeEmergencyContacts,
+                PAN: PAN,
+                Adhar: Adhar,
+                BankAccount: BankAccount,
+                BankName: BankName,
+                IFSC: IFSC
             };
 
             $.ajax({
@@ -481,6 +489,11 @@
         $("#OfferPrice").val("");
         $("#CurrentPrice").val("");
         $("#JoiningBonus").val("");
+        $("#PAN").val("");
+        $("#Adhar").val("");
+        $("#BankAccount").val("");
+        $("#BankName").val("");
+        $("#IFSC").val("");
 
         self.employeeEducations = [];
         educationGrid.clear().rows.add(self.employeeEducations).draw();
