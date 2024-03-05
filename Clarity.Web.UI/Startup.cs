@@ -3,6 +3,8 @@ using AspNetCoreHero.ToastNotification.Extensions;
 using Clarity.Web.UI.BusinessLogic.Interfaces;
 using Clarity.Web.UI.BusinessLogic.Services;
 using Clarity.Web.UI.Utility;
+using DinkToPdf.Contracts;
+using DinkToPdf;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Mvc;
@@ -21,7 +23,7 @@ namespace Clarity.Web.UI
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers().AddNewtonsoftJson();
-
+            services.AddSingleton(typeof(IConverter), new SynchronizedConverter(new PdfTools()));
             services.AddMvc().AddNewtonsoftJson(options =>
             {
                 options.SerializerSettings.ContractResolver = new DefaultContractResolver();
@@ -53,7 +55,8 @@ namespace Clarity.Web.UI
             services.AddScoped<IClarityAuthenticationService, AuthenticationService>();
             services.AddScoped<IEmployeeService, EmployeeService>();
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
-
+            services.AddTransient<IRazorRendererHelper, RazorRendererHelper>();
+            services.AddTransient<IDocumentService, DocumentService>();
 
             services.AddSession(options =>
             {
