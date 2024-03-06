@@ -23,7 +23,7 @@ function generateNextCode(data) {
 
     // Generate the next code
     var nextNumericPart = maxNumericPart + 1;
-    var nextCode = "EN" + ("0000" + nextNumericPart).slice(-4);
+    var nextCode = "EN" + ("0000" + nextNumericPart).slice(-5);
 
     return nextCode;
 }
