@@ -7,13 +7,13 @@ using System.Text;
 
 namespace Clarity.Web.UI.BusinessLogic.Services
 {
-    public class CountryService : ICountryService
+    public class MonthlySalaryService : IMonthlySalaryService
     {
         private readonly HttpClient _httpClient = null;
 
         private readonly CoreConfig coreConfig;
 
-        public CountryService(IOptions<CoreConfig> _coreConfig, IHttpClientFactory httpClientFactory)
+        public MonthlySalaryService(IOptions<CoreConfig> _coreConfig, IHttpClientFactory httpClientFactory)
         {
             _httpClient = httpClientFactory.CreateClient("AuthorizedClient");
             coreConfig = _coreConfig.Value;
@@ -22,26 +22,26 @@ namespace Clarity.Web.UI.BusinessLogic.Services
             _httpClient.Timeout.Add(new TimeSpan(0, 0, 60));
 
         }
-        public async Task<List<Country>> fetchAllCountries()
+        public async Task<List<MonthlySalary>> fetchAllMonthlySalaries()
         {
-            var responce = await _httpClient.GetAsync("Country/fetchAllCountries");
+            var responce = await _httpClient.GetAsync("MonthlySalary/FetchAllMonthlySalaries");
 
             if (responce.IsSuccessStatusCode)
             {
                 var content = await responce.Content.ReadAsStringAsync();
-                var contentReqponce = JsonConvert.DeserializeObject<List<Country>>(content);
-                return contentReqponce != null ? contentReqponce : new List<Country>();
+                var contentReqponce = JsonConvert.DeserializeObject<List<MonthlySalary>>(content);
+                return contentReqponce != null ? contentReqponce : new List<MonthlySalary>();
             }
-            return new List<Country>();
+            return new List<MonthlySalary>();
         }
 
-        public async Task<bool> InsertOrUpdateCountry(Country country)
+        public async Task<bool> PublishMonthlySalary(MonthlySalary monthlySalary)
         {
-            var inputContent = JsonConvert.SerializeObject(country);
+            var inputContent = JsonConvert.SerializeObject(monthlySalary);
 
             var requestContent = new StringContent(inputContent, Encoding.UTF8, "application/json");
 
-            var responce = await _httpClient.PostAsync("Country/InsertOrUpdateCountry", requestContent);
+            var responce = await _httpClient.PostAsync("MonthlySalary/PublishMonthlySalary", requestContent);
 
             if (responce.IsSuccessStatusCode)
             {
@@ -52,7 +52,6 @@ namespace Clarity.Web.UI.BusinessLogic.Services
                 return responceContent ? responceContent : false;
             }
             return false;
-
         }
     }
 }

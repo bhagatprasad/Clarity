@@ -40,10 +40,38 @@
                 return ones[number];
 
             if (number < 100)
-                return $"{tens[number / 10]} {ones[number % 10]}".Trim();
+            {
+                if (number % 10 == 0)
+                    return tens[number / 10 - 2]; // Adjusting index for zero-based array
+                else
+                    return $"{tens[number / 10 - 2]} {ones[number % 10]}".Trim();
+            }
 
-            return $"{ones[number / 100]} Hundred {ConvertToWords(number % 100)}".Trim();
+            // Handling hundreds
+            if (number < 1000)
+            {
+                string remainderWords = ConvertToWords(number % 100);
+                if (string.IsNullOrWhiteSpace(remainderWords))
+                    return $"{ones[number / 100]} Hundred"; // Return without appending remainder if it's empty
+                else
+                    return $"{ones[number / 100]} Hundred {remainderWords}".Trim();
+            }
+
+            // Handling thousands
+            if (number < 1000000)
+            {
+                string remainderWords = ConvertToWords(number % 1000);
+                if (string.IsNullOrWhiteSpace(remainderWords))
+                    return $"{ConvertToWords(number / 1000)} Thousand"; // Return without appending remainder if it's empty
+                else
+                    return $"{ConvertToWords(number / 1000)} Thousand {remainderWords}".Trim();
+            }
+
+            // Handle other cases here if needed
+
+            return "Number too large to convert"; // Handle unsupported cases
         }
+
         public static string ConvertDecimalToWords(decimal number)
         {
             long intPart = (long)Math.Floor(number);

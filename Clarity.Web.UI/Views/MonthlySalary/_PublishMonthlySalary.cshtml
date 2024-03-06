@@ -1,0 +1,55 @@
+﻿<form id="PublishMontlySalaryForm">
+    <div class="modal fade" id="PublishMontlySalaryModal" tabindex="-1" aria-labelledby="PublishMontlySalaryModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg" style="max-width: 60% !important;">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="PublishMontlySalaryModalLabel">Publish salary</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body" style="padding:10px !important">
+                    <input type="hidden" id="MonthlySalaryId" />
+                    <div class="form-row">
+                        <div class="col-12 mb-3">
+                            <label for="Title" class="form-label">Title</label>
+                            <input type="text" class="form-control" id="Title" name="Title" placeholder="Title" autofocus required />
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-6 mb-3">
+                            <label for="dropdownMonths" class="form-label">Month</label>
+                            <select id="dropdownMonths" class="form-control custom-select" autofocus required></select>
+                        </div>
+                        <div class="col-6 mb-3">
+                            <label for="dropdownYears" class="form-label">Year</label>
+                            <select id="dropdownYears" class="form-control custom-select" autofocus required></select>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-6 mb-3">
+                            <label for="dropdownLocation" class="form-label">Location</label>
+                            <select id="dropdownLocation" class="form-control custom-select" autofocus required></select>
+                        </div>
+                        <div class="col-6 mb-3">
+                            <label for="StdDays" class="form-label">StdDays</label>
+                            <input type="text" class="form-control" id="StdDays" name="StdDays"  />
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-6 mb-3">
+                            <label for="WrkDays" class="form-label">WrkDays</label>
+                            <input type="text" class="form-control" id="WrkDays" name="WrkDays" />
+                        </div>
+                        <div class="col-6 mb-3">
+                            <label for="LopDays" class="form-label">LopDays</label>
+                            <input type="text" class="form-control" id="LopDays" name="LopDays" />
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-success" id="PublishMonthlySalary">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
