@@ -53,6 +53,20 @@
             </div>
         </li>
         <li class="nav-item">
+            <a class="nav-link" data-bs-toggle="collapse" href="#ui-salary" aria-expanded="false" aria-controls="ui-salary">
+                <span class="menu-title">Salary Management</span>
+                <i class="menu-arrow"></i>
+                <i class="mdi mdi-account-multiple-plus menu-icon"></i>
+            </a>
+            <div class="collapse" id="ui-salary">
+                <ul class="nav flex-column sub-menu">
+                    <li class="nav-item"> <a class="nav-link" href="@Url.Action("Index","MonthlySalary",null)">Monthly Salary</a></li>
+                    <li class="nav-item"> <a class="nav-link" href="@Url.Action("Index","Employee",null)">Salary Structure</a></li>
+                    <li class="nav-item"> <a class="nav-link" href="@Url.Action("Index","Employee",null)">Payslips</a></li>
+                </ul>
+            </div>
+        </li>
+        <li class="nav-item">
             <a class="nav-link" data-bs-toggle="collapse" href="#ui-notification" aria-expanded="false" aria-controls="ui-notification">
                 <span class="menu-title">Notification Management</span>
                 <i class="menu-arrow"></i>

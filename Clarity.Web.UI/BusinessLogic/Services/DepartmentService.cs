@@ -49,7 +49,7 @@ namespace Clarity.Web.UI.BusinessLogic.Services
 
                 var responceContent = JsonConvert.DeserializeObject<bool>(content);
 
-                return responceContent != null ? responceContent : false;
+                return responceContent  ? responceContent : false;
             }
             return false;
         }
@@ -94,7 +94,7 @@ namespace Clarity.Web.UI.BusinessLogic.Services
             {
                 var content = await responce.Content.ReadAsStringAsync();
                 var responceContent = JsonConvert.DeserializeObject<bool>(content);
-                return responceContent != null ? responceContent : false;
+                return responceContent ? responceContent : false;
             }
             return false;
         }

@@ -9,6 +9,7 @@ namespace Clarity.Web.Service.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+   
     public class MonthlySalaryController : ControllerBase
     {
         private readonly IMonthlySalaryService monthlySalaryService;
