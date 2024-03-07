@@ -52,6 +52,7 @@ namespace Clarity.Web.Service
             services.AddScoped<IEmployeeService, EmployeeService>();
             services.AddScoped<ICityService, CityService>();
             services.AddScoped<IMonthlySalaryService, MonthlySalaryService>();
+            services.AddScoped<IEmployeeSalaryService, EmployeeSalaryService>();
             services.AddCors(options =>
             {
                 options.AddPolicy("CorsPolicy",
