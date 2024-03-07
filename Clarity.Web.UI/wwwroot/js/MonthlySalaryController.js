@@ -141,10 +141,8 @@
                 processData: true,
                 cache: false,
                 success: function (response) {
-                    if (response) {
-                        $('#PublishMontlySalaryModal').modal('hide');
-                        $("#PublishMontlySalaryForm")[0].reset(); 
-                    }
+                    $('#PublishMontlySalaryModal').modal('hide');
+                    $("#PublishMontlySalaryForm")[0].reset(); 
                     monthlySalaryGrid.ajax.reload();
                     $(".se-pre-con").hide();
                 },
