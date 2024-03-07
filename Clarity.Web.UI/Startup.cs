@@ -58,6 +58,7 @@ namespace Clarity.Web.UI
             services.AddTransient<IRazorRendererHelper, RazorRendererHelper>();
             services.AddTransient<IDocumentService, DocumentService>();
             services.AddTransient<IMonthlySalaryService, MonthlySalaryService>();
+            services.AddScoped<IEmployeeSalaryService, EmployeeSalaryService>();
             services.AddSession(options =>
             {
                 options.IdleTimeout = TimeSpan.FromMinutes(30);
