@@ -1,9 +1,11 @@
 ﻿using AspNetCoreHero.ToastNotification.Abstractions;
 using Clarity.Web.UI.BusinessLogic.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Clarity.Web.UI.Controllers
 {
+    [Authorize]
     public class EmployeeSalaryController : Controller
     {
         private readonly IEmployeeSalaryService employeeSalaryService;

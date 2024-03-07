@@ -9,12 +9,6 @@
     <div class="card">
         <div class="card-header">
             <div class="col-md-8 float-left" style="text-align: right;float: right;">
-                <button id="toggleDrawer" class="btn btn-success">
-                    <i class="fas fa-plus"></i> Add
-                </button>
-                <button id="importData" class="btn btn-primary">
-                    <i class="fas fa-download"></i> Import
-                </button>
                 <button id="ExportData" class="btn btn-info">
                     <i class="fas fa-upload"></i> Export
                 </button>
@@ -26,15 +20,16 @@
                     <thead>
                         <tr>
                             <th>EmployeeCode</th>
-                            <th></th>
-                            <th>MonthlySalaryId</th>
                             <th>Title</th>
-                            <th>SalaryMonth</th>
-                            <th>SalaryYear</th>
-                            <th>LOCATION</th>
-                            <th>STDDAYS</th>
-                            <th>WRKDAYS</th>
-                            <th>LOPDAYS</th>
+                            <th>Duration</th>
+                            <th>Gross Salary</th>
+                            <th>Ggross Deduction</th>
+                            <th>Net Salary</th>
+                            <th>Location</th>
+                            <th>STD/DAYS</th>
+                            <th>WRK/DAYS</th>
+                            <th>LOP/DAYS</th>
+                            <th>Action</th>
                         </tr>
                     </thead>
                 </table>
@@ -42,19 +37,9 @@
         </div>
     </div>
 </div>
-<partial name="~/Views/Employee/_AddEditEmployeeDetailsPartial.cshtml" />
-<style>
-    .form-row {
-        display: inline-flex !important;
-        width: 100% !important;
-    }
 
-    .col-4 {
-        padding: 5px !important;
-    }
-</style>
 <script src="~/lib/jquery/dist/jquery.js"></script>
-<script src="~/js/EmployeeController.js"></script>
+<script src="~/js/EmployeeSalaryController.js"></script>
 <script type="text/javascript">
     $(function () {
         var ctrl = new EmployeeSalaryController();
