@@ -13,17 +13,18 @@ namespace Clarity.Web.UI.BusinessLogic.Services
         private readonly HttpClient _httpClient = null;
         private readonly CoreConfig coreConfig;
 
-        public EmployeeSalaryService(IOptions<CoreConfig> _coreConfig, IHttpClientFactory httpClientFactory) 
+        public EmployeeSalaryService(IOptions<CoreConfig> _coreConfig, IHttpClientFactory httpClientFactory)
         {
             _httpClient = httpClientFactory.CreateClient("AuthorizeClient");
             coreConfig = _coreConfig.Value;
             _httpClient.BaseAddress = new Uri(coreConfig.BaseUrl);
             _httpClient.DefaultRequestHeaders.Clear();
-            _httpClient.Timeout.Add(new TimeSpan(0,0,60));
+            _httpClient.Timeout.Add(new TimeSpan(0, 0, 60));
         }
         public async Task<List<EmployeeSalaryModel>> FetchAllEmployeeSalaries(string all = "", string employeeCode = null, string month = "", string year = "", long employeeId = 0)
         {
-            var responce = await _httpClient.GetAsync("EmployeeSalary/FetchAllEmployeeSalaries");
+            var responce = await _httpClient.GetAsync("EmployeeSalary/AllFetchAllEmployeeSalaries");
+
             if (responce.IsSuccessStatusCode)
             {
                 var content = await responce.Content.ReadAsStringAsync();

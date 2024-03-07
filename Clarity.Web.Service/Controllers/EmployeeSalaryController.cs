@@ -1,4 +1,5 @@
-﻿using Clarity.Web.Service.Interfaces;
+﻿using Clarity.Web.Service.Helpers;
+using Clarity.Web.Service.Interfaces;
 using Clarity.Web.Service.Models;
 using Clarity.Web.Service.Repository;
 using Microsoft.AspNetCore.Http;
@@ -41,6 +42,25 @@ namespace Clarity.Web.Service.Controllers
                 {
                     employeeSalaries = await _employeeSalaryService.FetchAllEmployeeSalarys(employeeId);
                 }
+                return employeeSalaries;
+
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message, ex);
+            }
+
+        }
+
+        [HttpGet]
+        [Route("AllFetchAllEmployeeSalaries")]
+        public async Task<ActionResult<List<EmployeeSalaryModel>>> AllFetchAllEmployeeSalaries()
+        {
+
+            try
+            {
+                List<EmployeeSalaryModel> employeeSalaries = new List<EmployeeSalaryModel>();
+                employeeSalaries = await _employeeSalaryService.FetchAllEmployeeSalarys();
                 return employeeSalaries;
 
             }
