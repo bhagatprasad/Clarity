@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>SAP Crystal Reports ActiveX Designer - </title>
+    <title>@Model.employeeSalary.Title</title>
     <meta name="author" content="bhaga" />
     <style type="text/css">
         * {
@@ -88,6 +88,8 @@
 <body>
     <table style="border-collapse:collapse;margin-left:6.21pt" cellspacing="0">
         <tr style="height:61pt">
+            <td style="width:555pt;border-top-style:solid;border-top-width:1pt;border-top-color:#808080;border-left-style:solid;border-left-width:1pt;border-left-color:#808080;border-bottom-style:solid;border-bottom-width:1pt;border-bottom-color:#808080;border-right-style:solid;border-right-width:1pt;border-right-color:#808080">
+                <img width="215" height="68" src="https://clarity.betalen.in/img/logo.png" /></td>
             <td style="width:555pt;border-top-style:solid;border-top-width:1pt;border-top-color:#808080;border-left-style:solid;border-left-width:1pt;border-left-color:#808080;border-bottom-style:solid;border-bottom-width:1pt;border-bottom-color:#808080;border-right-style:solid;border-right-width:1pt;border-right-color:#808080" colspan="6">
                 <p class="s1" style="padding-top: 7pt;padding-left: 246pt;text-indent: 0pt;text-align: left;">Betalen Technology India Private Limited</p>
                 <p class="s2" style="padding-top: 7pt;padding-left: 258pt;text-indent: 0pt;text-align: left;">@Model.employeeSalary.Title</p>
@@ -101,13 +103,13 @@
                 <p style="text-indent: 0pt;text-align: left;"><br /></p>
             </td>
             <td style="width:139pt;border-top-style:solid;border-top-width:1pt;border-top-color:#808080" colspan="2">
-                <p class="s2" style="padding-top: 7pt;padding-left: 6pt;text-indent: 0pt;text-align: left;">: EN0957</p>
+                <p class="s2" style="padding-top: 7pt;padding-left: 6pt;text-indent: 0pt;text-align: left;">: @Model.employee.EmployeeCode</p>
             </td>
             <td style="width:136pt;border-top-style:solid;border-top-width:1pt;border-top-color:#808080">
                 <p class="s3" style="padding-top: 7pt;padding-left: 14pt;text-indent: 0pt;text-align: left;">LOCATION</p>
             </td>
             <td style="width:152pt;border-top-style:solid;border-top-width:1pt;border-top-color:#808080;border-right-style:solid;border-right-width:1pt;border-right-color:#808080">
-                <p class="s2" style="padding-top: 7pt;padding-left: 6pt;text-indent: 0pt;text-align: left;">: HYDERABAD</p>
+                <p class="s2" style="padding-top: 7pt;padding-left: 6pt;text-indent: 0pt;text-align: left;">: @Model.employeeSalary.LOCATION</p>
             </td>
         </tr>
         <tr style="height:22pt">
@@ -115,13 +117,13 @@
                 <p class="s3" style="padding-top: 2pt;padding-left: 5pt;text-indent: 0pt;text-align: left;">EMPNAME</p>
             </td>
             <td style="width:139pt" colspan="2">
-                <p class="s2" style="padding-top: 2pt;padding-left: 5pt;text-indent: 0pt;text-align: left;">: Jadi Balakumar Swamy</p>
+                <p class="s2" style="padding-top: 2pt;padding-left: 5pt;text-indent: 0pt;text-align: left;">: @Model.employee.FirstName @Model.employee.LastName</p>
             </td>
             <td style="width:136pt">
                 <p class="s3" style="padding-top: 2pt;padding-left: 13pt;text-indent: 0pt;text-align: left;">STDDAYS</p>
             </td>
             <td style="width:152pt;border-right-style:solid;border-right-width:1pt;border-right-color:#808080">
-                <p class="s2" style="padding-top: 2pt;padding-left: 5pt;text-indent: 0pt;text-align: left;">: 31.00</p>
+                <p class="s2" style="padding-top: 2pt;padding-left: 5pt;text-indent: 0pt;text-align: left;">: @Model.employeeSalary.STDDAYS</p>
             </td>
         </tr>
         <tr style="height:21pt">
@@ -129,13 +131,13 @@
                 <p class="s3" style="padding-top: 2pt;padding-left: 6pt;text-indent: 0pt;text-align: left;">DESIGNATION</p>
             </td>
             <td style="width:139pt" colspan="2">
-                <p class="s2" style="padding-top: 2pt;padding-left: 5pt;text-indent: 0pt;text-align: left;">: Software Engineer</p>
+                <p class="s2" style="padding-top: 2pt;padding-left: 5pt;text-indent: 0pt;text-align: left;">:  @Model.designation.Name</p>
             </td>
             <td style="width:136pt">
                 <p class="s3" style="padding-top: 2pt;padding-left: 14pt;text-indent: 0pt;text-align: left;">WRKDAYS</p>
             </td>
             <td style="width:152pt;border-right-style:solid;border-right-width:1pt;border-right-color:#808080">
-                <p class="s2" style="padding-top: 2pt;padding-left: 5pt;text-indent: 0pt;text-align: left;">: 31.00</p>
+                <p class="s2" style="padding-top: 2pt;padding-left: 5pt;text-indent: 0pt;text-align: left;">: @Model.employeeSalary.WRKDAYS</p>
             </td>
         </tr>
         <tr style="height:22pt">
@@ -143,13 +145,13 @@
                 <p class="s3" style="padding-top: 1pt;padding-left: 5pt;text-indent: 0pt;text-align: left;">DOJ</p>
             </td>
             <td style="width:139pt" colspan="2">
-                <p class="s2" style="padding-top: 3pt;padding-left: 5pt;text-indent: 0pt;text-align: left;">: 01-10-2019</p>
+                <p class="s2" style="padding-top: 3pt;padding-left: 5pt;text-indent: 0pt;text-align: left;">: @Model.employee.StartedOn</p>
             </td>
             <td style="width:136pt">
                 <p class="s3" style="padding-top: 1pt;padding-left: 13pt;text-indent: 0pt;text-align: left;">LOP DAYS</p>
             </td>
             <td style="width:152pt;border-right-style:solid;border-right-width:1pt;border-right-color:#808080">
-                <p class="s2" style="padding-top: 3pt;padding-left: 5pt;text-indent: 0pt;text-align: left;">: 0.00</p>
+                <p class="s2" style="padding-top: 3pt;padding-left: 5pt;text-indent: 0pt;text-align: left;">: @Model.employeeSalary.LOPDAYS</p>
             </td>
         </tr>
         <tr style="height:22pt">
@@ -157,13 +159,13 @@
                 <p class="s3" style="padding-top: 2pt;padding-left: 6pt;text-indent: 0pt;text-align: left;">DEPARTMENT</p>
             </td>
             <td style="width:139pt" colspan="2">
-                <p class="s2" style="padding-top: 2pt;padding-left: 5pt;text-indent: 0pt;text-align: left;">: IT SVCS GEN - PROJECTS</p>
+                <p class="s2" style="padding-top: 2pt;padding-left: 5pt;text-indent: 0pt;text-align: left;">: @Model.department.Name</p>
             </td>
             <td style="width:136pt">
                 <p class="s3" style="padding-top: 2pt;padding-left: 14pt;text-indent: 0pt;text-align: left;">BANK NAME</p>
             </td>
             <td style="width:152pt;border-right-style:solid;border-right-width:1pt;border-right-color:#808080">
-                <p class="s2" style="padding-top: 2pt;padding-left: 5pt;text-indent: 0pt;text-align: left;">: STATE BANK OF INDIA</p>
+                <p class="s2" style="padding-top: 2pt;padding-left: 5pt;text-indent: 0pt;text-align: left;">: State Bank of India</p>
             </td>
         </tr>
         <tr style="height:23pt">
@@ -437,11 +439,7 @@
             </td>
         </tr>
     </table>
-    <p style="text-indent: 0pt;text-align: left;">
-        <span>
-            <table border="0" cellspacing="0" cellpadding="0"><tr><td><img width="215" height="68" src="data:image/jpg;base64,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" /></td></tr></table>
-        </span>
-    </p>
+   
     <p style="padding-top: 6pt;padding-left: 59pt;text-indent: 0pt;text-align: left;"><a href="mailto:hr@betalen.in" class="a" target="_blank">*** this is system generated document ,hence singature not requires ,any queries please contact </a><a href="mailto:hr@betalen.in" target="_blank">hr@betalen.in</a></p>
 </body>
 </html>

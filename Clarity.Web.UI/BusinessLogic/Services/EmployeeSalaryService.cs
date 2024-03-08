@@ -21,9 +21,16 @@ namespace Clarity.Web.UI.BusinessLogic.Services
             _httpClient.DefaultRequestHeaders.Clear();
             _httpClient.Timeout.Add(new TimeSpan(0, 0, 60));
         }
-        public async Task<List<EmployeeSalaryModel>> FetchAllEmployeeSalaries(string all = "", string employeeCode = null, string month = "", string year = "", long employeeId = 0)
+        public async Task<List<EmployeeSalaryModel>> FetchAllEmployeeSalaries(string all =null, string employeeCode = null, string month = null, string year = null, long employeeId = 0)
         {
-            var responce = await _httpClient.GetAsync("EmployeeSalary/AllFetchAllEmployeeSalaries");
+            var url = "EmployeeSalary/FetchAllEmployeeSalaries";
+            var parameters = new List<string> { all, employeeCode, month, year, employeeId.ToString() };
+            var filteredParameters = parameters.Where(p => p != null).ToList();
+            if (filteredParameters.Any())
+            {
+                url += "/" + string.Join("/", filteredParameters);
+            }
+            var responce = await _httpClient.GetAsync(url);
 
             if (responce.IsSuccessStatusCode)
             {
