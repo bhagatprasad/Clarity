@@ -14452,3 +14452,9 @@ dl {
 }
 
 /*# sourceMappingURL=style.css.map */
+table.dataTable td {
+    width: 100px; /* Adjust this value as needed */
+    white-space: nowrap; /* Prevent text wrapping */
+    overflow: hidden; /* Hide overflow */
+    text-overflow: ellipsis; /* Add ellipsis for overflow text */
+}

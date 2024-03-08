@@ -14,12 +14,12 @@
                         return row.employee.EmployeeCode + "-" + row.employee.FirstName + " " + row.employee.LastName;
                     }
                 },
-                {
-                    data: null,
-                    render: function (data, type, row) {
-                        return row.employeeSalary.Title;
-                    }
-                },
+                //{
+                //    data: null,
+                //    render: function (data, type, row) {
+                //        return row.employeeSalary.Title;
+                //    }
+                //},
                 {
                     data: null,
                     render: function (data, type, row) {
@@ -49,12 +49,6 @@
                 {
                     data: null,
                     render: function (data, type, row) {
-                        return row.employeeSalary.LOCATION;
-                    }
-                },
-                {
-                    data: null,
-                    render: function (data, type, row) {
                         return row.employeeSalary.STDDAYS;
                     }
                 },
@@ -67,22 +61,33 @@
                 {
                     data: null,
                     render: function (data, type, row) {
-                        return row.employeeSalary.LOPDAYS;
-                    }
-                },
-                {
-                    data: null,
-                    render: function (data, type, row) {
                         return '<i class="fas fa fa-file-pdf-o icon-padding-right"  style="font-size:25px;color:red" data-id="' + row.EmployeeId + '" ></i>';
                     }
                 }
             ],
             responsive: false,
             serverSide: false,
-            "order": [[0, "asc"]],
             paging: false,
-            scrollCollapse: true,
             scrollY: '500px'
+        });
+
+        $(document).on("click", ".fa-file-pdf-o", function (event) {
+            var data = $(this);
+            var row = data.closest('tr');
+            var dataItem = employeeSalaryGrid.row(row).data();
+            console.log(dataItem);
+            $.ajax({
+                url: '/EmployeeSalary/DownloadPaySlip', 
+                type: 'GET',
+                data: { employeeSalaryId: JSON.stringify(dataItem.employeeSalary.EmployeeSalaryId) },
+                success: function (data, status, xhr) {
+                    console.log(status);
+                    window.location.href = "/EmployeeSalary/DownloadPaySlip?employeeSalaryId=" + dataItem.employeeSalary.EmployeeSalaryId;
+                },
+                error: function (xhr, status, error) {
+                    console.error('Error:', error);
+                }
+            });
         });
     };
 }
