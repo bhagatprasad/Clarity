@@ -1,0 +1,112 @@
+﻿@{
+    ViewData["Title"] = "Dash Board";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="container-xxl flex-grow-1 container-p-y">
+    <div class="page-header">
+        <h3 class="page-title">
+            <span class="page-title-icon bg-gradient-primary text-white me-2">
+                <i class="mdi mdi-home"></i>
+            </span> Dashboard
+        </h3>
+        <nav aria-label="breadcrumb">
+            <ul class="breadcrumb">
+                <li class="breadcrumb-item active" aria-current="page">
+                    <span></span>Overview <i class="mdi mdi-alert-circle-outline icon-sm text-primary align-middle"></i>
+                </li>
+            </ul>
+        </nav>
+    </div>
+    <div class="row">
+        <div class="col-md-4 stretch-card grid-margin">
+            <div class="card bg-gradient-danger card-img-holder text-white">
+                <div class="card-body">
+                    <img src="~/assets/images/dashboard/circle.svg" class="card-img-absolute" alt="circle-image" />
+                    <h4 class="font-weight-normal mb-3">
+                        Payslips <i class="mdi mdi-chart-line mdi-24px float-right"></i>
+                    </h4>
+                    <select class="form-control custom-select" id="dropdownPayslipMonth">
+                        <option selected disabled>Choose month and year</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 stretch-card grid-margin">
+            <div class="card bg-gradient-info card-img-holder text-white">
+                <div class="card-body">
+                    <img src="~/assets/images/dashboard/circle.svg" class="card-img-absolute" alt="circle-image" />
+                    <h4 class="font-weight-normal mb-3">
+                        Form 16 <i class="mdi mdi-bookmark-outline mdi-24px float-right"></i>
+                    </h4>
+                    <select class="form-control custom-select" id="dropdownFormSixteen">
+                        <option selected disabled>Choose financial year</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 stretch-card grid-margin">
+            <div class="card bg-gradient-success card-img-holder text-white">
+                <div class="card-body">
+                    <img src="~/assets/images/dashboard/circle.svg" class="card-img-absolute" alt="circle-image" />
+                    <h4 class="font-weight-normal mb-3">
+                        Offer Letter <i class="mdi mdi-diamond mdi-24px float-right"></i>
+                    </h4>
+                    <select class="form-control custom-select" id="dropdownOfferLetter">
+                        <option selected disabled>Choose financial year</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4 stretch-card grid-margin">
+            <div class="card bg-gradient-success card-img-holder text-white">
+                <div class="card-body">
+                    <img src="~/assets/images/dashboard/circle.svg" class="card-img-absolute" alt="circle-image" />
+                    <h4 class="font-weight-normal mb-3">
+                        Hike Letter <i class="mdi mdi-diamond mdi-24px float-right"></i>
+                    </h4>
+                    <select class="form-control custom-select" id="dropdownHikeLetter">
+                        <option selected disabled>Choose financial year</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 stretch-card grid-margin">
+            <div class="card bg-gradient-info card-img-holder text-white">
+                <div class="card-body">
+                    <img src="~/assets/images/dashboard/circle.svg" class="card-img-absolute" alt="circle-image" />
+                    <h4 class="font-weight-normal mb-3">
+                        Time sheets <i class="mdi mdi-bookmark-outline mdi-24px float-right"></i>
+                    </h4>
+                    <select class="form-control custom-select" id="dropdownTimesheets">
+                        <option selected disabled>Choose financial year</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-4 stretch-card grid-margin">
+            <div class="card bg-gradient-danger card-img-holder text-white">
+                <div class="card-body">
+                    <img src="~/assets/images/dashboard/circle.svg" class="card-img-absolute" alt="circle-image" />
+                    <h4 class="font-weight-normal mb-3">
+                   Leaves      <i class="mdi mdi-chart-line mdi-24px float-right"></i>
+                    </h4>
+                    <select class="form-control custom-select" id="dropdownLeaves">
+                        <option selected disabled>Choose Month and Year</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="~/lib/jquery/dist/jquery.js"></script>
+<script src="~/js/UserDashBoardController.js"></script>
+<script type="text/javascript">
+    $(function () {
+        var ctrl = new UserDashBoardController();
+        ctrl.init();
+    });
+</script>

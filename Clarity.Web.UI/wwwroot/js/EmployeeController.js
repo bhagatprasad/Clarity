@@ -67,8 +67,16 @@
                     data: null,
                     render: function (data, type, row) {
                         var icons = '';
-                        icons += '<i class="fas fa-trash delete-icon  icon-padding-right" data-id="' + row.EmployeeId + '" style="font-size: 20px;color: red;"></i>' +
-                            '<i class="fas fa-solid fa-user-circle-o assign-icon icon-padding-right" data-id="' + row.EmployeeId + '" style="font-size: 20px; color: green;padding-left: 5px;"></i>';
+                        var exists = $.grep(self.tenants, function (record) {
+                            return record.EmployeeId === row.EmployeeId;
+                        }).length > 0;
+                        if (exists) {
+                            icons += '<i class="fas fa-trash delete-icon  icon-padding-right" data-id="' + row.EmployeeId + '" style="font-size: 20px;color: red;"></i>';
+                        } else {
+                            icons += '<i class="fas fa-trash delete-icon  icon-padding-right" data-id="' + row.EmployeeId + '" style="font-size: 20px;color: red;"></i>' +
+                                '<i class="fas fa-solid fa-user-circle-o assign-icon icon-padding-right" data-id="' + row.EmployeeId + '" style="font-size: 20px; color: green;padding-left: 5px;"></i>';
+                        }
+
                         return icons;
                     }
                 }
@@ -95,7 +103,7 @@
             self.countries = responses[3][0] ? responses[3][0].data : [];
             self.states = responses[4][0] ? responses[4][0].data : [];
             self.citis = responses[5][0] ? responses[5][0].data : [];
-           
+
             if (responses[6][0] && responses[6][0].data) {
                 responses[6][0].data.forEach(function (item) {
                     self.employees.push(item.employee);
@@ -501,13 +509,30 @@
 
             $.ajax({
                 url: '/Tenant/RegisterUser',
-                type: 'GET',
+                type: 'POST',
                 data: JSON.stringify(userAccess),
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
                 processData: true,
                 cache: false,
                 success: function (responce) {
+                    self.employees = [];
+                    if (responce && responce.employees) {
+                        responce.employees.forEach(function (item) {
+                            self.employees.push(item.employee);
+                        });
+                    }
+
+                    self.tenants = [];
+                    self.tenants = responce.users;
+
+                    employeeGrid.clear().rows.add(self.employees).draw();
+                    employeeGrid.draw();
+
+                    var employeeCode = generateNextCode(self.employees);
+                    $("#Code").val(employeeCode);
+                    $('#Code').prop('disabled', true);
+
                     self.userAccess = {};
                     $("#CreateUserAccessModal").modal("hide");
                 },

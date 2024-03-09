@@ -7,7 +7,8 @@
         if (appuser) {
             self.ApplicationUser = appuser;
         }
-        $("#employeeFullName").text(self.ApplicationUser.FirstName);
+        $("#employeeFullName").text(self.ApplicationUser.FirstName); 
+        $("#userAccessFullName").text(self.ApplicationUser.FirstName); 
         $(document).on("click", "#ChangePassword", function () {
             $("#ChangePasswordModal").modal("show");
         });
