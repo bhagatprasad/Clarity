@@ -45,8 +45,12 @@
 
                         storageService.set('ApplicationUser', applicationUser);
 
-                        var redirectUrl = "/Employee/Index";
+                        var redirectUrl = "";
 
+                        if (applicationUser.RoleId === 1000)
+                            redirectUrl = "/Employee/Index"
+                        else
+                            redirectUrl = "/UserDashBoard/Index";
 
                         $(".se-pre-con").hide();
 
