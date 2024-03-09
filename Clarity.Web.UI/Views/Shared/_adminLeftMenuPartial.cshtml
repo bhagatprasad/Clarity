@@ -49,6 +49,7 @@
                 <ul class="nav flex-column sub-menu">
                     <li class="nav-item"> <a class="nav-link" href="@Url.Action("Index","Employee",null)">Employee</a></li>
                     <li class="nav-item"> <a class="nav-link" href="@Url.Action("Index","Employee",null)">User Access</a></li>
+                    <li class="nav-item"> <a class="nav-link" href="#" id="ChangePassword">Change Password</a></li>
                 </ul>
             </div>
         </li>
@@ -88,3 +89,12 @@
         </li>
     </ul>
 </nav>
+<partial name="_ChangePasswordPartial.cshtml" />
+<script src="~/lib/jquery/dist/jquery.js"></script>
+<script src="~/js/UserLeftMenuController.js"></script>
+<script type="text/javascript">
+    $(function () {
+        var ctrl = new UserLeftMenuController();
+        ctrl.init();
+    });
+</script>

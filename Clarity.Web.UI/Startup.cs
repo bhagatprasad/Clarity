@@ -40,12 +40,10 @@ namespace Clarity.Web.UI
             services.AddDirectoryBrowser();
 
             services.AddHttpContextAccessor();
-
+            services.AddScoped<HttpClientService>();
             services.AddTransient<TokenAuthorizationHttpClientHandler>();
-
             services.AddHttpClient("AuthorizedClient")
-                    .AddHttpMessageHandler<TokenAuthorizationHttpClientHandler>();
-
+                   .AddHttpMessageHandler<TokenAuthorizationHttpClientHandler>();
             services.AddScoped<IRolesService, RolesService>();
             services.AddScoped<IDesignationService, DesignationService>();
             services.AddScoped<IDepartmentService, DepartmentService>();
@@ -59,6 +57,8 @@ namespace Clarity.Web.UI
             services.AddTransient<IDocumentService, DocumentService>();
             services.AddTransient<IMonthlySalaryService, MonthlySalaryService>();
             services.AddScoped<IEmployeeSalaryService, EmployeeSalaryService>();
+            services.AddScoped<IChangePasswordService, ChangePasswordService>();
+            services.AddScoped<ITenantService, TenantService>();
             services.AddSession(options =>
             {
                 options.IdleTimeout = TimeSpan.FromMinutes(30);

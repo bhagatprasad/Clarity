@@ -9,8 +9,16 @@
     <div class="form-group">
         <input type="text" class="form-control form-control-lg" id="username" name="username" placeholder="Enter your email or username" autofocus required />
     </div>
-    <div class="form-group">
-        <input type="password" class="form-control form-control-lg" id="password" name="password" placeholder="*****" autofocus required aria-describedby="basic-default-password" />
+    <div class="form-row">
+        <div class="col-12 mb-3">
+            <label for="password" class="form-label">Password</label>
+            <div class="input-group">
+                <input type="password" class="form-control" id="password" name="password" placeholder="*****"  autofocus required />
+                <div class="input-group-append">
+                    <span class="input-group-text toggle-password"><i class="fas fa-eye-slash"></i></span>
+                </div>
+            </div>
+        </div>
     </div>
     <div class="mt-3">
         <button class="btn btn-block btn-gradient-primary btn-lg font-weight-medium auth-form-btn" type="button" id="bthLogin">SIGN IN</button>
@@ -21,17 +29,14 @@
                 <input type="checkbox" class="form-check-input"> Keep me signed in
             </label>
         </div>
-        <a href="#" class="auth-link text-black">Forgot password?</a>
-    </div>
-    <div class="mb-2">
-        <button type="button" class="btn btn-block btn-facebook auth-form-btn">
-            <i class="mdi mdi-facebook me-2"></i>Connect using facebook
-        </button>
+        <a href="#" class="auth-link text-black" id="forgotPasswordPopup">Forgot password?</a>
     </div>
     <div class="text-center mt-4 font-weight-light">
         Don't have an account? <a href="register.html" class="text-primary">Create</a>
     </div>
 </form>
+<partial name="~/Views/Shared/_forgotPasswordPartial.cshtml" />
+<partial name="~/Views/Shared/_resetPasswordPartial.cshtml" />
 <script src="~/lib/jquery/dist/jquery.js"></script>
 <script src="~/js/AccountController.js"></script>
 <script type="text/javascript">

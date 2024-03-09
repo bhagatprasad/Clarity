@@ -11,6 +11,8 @@
     self.employeeAddresses = [];
     self.employeeEmployments = [];
     self.employees = [];
+    self.userAccess = {};
+    self.tenants = [];
     var requests = [];
     var actions = [];
     actions.push(serviceUrls.getRoles);
@@ -20,6 +22,7 @@
     actions.push(serviceUrls.getStates);
     actions.push(serviceUrls.getCities);
     actions.push(serviceUrls.getUsers);
+    actions.push(serviceUrls.getFetchUsers);
     self.init = function () {
         var employeeGrid = $('#EmployeesGrid').DataTable({
             data: self.employees,
@@ -63,7 +66,10 @@
                 {
                     data: null,
                     render: function (data, type, row) {
-                        return '<i class="fas fa-trash delete-icon  icon-padding-right" data-id="' + row.EmployeeId + '"></i>';
+                        var icons = '';
+                        icons += '<i class="fas fa-trash delete-icon  icon-padding-right" data-id="' + row.EmployeeId + '" style="font-size: 20px;color: red;"></i>' +
+                            '<i class="fas fa-solid fa-user-circle-o assign-icon icon-padding-right" data-id="' + row.EmployeeId + '" style="font-size: 20px; color: green;padding-left: 5px;"></i>';
+                        return icons;
                     }
                 }
             ],
@@ -73,6 +79,7 @@
             "pageLength": 20
         });
         $('#AddEditEmployeeDetailsModal').modal({ backdrop: 'static', keyboard: false });
+        $('#CreateUserAccessModal').modal({ backdrop: 'static', keyboard: false });
         for (var i = 0; i < actions.length; i++) {
             var ajaxConfig = {
                 url: actions[i],
@@ -88,11 +95,13 @@
             self.countries = responses[3][0] ? responses[3][0].data : [];
             self.states = responses[4][0] ? responses[4][0].data : [];
             self.citis = responses[5][0] ? responses[5][0].data : [];
+           
             if (responses[6][0] && responses[6][0].data) {
                 responses[6][0].data.forEach(function (item) {
                     self.employees.push(item.employee);
                 });
             }
+            self.tenants = responses[7][0] ? responses[7][0].data : [];
             self.loadRoleDropdown(self.roles);
             self.loadDepartmentsDropdown(self.departments);
             self.loadDesignationsDropdown(self.designation);
@@ -464,8 +473,49 @@
             self.loadCitiesByStates(selectedState);
         });
 
+        $(document).on("click", ".fa-user-circle-o", function () {
+            var data = $(this);
+            var row = data.closest('tr');
+            var dataItem = employeeGrid.row(row).data();
+            self.userAccess = dataItem;
+            $("#userAccessFirstName").val(dataItem.FirstName);
+            $("#userAccessLastName").val(dataItem.LastName);
+            $("#userAccessEmail").val(dataItem.Email);
+            $("#userAccessPhone").val(dataItem.Phone);
+            $('#userAccessFirstName').prop('disabled', true);
+            $("#userAccessLastName").prop('disabled', true);
+            $("#CreateUserAccessModal").modal("show");
+        });
+        $(document).on("click", "#createUserAccess", function () {
+            var userAccess = {
+                Id: 0,
+                EmployeeId: self.userAccess.EmployeeId,
+                FirstName: self.userAccess.FirstName,
+                LastName: self.userAccess.LastName,
+                Email: $("#userAccessEmail").val(),
+                Phone: $("#userAccessPhone").val(),
+                RoleId: self.userAccess.RoleId,
+                DepartmentId: self.userAccess.DepartmentId,
+                Password: 'Admin@2021'
+            };
 
-
+            $.ajax({
+                url: '/Tenant/RegisterUser',
+                type: 'GET',
+                data: JSON.stringify(userAccess),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                processData: true,
+                cache: false,
+                success: function (responce) {
+                    self.userAccess = {};
+                    $("#CreateUserAccessModal").modal("hide");
+                },
+                error: function (xhr, status, error) {
+                    console.error('Error:', error);
+                }
+            });
+        });
     };
     self.resetMasterForm = function () {
         $("#Code").val("");

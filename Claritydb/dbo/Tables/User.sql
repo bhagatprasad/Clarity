@@ -1,6 +1,7 @@
 ﻿CREATE TABLE [dbo].[User]
 (
 	[Id] bigint NOT NULL PRIMARY KEY identity(1,1),
+	[EmployeeId] bigint null, 
 	[FirstName] varchar(max) null,
 	[LastName] varchar(max) null,
 	[Email] varchar(max) not null,
@@ -19,6 +20,7 @@
 	[ModifiedOn] datetimeoffset null,
 	[ModifiedBy] bigint null,
 	[IsActive] bit null,
+	FOREIGN KEY (EmployeeId) REFERENCES Employee(EmployeeId),
 	FOREIGN KEY (RoleId) REFERENCES Roles(Id),
 	FOREIGN KEY (DepartmentId) REFERENCES Department(DepartmentId)
 )

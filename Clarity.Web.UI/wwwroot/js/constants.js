@@ -5,7 +5,8 @@
     getCountries: "/Country/fetchAllCountries",
     getCities: "/City/fetchAllCities",
     getStates: "/State/LoadStates",
-    getUsers: "/Employee/fetchAllEmployess"
+    getUsers: "/Employee/fetchAllEmployess",
+    getFetchUsers: "/Tenant/fetchUsers"
 };
 
 function generateNextCode(data) {
