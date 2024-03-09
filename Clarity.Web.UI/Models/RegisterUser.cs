@@ -1,4 +1,4 @@
-﻿namespace Clarity.Web.Service.Models
+﻿namespace Clarity.Web.UI.Models
 {
     public class RegisterUser
     {

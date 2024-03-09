@@ -34,6 +34,10 @@ namespace Clarity.Web.Service.Repository
                     HashSalt hashSalt = HashSalt.GenerateSaltedHash(registerUser.Password);
 
                     User user = new User();
+
+                    if (registerUser.EmployeeId.HasValue)
+                        user.EmployeeId = registerUser.EmployeeId.Value;
+
                     user.FirstName = registerUser.FirstName;
                     user.LastName = registerUser.LastName;
                     user.RoleId = registerUser.RoleId;

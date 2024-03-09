@@ -13,20 +13,11 @@ namespace Clarity.Web.UI.BusinessLogic.Services
 {
     public class RolesService : IRolesService
     {
-        private readonly HttpClient _httpClient = null;
+        private readonly HttpClient _httpClient;
 
-        private readonly CoreConfig coreConfig;
-        private readonly IHttpContextAccessor httpContextAccessor;
-
-        public RolesService(IOptions<CoreConfig> _coreConfig, IHttpClientFactory httpClientFactory)
+        public RolesService(HttpClientService httpClientService)
         {
-
-            _httpClient = httpClientFactory.CreateClient("AuthorizedClient");
-            coreConfig = _coreConfig.Value;
-            _httpClient.BaseAddress = new Uri(coreConfig.BaseUrl);
-            _httpClient.DefaultRequestHeaders.Clear();
-            _httpClient.Timeout.Add(new TimeSpan(0, 0, 60));
-
+            _httpClient = httpClientService.GetHttpClient();
         }
         public Task<bool> DeleteRole(long roleId)
         {

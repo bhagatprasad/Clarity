@@ -1,12 +1,7 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-
-namespace Clarity.Web.Service.Models
+﻿namespace Clarity.Web.UI.Models
 {
-    [Table("User")]
-    public class User : Common
+    public class User
     {
-        [Key]
         public long Id { get; set; }
         public long? EmployeeId { get; set; }
         public string FirstName { get; set; }
@@ -22,6 +17,10 @@ namespace Clarity.Web.Service.Models
         public int UserWorngPasswordCount { get; set; }
         public DateTimeOffset? UserLastWrongPasswordOn { get; set; }
         public bool IsBlocked { get; set; }
-
+        public long? CreatedBy { get; set; }
+        public DateTimeOffset? CreatedOn { get; set; }
+        public long? ModifiedBy { get; set; }
+        public DateTimeOffset? ModifiedOn { get; set; }
+        public bool IsActive { get; set; }
     }
 }

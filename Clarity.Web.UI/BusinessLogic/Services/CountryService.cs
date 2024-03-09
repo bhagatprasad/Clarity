@@ -9,18 +9,11 @@ namespace Clarity.Web.UI.BusinessLogic.Services
 {
     public class CountryService : ICountryService
     {
-        private readonly HttpClient _httpClient = null;
+        private readonly HttpClient _httpClient;
 
-        private readonly CoreConfig coreConfig;
-
-        public CountryService(IOptions<CoreConfig> _coreConfig, IHttpClientFactory httpClientFactory)
+        public CountryService(HttpClientService httpClientService)
         {
-            _httpClient = httpClientFactory.CreateClient("AuthorizedClient");
-            coreConfig = _coreConfig.Value;
-            _httpClient.BaseAddress = new Uri(coreConfig.BaseUrl);
-            _httpClient.DefaultRequestHeaders.Clear();
-            _httpClient.Timeout.Add(new TimeSpan(0, 0, 60));
-
+            _httpClient = httpClientService.GetHttpClient();
         }
         public async Task<List<Country>> fetchAllCountries()
         {

@@ -1,0 +1,38 @@
+﻿<form id="CreateUserAccessForm">
+    <div class="modal fade" id="CreateUserAccessModal" tabindex="-1" aria-labelledby="CreateUserAccessLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg" style="max-width: 60% !important;">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="CreateUserAccessLabel">Create user access</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body" style="padding:10px !important">
+                    <div class="form-row">
+                        <div class="col-6 mb-3">
+                            <label for="userAccessFirstName" class="form-label">First Name</label>
+                            <input type="text" class="form-control" id="userAccessFirstName" name="userAccessFirstName" />
+                        </div>
+                        <div class="col-6 mb-3">
+                            <label for="userAccessLastName" class="form-label">Last Name</label>
+                            <input type="text" class="form-control" id="userAccessLastName" name="userAccessLastName" />
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-6 mb-3">
+                            <label for="userAccessEmail" class="form-label">Email</label>
+                            <input type="text" class="form-control" id="userAccessEmail" name="userAccessEmail" />
+                        </div>
+                        <div class="col-6 mb-3">
+                            <label for="userAccessPhone" class="form-label">Phone</label>
+                            <input type="text" class="form-control" id="userAccessPhone" name="userAccessPhone" />
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-success" id="createUserAccess">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

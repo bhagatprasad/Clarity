@@ -4,23 +4,18 @@ using Clarity.Web.UI.Utility;
 using Microsoft.Extensions.Options;
 using Microsoft.TeamFoundation.Common;
 using Newtonsoft.Json;
+using System.Net.Http;
 using System.Text;
 
 namespace Clarity.Web.UI.BusinessLogic.Services
 {
-    public class DepartmentService :IDepartmentService
+    public class DepartmentService : IDepartmentService
     {
-        private readonly HttpClient httpClient = null;
+        private readonly HttpClient httpClient;
 
-        private readonly CoreConfig coreConfig;
-
-        public DepartmentService(IOptions<CoreConfig> _coreConfig, IHttpClientFactory httpClientFactory)
+        public DepartmentService(HttpClientService httpClientService)
         {
-            httpClient = httpClientFactory.CreateClient("AuthorizedClient");
-            coreConfig = _coreConfig.Value;
-            httpClient.BaseAddress = new Uri(coreConfig.BaseUrl);
-            httpClient.DefaultRequestHeaders.Clear();
-            httpClient.Timeout.Add(new TimeSpan(0, 0, 60));
+            httpClient = httpClientService.GetHttpClient();
         }
 
         public async Task<bool> CreateDepartment(Department department)

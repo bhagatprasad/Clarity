@@ -12,6 +12,7 @@ namespace Clarity.Web.Service.Controllers
     public class TenantController : ControllerBase
     {
         private readonly IUserService userService;
+       
         public TenantController(IUserService userService)
         {
             this.userService = userService;

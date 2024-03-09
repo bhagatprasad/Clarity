@@ -7,40 +7,42 @@ using System.Text;
 
 namespace Clarity.Web.UI.BusinessLogic.Services
 {
-    public class CityService : ICityService
+    public class TenantService : ITenantService
     {
         private readonly HttpClient _httpClient;
 
-        public CityService(HttpClientService httpClientService)
+        public TenantService(HttpClientService httpClientService)
         {
             _httpClient = httpClientService.GetHttpClient();
         }
-        public async Task<List<City>> fetchAllCities()
-        {
-            var responce = await _httpClient.GetAsync("City/fetchAllCities");
 
+        public async Task<List<User>> fetchUsers()
+        {
+            var responce = await _httpClient.GetAsync("Tenant/fetchUsers");
             if (responce.IsSuccessStatusCode)
             {
                 var content = await responce.Content.ReadAsStringAsync();
-                var contentReqponce = JsonConvert.DeserializeObject<List<City>>(content);
-                return contentReqponce != null ? contentReqponce : new List<City>();
+                var contentReqponce = JsonConvert.DeserializeObject<List<User>>(content);
+                return contentReqponce != null ? contentReqponce : new List<User>();
             }
-            return new List<City>();
+            return new List<User>();
         }
 
-        public async Task<bool> InsertOrUpdateCity(City city)
+        public async Task<bool> fnRegisterUserAsync(RegisterUser registerUser)
         {
-            var inputContent = JsonConvert.SerializeObject(city);
+            var inputContent = JsonConvert.SerializeObject(registerUser);
 
             var requestContent = new StringContent(inputContent, Encoding.UTF8, "application/json");
 
-            var responce = await _httpClient.PostAsync("City/InsertOrUpdateCity", requestContent);
+            var responce = await _httpClient.PostAsync("Tenant/RegisterUser", requestContent);
 
             if (responce.IsSuccessStatusCode)
             {
                 var content = await responce.Content.ReadAsStringAsync();
+
                 var responceContent = JsonConvert.DeserializeObject<bool>(content);
-                return responceContent != null ? responceContent : false;
+
+                return responceContent ? responceContent : false;
             }
             return false;
         }

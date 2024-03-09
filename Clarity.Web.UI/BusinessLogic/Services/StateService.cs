@@ -10,17 +10,11 @@ namespace Clarity.Web.UI.BusinessLogic.Services
 {
     public class StateService : IStateService
     {
-        private readonly HttpClient httpClient = null;
+        private readonly HttpClient httpClient;
 
-        private readonly CoreConfig coreConfig;
-
-        public StateService(IOptions<CoreConfig> _coreConfig, IHttpClientFactory httpClientFactory)
+        public StateService(HttpClientService httpClientService)
         {
-            httpClient = httpClientFactory.CreateClient("AuthorizedClient");
-            coreConfig = _coreConfig.Value;
-            httpClient.BaseAddress = new Uri(coreConfig.BaseUrl);
-            httpClient.DefaultRequestHeaders.Clear();
-            httpClient.Timeout.Add(new TimeSpan(0, 0, 60));
+            httpClient = httpClientService.GetHttpClient();
         }
 
         public async Task<bool> CreateState(State _state)
