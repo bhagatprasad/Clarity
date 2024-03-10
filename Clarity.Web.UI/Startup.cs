@@ -70,7 +70,7 @@ namespace Clarity.Web.UI
             {
                 options.ExpireTimeSpan = TimeSpan.FromMinutes(30);
                 options.SlidingExpiration = true;
-                options.AccessDeniedPath = "/Forbidden/";
+                options.AccessDeniedPath = "/Unauthorized/Forbidden";
                 options.Cookie.Name = "allowCookies";
                 options.Cookie.IsEssential = true;
                 options.Cookie.HttpOnly = true;
