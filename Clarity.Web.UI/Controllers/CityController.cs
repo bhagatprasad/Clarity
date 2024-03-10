@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Clarity.Web.UI.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Administrator,Admin")]
     public class CityController : Controller
     {
         private readonly ICityService _cityService;

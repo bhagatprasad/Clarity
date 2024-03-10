@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Clarity.Web.UI.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Administrator,Admin")]
     public class RolesController : Controller
     {
         private readonly IRolesService rolesService;
