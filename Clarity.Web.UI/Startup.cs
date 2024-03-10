@@ -76,6 +76,96 @@ namespace Clarity.Web.UI
                 options.Cookie.SameSite = SameSiteMode.None;
                 options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
             });
+
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy("Administrator", policy =>
+                    policy.RequireRole("Administrator"));
+
+                options.AddPolicy("Admin", policy =>
+                    policy.RequireRole("Admin"));
+
+                options.AddPolicy("test", policy =>
+                    policy.RequireRole("test"));
+
+                options.AddPolicy("Software Engineer/Developer", policy =>
+                    policy.RequireRole("Software Engineer/Developer"));
+
+                options.AddPolicy("Quality Assurance Engineer/Tester", policy =>
+                    policy.RequireRole("Quality Assurance Engineer/Tester"));
+
+                options.AddPolicy("Project Manager", policy =>
+                    policy.RequireRole("Project Manager"));
+
+                options.AddPolicy("ProductManager", policy =>
+                    policy.RequireRole("Product Manager"));
+
+                options.AddPolicy("UXUIDesigner", policy =>
+                    policy.RequireRole("UX/UI Designer"));
+
+                options.AddPolicy("DataScientist", policy =>
+                    policy.RequireRole("Data Scientist"));
+
+                options.AddPolicy("DevOpsEngineer", policy =>
+                    policy.RequireRole("DevOps Engineer"));
+
+                options.AddPolicy("TechnicalSupportEngineer", policy =>
+                    policy.RequireRole("Technical Support Engineer"));
+
+                options.AddPolicy("TechnicalWriterDocumentationSpecialist", policy =>
+                    policy.RequireRole("Technical Writer/Documentation Specialist"));
+
+                options.AddPolicy("BusinessAnalyst", policy =>
+                    policy.RequireRole("Business Analyst"));
+
+                options.AddPolicy("ScrumMaster", policy =>
+                    policy.RequireRole("Scrum Master"));
+
+                options.AddPolicy("SystemAdministrator", policy =>
+                    policy.RequireRole("System Administrator"));
+
+                options.AddPolicy("NetworkEngineer", policy =>
+                    policy.RequireRole("Network Engineer"));
+
+                options.AddPolicy("SecurityEngineer", policy =>
+                    policy.RequireRole("Security Engineer"));
+
+                options.AddPolicy("ReleaseManager", policy =>
+                    policy.RequireRole("Release Manager"));
+
+                options.AddPolicy("DatabaseAdministrator", policy =>
+                    policy.RequireRole("Database Administrator"));
+
+                options.AddPolicy("SoftwareArchitect", policy =>
+                    policy.RequireRole("Software Architect"));
+
+                options.AddPolicy("FrontEndDeveloper", policy =>
+                    policy.RequireRole("Front-end Developer"));
+
+                options.AddPolicy("BackEndDeveloper", policy =>
+                    policy.RequireRole("Back-end Developer"));
+
+                options.AddPolicy("Full-stack Developer", policy =>
+                    policy.RequireRole("Full-stack Developer"));
+
+                options.AddPolicy("MobileApplicationDeveloper", policy =>
+                    policy.RequireRole("Mobile Application Developer"));
+
+                options.AddPolicy("AIMachineLearningEngineer", policy =>
+                    policy.RequireRole("AI/Machine Learning Engineer"));
+
+                options.AddPolicy("CloudEngineer", policy =>
+                    policy.RequireRole("Cloud Engineer"));
+
+                options.AddPolicy("AutomationEngineer", policy =>
+                    policy.RequireRole("Automation Engineer"));
+
+                options.AddPolicy("ITSupportSpecialist", policy =>
+                    policy.RequireRole("IT Support Specialist"));
+
+            });
+
+
             services.AddNotyf(config =>
             {
                 config.DurationInSeconds = 10;

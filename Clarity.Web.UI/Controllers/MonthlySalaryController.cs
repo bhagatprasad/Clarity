@@ -7,7 +7,7 @@ using Microsoft.VisualStudio.Services.Account;
 
 namespace Clarity.Web.UI.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Administrator,Admin")]
     public class MonthlySalaryController : Controller
     {
         private readonly IMonthlySalaryService monthlySalaryService;

@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Clarity.Web.UI.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Software Engineer/Developer,Full-stack Developer")]
     public class UserDashBoardController : Controller
     {
         public UserDashBoardController()

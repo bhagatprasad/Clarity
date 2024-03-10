@@ -7,7 +7,7 @@ using static Microsoft.VisualStudio.Services.Graph.GraphResourceIds;
 
 namespace Clarity.Web.UI.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Administrator,Admin")]
     public class TenantController : Controller
     {
         private readonly ITenantService tenantService;

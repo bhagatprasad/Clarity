@@ -2,11 +2,13 @@
 using Clarity.Web.UI.BusinessLogic.Interfaces;
 using Clarity.Web.UI.BusinessLogic.Services;
 using Clarity.Web.UI.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Runtime.InteropServices;
 
 namespace Clarity.Web.UI.Controllers
 {
+    [Authorize(Roles = "Administrator,Admin")]
     public class DepartmentController : Controller
     {
         private readonly IDepartmentService departmentServices;
