@@ -16,16 +16,19 @@ namespace Clarity.Web.UI.Controllers
         private readonly IDocumentService documentService;
         private readonly IDesignationService designationService;
         private readonly IDepartmentService departmentService;
+        private readonly IEmployeeSalaryStructureService employeeSalaryStructureService;
 
         public EmployeeSalaryController(IEmployeeSalaryService _employeeSalaryService, INotyfService _notyfService,
             IDocumentService documentService,
-            IDesignationService designationService, IDepartmentService departmentService)
+            IDesignationService designationService, IDepartmentService departmentService,
+            IEmployeeSalaryStructureService employeeSalaryStructureService)
         {
             this.employeeSalaryService = _employeeSalaryService;
             this.notyfService = _notyfService;
             this.documentService = documentService;
             this.designationService = designationService;
             this.departmentService = departmentService;
+            this.employeeSalaryStructureService = employeeSalaryStructureService;
         }
         public IActionResult Index()
         {
@@ -72,17 +75,21 @@ namespace Clarity.Web.UI.Controllers
                         designation = designations.Where(x => x.DesignationId == salaries.employee.DesignationId.Value).FirstOrDefault();
                     }
 
+                    var salaryStructure = await employeeSalaryStructureService.fetchEmployeeSalaryStructure(salaries.employee.EmployeeId);
+
                     PayslipVM payslipVM = new PayslipVM();
                     payslipVM.employee = salaries.employee;
                     payslipVM.employeeSalary = salaries.employeeSalary;
                     payslipVM.designation = designation != null ? designation : null;
                     payslipVM.department = department != null ? department : null;
+                    payslipVM.employeeSalaryStructure = salaryStructure != null ? salaryStructure : null;
 
                     string viewPath = "~/Views/Shared/_PayslipPartial.cshtml";
 
                     var pdfFile = documentService.GeneratePdfFromRazorView(viewPath, payslipVM);
 
                     string fileName = salaries.employee.EmployeeCode + "_" + salaries.employee.FirstName + "_" + "Payslip for the month" + "_" + salaries.employeeSalary.SalaryMonth + "_" + salaries.employeeSalary.SalaryYear + ".pdf";
+                    
                     return File(pdfFile, "application/pdf", fileName);
                 }
             }
