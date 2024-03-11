@@ -28,35 +28,50 @@ namespace Clarity.Web.UI.Controllers
         [HttpPost]
         public async Task<IActionResult> AddEditDepartment([FromBody] Department department)
         {
-            if (department != null)
+            try
             {
-                bool response = false;
-                if (department.DepartmentId > 0)
-                    response = await departmentServices.UpdateDepartment(department.DepartmentId, department);
-                else
-                    response = await departmentServices.CreateDepartment(department);
-                if (response)
+                if (department != null)
                 {
+                    bool response = false;
                     if (department.DepartmentId > 0)
-                        notyfService.Success("Department was updated successfully");
+                        response = await departmentServices.UpdateDepartment(department.DepartmentId, department);
                     else
-                        notyfService.Success("Department was created successfully");
+                        response = await departmentServices.CreateDepartment(department);
+                    if (response)
+                    {
+                        if (department.DepartmentId > 0)
+                            notyfService.Success("Department was updated successfully");
+                        else
+                            notyfService.Success("Department was created successfully");
 
-                    return Json(true);
+                        return Json(true);
+                    }
+                    notyfService.Warning("Something went wrong");
+                    return Json(response);
                 }
                 notyfService.Warning("Something went wrong");
-                return Json(response);
+                return Json(false);
             }
-            notyfService.Warning("Something went wrong");
-            return Json(false);
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
         [HttpGet]
         public async Task<IActionResult> LoadDepartments()
-        
+
         {
-            var departments = await departmentServices.GetAllDepartment();
-            return Json(new { data = departments });
+            try
+            {
+                var departments = await departmentServices.GetAllDepartment();
+                return Json(new { data = departments });
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
 
         }
     }

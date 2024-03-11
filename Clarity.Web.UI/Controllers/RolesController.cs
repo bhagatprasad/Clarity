@@ -1,4 +1,5 @@
 ﻿using AspNetCoreHero.ToastNotification.Abstractions;
+using AspNetCoreHero.ToastNotification.Notyf;
 using Clarity.Web.UI.BusinessLogic.Interfaces;
 using Clarity.Web.UI.Models;
 using Microsoft.AspNetCore.Authorization;
@@ -10,19 +11,27 @@ namespace Clarity.Web.UI.Controllers
     public class RolesController : Controller
     {
         private readonly IRolesService rolesService;
-        private readonly INotyfService _notyfService;
+        private readonly INotyfService notyfService;
         public RolesController(IRolesService rolesService,
-            INotyfService _notyfService)
+            INotyfService notyfService)
         {
             this.rolesService = rolesService;
-            this._notyfService = _notyfService;
+            this.notyfService = notyfService;
         }
         [HttpGet]
         public async Task<IActionResult> Index()
         {
-            var responce = await rolesService.fetchAllRoles();
+            try
+            {
+                var responce = await rolesService.fetchAllRoles();
 
-            return View(responce);
+                return View(responce);
+            }
+            catch (Exception ex)
+            {
+                notyfService.Error(ex.Message);
+                throw ex;
+            }
         }
         [HttpGet]
         public IActionResult Create()
@@ -33,74 +42,106 @@ namespace Clarity.Web.UI.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(Roles role)
         {
-            if (ModelState.IsValid)
+            try
             {
-                role.CreatedBy = -1;
-                role.CreatedOn = DateTimeOffset.Now;
-                role.ModifiedBy = -1;
-                role.ModifiedOn = DateTimeOffset.Now;
-                role.IsActive = true;
-
-                var responce = await rolesService.InsertOrUpdateRole(role);
-                if (responce)
+                if (ModelState.IsValid)
                 {
-                    _notyfService.Success("Role was created successfully");
-                    return RedirectToAction("Index", "Roles", null);
-                }
-            }
+                    role.CreatedBy = -1;
+                    role.CreatedOn = DateTimeOffset.Now;
+                    role.ModifiedBy = -1;
+                    role.ModifiedOn = DateTimeOffset.Now;
+                    role.IsActive = true;
 
-            ModelState.AddModelError("", "Something went wrong ,please fix and submit again");
-            _notyfService.Error("Something went wrong ,please fix and submit again");
-            return View(role);
+                    var responce = await rolesService.InsertOrUpdateRole(role);
+                    if (responce)
+                    {
+                        notyfService.Success("Role was created successfully");
+                        return RedirectToAction("Index", "Roles", null);
+                    }
+                }
+
+                ModelState.AddModelError("", "Something went wrong ,please fix and submit again");
+                notyfService.Error("Something went wrong ,please fix and submit again");
+                return View(role);
+            }
+            catch (Exception ex)
+            {
+                notyfService.Error(ex.Message);
+                throw ex;
+            }
         }
         [HttpGet]
         public async Task<IActionResult> Edit(long id)
         {
-            var responce = await rolesService.fetchRole(id);
-
-            if (responce != null)
+            try
             {
-                return View(responce);
+                var responce = await rolesService.fetchRole(id);
+
+                if (responce != null)
+                {
+                    return View(responce);
+                }
+
+                notyfService.Error("Something went wrong");
+
+                return RedirectToAction("Index", "Roles", null);
             }
-
-            _notyfService.Error("Something went wrong");
-
-            return RedirectToAction("Index", "Roles", null);
+            catch (Exception ex)
+            {
+                notyfService.Error(ex.Message);
+                throw ex;
+            }
+           
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(Roles role)
         {
-            if (ModelState.IsValid)
+            try
             {
-                role.CreatedBy = -1;
-                role.CreatedOn = DateTimeOffset.Now;
-                role.ModifiedBy = -1;
-                role.ModifiedOn = DateTimeOffset.Now;
-                role.IsActive = true;
-
-                var responce = await rolesService.InsertOrUpdateRole(role);
-
-                if (responce)
+                if (ModelState.IsValid)
                 {
-                    _notyfService.Success("Role was updated successfully");
-                    return RedirectToAction("Index", "Roles", null);
+                    role.CreatedBy = -1;
+                    role.CreatedOn = DateTimeOffset.Now;
+                    role.ModifiedBy = -1;
+                    role.ModifiedOn = DateTimeOffset.Now;
+                    role.IsActive = true;
+
+                    var responce = await rolesService.InsertOrUpdateRole(role);
+
+                    if (responce)
+                    {
+                        notyfService.Success("Role was updated successfully");
+                        return RedirectToAction("Index", "Roles", null);
+                    }
                 }
+
+                ModelState.AddModelError("", "Something went wrong ,please fix and submit again");
+
+                notyfService.Error("Something went wrong ,please fix and submit again");
+
+                return View(role);
             }
-
-            ModelState.AddModelError("", "Something went wrong ,please fix and submit again");
-
-            _notyfService.Error("Something went wrong ,please fix and submit again");
-
-            return View(role);
+            catch (Exception ex)
+            {
+                notyfService.Error(ex.Message);
+                throw ex;
+            }
         }
 
         [HttpGet]
         public async Task<IActionResult> LoadRoles()
         {
-            var roles = await rolesService.fetchAllRoles();
-            return Json(new { data = roles });
-
+            try
+            {
+                var roles = await rolesService.fetchAllRoles();
+                return Json(new { data = roles });
+            }
+            catch (Exception ex)
+            {
+                notyfService.Error(ex.Message);
+                throw ex;
+            }
         }
     }
 }

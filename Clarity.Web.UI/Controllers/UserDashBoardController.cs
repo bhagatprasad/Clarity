@@ -40,16 +40,25 @@ namespace Clarity.Web.UI.Controllers
 
         public async Task<IActionResult> FetchAllEmployeeSalaries(long userId)
         {
-            var salaries = new List<EmployeeSalaryModel>();
-
-            var employeeies = await tenantService.fetchUser(userId);
-
-            if (employeeies != null && employeeies.EmployeeId.HasValue)
+            try
             {
-                salaries = await employeeSalaryService.FetchEmployeeSalaryAsync(employeeies.EmployeeId.Value);
-            }
+                var salaries = new List<EmployeeSalaryModel>();
 
-            return Json(new { data = salaries });
+                var employeeies = await tenantService.fetchUser(userId);
+
+                if (employeeies != null && employeeies.EmployeeId.HasValue)
+                {
+                    salaries = await employeeSalaryService.FetchEmployeeSalaryAsync(employeeies.EmployeeId.Value);
+                }
+
+                return Json(new { data = salaries });
+            }
+            catch (Exception ex)
+            {
+                notyfService.Error(ex.Message);
+
+                throw ex;
+            }
         }
 
         [HttpGet]
@@ -95,12 +104,15 @@ namespace Clarity.Web.UI.Controllers
 
                     return File(pdfFile, "application/pdf", fileName);
                 }
+
+                return null;
             }
             catch (Exception ex)
             {
                 notyfService.Error(ex.Message);
+
+                throw ex;
             }
-            return null;
         }
     }
 }

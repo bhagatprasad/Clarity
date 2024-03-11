@@ -25,24 +25,40 @@ namespace Clarity.Web.UI.Controllers
         [HttpPost]
         public async Task<IActionResult> PublishMonthlySalary([FromBody] MonthlySalary monthlySalary)
         {
-            if (monthlySalary != null)
+            try
             {
-                var responce = await monthlySalaryService.PublishMonthlySalary(monthlySalary);
+                if (monthlySalary != null)
+                {
+                    var responce = await monthlySalaryService.PublishMonthlySalary(monthlySalary);
 
-                if (responce)
-                    notyfService.Success("Salary for the month of" + monthlySalary.SalaryMonth + "_" + monthlySalary.SalaryYear + "was published to all employees are done");
-                return Json(responce);
+                    if (responce)
+                        notyfService.Success("Salary for the month of" + monthlySalary.SalaryMonth + "_" + monthlySalary.SalaryYear + "was published to all employees are done");
+                    return Json(responce);
+                }
+
+                notyfService.Error("somethingwent wrong");
+                return Json(false);
             }
-
-            notyfService.Error("somethingwent wrong");
-            return Json(false);
+            catch (Exception ex)
+            {
+                notyfService.Error(ex.Message);
+                throw ex;
+            }
         }
 
         [HttpGet]
         public async Task<IActionResult> fetchAllMonthlySalaries()
         {
-            var salaries = await monthlySalaryService.fetchAllMonthlySalaries();
-            return Json(new { data = salaries });
+            try
+            {
+                var salaries = await monthlySalaryService.fetchAllMonthlySalaries();
+                return Json(new { data = salaries });
+            }
+            catch (Exception ex)
+            {
+                notyfService.Error(ex.Message);
+                throw ex;
+            }
         }
     }
 }

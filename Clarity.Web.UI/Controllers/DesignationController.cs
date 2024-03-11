@@ -19,8 +19,17 @@ namespace Clarity.Web.UI.Controllers
         [HttpGet]
         public async Task<IActionResult> fetchAllDesignations()
         {
-            var designations = await designationService.GetAllDesignation();
-            return Json(new { data = designations });
+            try
+            {
+                var designations = await designationService.GetAllDesignation();
+                return Json(new { data = designations });
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+           
         }
     }
 }

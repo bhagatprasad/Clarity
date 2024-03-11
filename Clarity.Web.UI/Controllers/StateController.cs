@@ -24,42 +24,69 @@ namespace Clarity.Web.UI.Controllers
         [HttpGet]
         public async Task<IActionResult> Index()
         {
-            var States = await stateService.GetStates();
-            return View();
+            try
+            {
+                var States = await stateService.GetStates();
+                return View();
+
+            }
+            catch (Exception ex)
+            {
+                notyfService.Error(ex.Message);
+                throw ex;
+            }
+
         }
 
         [HttpPost]
 
         public async Task<IActionResult> AddEditStates([FromBody] State state)
         {
-            if (state != null)
+            try
             {
-                bool response = false;
-
-                response = await stateService.CreateState(state);
-                if (response)
+                if (state != null)
                 {
-                    if (state.StateId > 0)
-                        notyfService.Success("State was updated successfully");
-                    else
-                        notyfService.Success("State was created successfully");
-                    return Json(true);
+                    bool response = false;
+
+                    response = await stateService.CreateState(state);
+                    if (response)
+                    {
+                        if (state.StateId > 0)
+                            notyfService.Success("State was updated successfully");
+                        else
+                            notyfService.Success("State was created successfully");
+                        return Json(true);
+
+                    }
+                    notyfService.Warning("States Not Found");
+                    return Json(response);
 
                 }
-                notyfService.Warning("States Not Found");
-                return Json(response);
-
+                notyfService.Warning("Something went wrong");
+                return Json(false);
             }
-            notyfService.Warning("Something went wrong");
-            return Json(false);
+            catch (Exception ex)
+            {
+                notyfService.Error(ex.Message);
+                throw ex;
+            }
+
         }
 
 
         [HttpGet]
         public async Task<IActionResult> LoadStates()
         {
-            var states = await stateService.GetStates();
-            return Json(new { data = states });
+            try
+            {
+                var states = await stateService.GetStates();
+                return Json(new { data = states });
+            }
+            catch (Exception ex)
+            {
+                notyfService.Error(ex.Message);
+                throw ex;
+            }
         }
     }
 }

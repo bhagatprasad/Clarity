@@ -38,15 +38,32 @@ namespace Clarity.Web.UI.Controllers
 
         public async Task<IActionResult> FetchAllEmployeeSalaries()
         {
-            var salaries = await employeeSalaryService.FetchAllEmployeeSalaries(null, null, null, null, 0);
-            return Json(new { data = salaries });
+            try
+            {
+                var salaries = await employeeSalaryService.FetchAllEmployeeSalaries(null, null, null, null, 0);
+                return Json(new { data = salaries });
+            }
+            catch (Exception ex)
+            {
+                notyfService.Error(ex.Message);
+                throw ex;
+            }
+
         }
 
         [HttpGet]
         public async Task<IActionResult> FetchEmployeeSalary(long employeeSalaryId)
         {
-            var salaries = await employeeSalaryService.FetchEmployeeSalary(employeeSalaryId);
-            return Json(new { data = salaries });
+            try
+            {
+                var salaries = await employeeSalaryService.FetchEmployeeSalary(employeeSalaryId);
+                return Json(new { data = salaries });
+            }
+            catch (Exception ex)
+            {
+                notyfService.Error(ex.Message);
+                throw ex;
+            }
         }
 
         [HttpGet]
@@ -89,15 +106,17 @@ namespace Clarity.Web.UI.Controllers
                     var pdfFile = documentService.GeneratePdfFromRazorView(viewPath, payslipVM);
 
                     string fileName = salaries.employee.EmployeeCode + "_" + salaries.employee.FirstName + "_" + "Payslip for the month" + "_" + salaries.employeeSalary.SalaryMonth + "_" + salaries.employeeSalary.SalaryYear + ".pdf";
-                    
+
                     return File(pdfFile, "application/pdf", fileName);
                 }
+                return null;
             }
             catch (Exception ex)
             {
                 notyfService.Error(ex.Message);
+                throw ex;
             }
-            return null;
+
         }
     }
 }
