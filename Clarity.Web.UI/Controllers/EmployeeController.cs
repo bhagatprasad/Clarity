@@ -1,8 +1,11 @@
 ﻿using AspNetCoreHero.ToastNotification.Abstractions;
 using Clarity.Web.UI.BusinessLogic.Interfaces;
 using Clarity.Web.UI.Models;
+using log4net;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.VisualStudio.Services.Organization.Client;
+using Newtonsoft.Json;
 
 namespace Clarity.Web.UI.Controllers
 {
@@ -11,6 +14,7 @@ namespace Clarity.Web.UI.Controllers
     {
         private readonly IEmployeeService employeeService;
         private readonly INotyfService notyfService;
+        private static readonly ILog log = LogManager.GetLogger(typeof(EmployeeController));
         public EmployeeController(IEmployeeService employeeService,
              INotyfService notyfService)
         {
@@ -32,7 +36,7 @@ namespace Clarity.Web.UI.Controllers
                     var responce = await employeeService.InsertOrUpdateAsync(addEditEmployee);
 
                     var employees = await employeeService.fetchAllEmployeesAsync();
-
+                    log.Info(JsonConvert.SerializeObject(employees));
                     notyfService.Success("Employee On Boarding completed");
 
                     return Json(new { data = employees });
@@ -45,6 +49,7 @@ namespace Clarity.Web.UI.Controllers
             catch (Exception ex)
             {
                 notyfService.Error(ex.Message);
+                log.Error("InsertOrUpdateEmployee.." + ex);
                 throw ex;
             }
 
@@ -55,11 +60,13 @@ namespace Clarity.Web.UI.Controllers
             try
             {
                 var employees = await employeeService.fetchAllEmployeesAsync();
+                log.Info(JsonConvert.SerializeObject(employees));
                 return Json(new { data = employees });
             }
             catch (Exception ex)
             {
                 notyfService.Error(ex.Message);
+                log.Error("fetchAllEmployess.." + ex);
                 throw ex;
             }
 
