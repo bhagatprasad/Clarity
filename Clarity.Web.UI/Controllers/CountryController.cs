@@ -18,8 +18,15 @@ namespace Clarity.Web.UI.Controllers
         [HttpGet]
         public async Task<IActionResult> fetchAllCountries()
         {
-            var responce = await countryService.fetchAllCountries();
-            return Json(new { data = responce });
+            try
+            {
+                var responce = await countryService.fetchAllCountries();
+                return Json(new { data = responce });
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
     }
 }

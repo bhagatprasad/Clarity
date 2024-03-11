@@ -25,26 +25,43 @@ namespace Clarity.Web.UI.Controllers
         [HttpPost]
         public async Task<IActionResult> InsertOrUpdateEmployee([FromBody] AddEditEmployee addEditEmployee)
         {
-            if (addEditEmployee != null)
+            try
             {
-                var responce = await employeeService.InsertOrUpdateAsync(addEditEmployee);
+                if (addEditEmployee != null)
+                {
+                    var responce = await employeeService.InsertOrUpdateAsync(addEditEmployee);
 
-                var employees = await employeeService.fetchAllEmployeesAsync();
+                    var employees = await employeeService.fetchAllEmployeesAsync();
 
-                notyfService.Success("Employee On Boarding completed");
+                    notyfService.Success("Employee On Boarding completed");
 
-                return Json(new { data = employees });
+                    return Json(new { data = employees });
+                }
+
+                notyfService.Success("Somethingwent wrong");
+
+                return Json(false);
+            }
+            catch (Exception ex)
+            {
+                notyfService.Error(ex.Message);
+                throw ex;
             }
 
-            notyfService.Success("Somethingwent wrong");
-
-            return Json(false);
         }
         [HttpGet]
         public async Task<IActionResult> fetchAllEmployess()
         {
-            var employees = await employeeService.fetchAllEmployeesAsync();
-            return Json(new { data = employees });
+            try
+            {
+                var employees = await employeeService.fetchAllEmployeesAsync();
+                return Json(new { data = employees });
+            }
+            catch (Exception ex)
+            {
+                notyfService.Error(ex.Message);
+                throw ex;
+            }
 
         }
     }

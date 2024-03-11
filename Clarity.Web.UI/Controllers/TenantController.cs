@@ -31,32 +31,49 @@ namespace Clarity.Web.UI.Controllers
         [HttpPost]
         public async Task<IActionResult> RegisterUser([FromBody] RegisterUser registerUser)
         {
-            if (registerUser != null)
+            try
             {
-                var responce = await tenantService.fnRegisterUserAsync(registerUser);
-
-                if (responce)
+                if (registerUser != null)
                 {
-                    var employees = await employeeService.fetchAllEmployeesAsync();
+                    var responce = await tenantService.fnRegisterUserAsync(registerUser);
 
-                    var users = await tenantService.fetchUsers();
+                    if (responce)
+                    {
+                        var employees = await employeeService.fetchAllEmployeesAsync();
 
-                    notyfService.Success("Credentials created");
+                        var users = await tenantService.fetchUsers();
 
-                    return Json(new { employees = employees, users = users });
+                        notyfService.Success("Credentials created");
+
+                        return Json(new { employees = employees, users = users });
+                    }
                 }
+
+                notyfService.Error("Somethingwent wrong");
+
+                return Json(new { employees = new List<AddEditEmployee>(), users = new List<User>() });
             }
-
-            notyfService.Error("Somethingwent wrong");
-
-            return Json(new { employees = new List<AddEditEmployee>(), users = new List<User>() });
+            catch (Exception ex)
+            {
+                notyfService.Error(ex.Message);
+                throw ex;
+            }
         }
 
         [HttpGet]
         public async Task<IActionResult> fetchUsers()
         {
-            var users = await tenantService.fetchUsers();
-            return Json(new { data = users });
+            try
+            {
+                var users = await tenantService.fetchUsers();
+                return Json(new { data = users });
+            }
+            catch (Exception ex)
+            {
+                notyfService.Error(ex.Message);
+                throw ex;
+            }
+           
         }
     }
 }

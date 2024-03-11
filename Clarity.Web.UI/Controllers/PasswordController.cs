@@ -27,45 +27,70 @@ namespace Clarity.Web.UI.Controllers
         [Authorize]
         public async Task<IActionResult> ChangePassword([FromBody] ChangePassword changePassword)
         {
-            if (changePassword != null)
+            try
             {
-                var responce = await changePasswordService.fnChangePasswordAsync(changePassword);
-                if (responce)
-                    notyfService.Success("Password changed successfully");
-            }
-            notyfService.Error("something went wrong");
+                if (changePassword != null)
+                {
+                    var responce = await changePasswordService.fnChangePasswordAsync(changePassword);
+                    if (responce)
+                        notyfService.Success("Password changed successfully");
+                }
+                notyfService.Error("something went wrong");
 
-            return Json(false);
+                return Json(false);
+            }
+            catch (Exception ex)
+            {
+                notyfService.Error(ex.Message);
+                throw ex;
+            }
         }
 
         [HttpGet]
         [AllowAnonymous]
         public async Task<IActionResult> ForgotPassword(string email, string phone)
         {
-            if(!string.IsNullOrEmpty(email) || !string.IsNullOrEmpty(phone))
+            try
             {
-                var responce = await changePasswordService.fnForgotPasswordAsync(email, phone);
-                if(responce != null)
+                if (!string.IsNullOrEmpty(email) || !string.IsNullOrEmpty(phone))
                 {
-                    return Json(new { data = responce });
+                    var responce = await changePasswordService.fnForgotPasswordAsync(email, phone);
+                    if (responce != null)
+                    {
+                        return Json(new { data = responce });
+                    }
                 }
+
+                notyfService.Error("something went wrong");
+                return Json(false);
+            }
+            catch (Exception ex)
+            {
+                notyfService.Error(ex.Message);
+                throw ex;
             }
 
-            notyfService.Error("something went wrong");
-            return Json(false);
         }
 
         [HttpPost]
         public async Task<IActionResult> ResetPassword([FromBody] ResetPassword resetPassword)
         {
-            if (resetPassword != null)
+            try
             {
-                var responce = await changePasswordService.fnResetPasswordAsync(resetPassword);
-                if (responce)
-                    notyfService.Success("Password reseted successfully");
+                if (resetPassword != null)
+                {
+                    var responce = await changePasswordService.fnResetPasswordAsync(resetPassword);
+                    if (responce)
+                        notyfService.Success("Password reseted successfully");
+                }
+                notyfService.Error("something went wrong");
+                return Json(false);
             }
-            notyfService.Error("something went wrong");
-            return Json(false);
+            catch (Exception ex)
+            {
+                notyfService.Error(ex.Message);
+                throw ex;
+            }
         }
     }
 }

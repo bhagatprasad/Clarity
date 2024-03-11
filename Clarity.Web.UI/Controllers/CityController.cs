@@ -1,4 +1,5 @@
-﻿using Clarity.Web.UI.BusinessLogic.Interfaces;
+﻿using AspNetCoreHero.ToastNotification.Notyf;
+using Clarity.Web.UI.BusinessLogic.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -20,8 +21,15 @@ namespace Clarity.Web.UI.Controllers
         [HttpGet]
         public async Task<IActionResult> fetchAllCities()
         {
-            var responce = await _cityService.fetchAllCities();
-            return Json(new { data = responce });
+            try
+            {
+                var responce = await _cityService.fetchAllCities();
+                return Json(new { data = responce });
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
     }
 }

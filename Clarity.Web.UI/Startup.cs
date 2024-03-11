@@ -185,6 +185,8 @@ namespace Clarity.Web.UI
                 app.UseExceptionHandler("/Home/Error");
             }
 
+            app.UseExceptionHandlerMiddleware();
+
             app.UseStaticFiles(new StaticFileOptions
             {
                 OnPrepareResponse = ctx =>
