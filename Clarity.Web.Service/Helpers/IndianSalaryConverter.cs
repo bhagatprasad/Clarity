@@ -74,19 +74,55 @@
 
         public static string ConvertDecimalToWords(decimal number)
         {
-            long intPart = (long)Math.Floor(number);
-            int decPart = (int)Math.Round((number - intPart) * 100);
+            if (number == 0)
+                return "zero";
 
-            string intWords = ConvertToWords(intPart);
-            string decWords = ConvertToWords(decPart);
+            if (number < 0)
+                return "minus " + ConvertDecimalToWords(Math.Abs(number));
 
-            if (string.IsNullOrEmpty(intWords))
-                return $"{decWords} paise";
+            string words = "";
 
-            if (string.IsNullOrEmpty(decWords))
-                return $"{intWords} rupees";
+            if ((number / 1000000) > 0)
+            {
+                words += ConvertDecimalToWords(number / 1000000) + " million ";
+                number %= 1000000;
+            }
 
-            return $"{intWords} rupees and {decWords} paise";
+            if ((number / 1000) > 0)
+            {
+                words += ConvertDecimalToWords(number / 1000) + " thousand ";
+                number %= 1000;
+            }
+
+            if ((number / 100) > 0)
+            {
+                words += ConvertDecimalToWords(number / 100) + " hundred ";
+                number %= 100;
+            }
+
+            if (number > 0)
+            {
+                if (words != "")
+                    words += "and ";
+
+                var unitsMap = new[] { "zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten", "eleven", "twelve", "thirteen", "fourteen", "fifteen", "sixteen", "seventeen", "eighteen", "nineteen" };
+                var tensMap = new[] { "zero", "ten", "twenty", "thirty", "forty", "fifty", "sixty", "seventy", "eighty", "ninety" };
+
+                if (number < 20)
+                    words += unitsMap[(int)number];
+                else
+                {
+                    words += tensMap[(int)(number / 10)];
+                    if ((number % 10) > 0)
+                        words += "-" + unitsMap[(int)(number % 10)];
+                }
+            }
+
+            return words;
+
+
         }
+
+       
     }
 }
