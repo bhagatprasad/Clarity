@@ -16,7 +16,23 @@ namespace Clarity.Web.UI.BusinessLogic.Services
         {
             _httpClient = httpClientService.GetHttpClient();
         }
-        public async Task<List<EmployeeSalaryModel>> FetchAllEmployeeSalaries(string all =null, string employeeCode = null, string month = null, string year = null, long employeeId = 0)
+        public async Task<List<EmployeeSalaryModel>> FetchEmployeeSalaryAsync(long employeeId)
+        {
+            var url = "EmployeeSalary/FetchEmployeeSalaryAsync";
+
+            var serviceUrl = Path.Combine(url, employeeId.ToString());
+          
+            var responce = await _httpClient.GetAsync(serviceUrl);
+
+            if (responce.IsSuccessStatusCode)
+            {
+                var content = await responce.Content.ReadAsStringAsync();
+                var contentReqponce = JsonConvert.DeserializeObject<List<EmployeeSalaryModel>>(content);
+                return contentReqponce != null ? contentReqponce : new List<EmployeeSalaryModel>();
+            }
+            return new List<EmployeeSalaryModel>();
+        }
+        public async Task<List<EmployeeSalaryModel>> FetchAllEmployeeSalaries(string all = null, string employeeCode = null, string month = null, string year = null, long employeeId = 0)
         {
             var url = "EmployeeSalary/FetchAllEmployeeSalaries";
             var parameters = new List<string> { all, employeeCode, month, year, employeeId.ToString() };

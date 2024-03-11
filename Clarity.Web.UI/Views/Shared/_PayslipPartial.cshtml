@@ -1,10 +1,11 @@
 ﻿@model Clarity.Web.UI.Models.PayslipVM
 
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>@Model.employeeSalary.Title</title>
+    <title>Pay Slip for the month of August 2023</title>
     <meta name="author" content="bhaga" />
     <style type="text/css">
         * {
@@ -83,17 +84,18 @@
             vertical-align: top;
             overflow: visible;
         }
+
     </style>
 </head>
 <body>
     <table style="border-collapse:collapse;margin-left:6.21pt" cellspacing="0">
         <tr style="height:61pt">
-            <td style="width:555pt;border-top-style:solid;border-top-width:1pt;border-top-color:#808080;border-left-style:solid;border-left-width:1pt;border-left-color:#808080;border-bottom-style:solid;border-bottom-width:1pt;border-bottom-color:#808080;border-right-style:solid;border-right-width:1pt;border-right-color:#808080">
+            <td style="width:auto;border-top-style:solid;border-top-width:1pt;border-top-color:#808080;border-left-style:solid;border-left-width:1pt;border-left-color:#808080;border-bottom-style:solid;border-bottom-width:1pt;border-bottom-color:#808080;">
                 <img width="215" height="68" src="https://clarity.betalen.in/img/logo.png" />
             </td>
-            <td style="width:555pt;border-top-style:solid;border-top-width:1pt;border-top-color:#808080;border-left-style:solid;border-left-width:1pt;border-left-color:#808080;border-bottom-style:solid;border-bottom-width:1pt;border-bottom-color:#808080;border-right-style:solid;border-right-width:1pt;border-right-color:#808080" colspan="6">
-                <p class="s1" style="padding-top: 7pt;padding-left: 246pt;text-indent: 0pt;text-align: left;">Betalen Technology India Private Limited</p>
-                <p class="s2" style="padding-top: 7pt;padding-left: 258pt;text-indent: 0pt;text-align: left;">@Model.employeeSalary.Title</p>
+            <td style="width:auto;border-top-style:solid;border-top-width:1pt;border-top-color:#808080;border-bottom-style:solid;border-bottom-width:1pt;border-bottom-color:#808080;border-right-style:solid;border-right-width:1pt;border-right-color:#808080" colspan="6">
+                <p class="s1" style="padding-top: 7pt;padding-right: 10px;text-indent: 0pt;text-align: right;">Betalen Technology India Private Limited</p>
+                <p class="s2" style="padding-top: 7pt;padding-right: 10px;text-indent: 0pt;text-align: right;">@Model.employeeSalary.Title</p>
             </td>
         </tr>
         <tr style="height:27pt">
@@ -132,7 +134,7 @@
                 <p class="s3" style="padding-top: 2pt;padding-left: 6pt;text-indent: 0pt;text-align: left;">DESIGNATION</p>
             </td>
             <td style="width:139pt" colspan="2">
-                <p class="s2" style="padding-top: 2pt;padding-left: 5pt;text-indent: 0pt;text-align: left;">:  @Model.designation.Name</p>
+                <p class="s2" style="padding-top: 2pt;padding-left: 5pt;text-indent: 0pt;text-align: left;">: @Model.designation.Name </p>
             </td>
             <td style="width:136pt">
                 <p class="s3" style="padding-top: 2pt;padding-left: 14pt;text-indent: 0pt;text-align: left;">WRKDAYS</p>
@@ -200,7 +202,7 @@
                 <p class="s3" style="padding-top: 6pt;padding-left: 4pt;text-indent: 0pt;text-align: left;">DEDUCTIONS</p>
             </td>
             <td style="width:152pt;border-top-style:solid;border-top-width:1pt;border-top-color:#808080;border-bottom-style:solid;border-bottom-width:1pt;border-bottom-color:#808080;border-right-style:solid;border-right-width:1pt;border-right-color:#808080">
-                <p class="s3" style="padding-top: 5pt;padding-left: 16pt;text-indent: 0pt;text-align: left;">AMOUNT       <span class="s4">YTD</span></p>
+                <p class="s3" style="padding-top: 5pt;text-indent: 0pt;text-align: right;"><span class="s4" style="padding-right: 30px;">AMOUNT</span> <span class="s4" style="padding-right: 8px;">YTD</span></p>
             </td>
         </tr>
         <tr style="height:26pt">
@@ -211,16 +213,16 @@
                 <p style="text-indent: 0pt;text-align: left;"><br /></p>
             </td>
             <td style="width:89pt;border-top-style:solid;border-top-width:1pt;border-top-color:#808080">
-                <p class="s2" style="padding-top: 5pt;padding-left: 26pt;text-indent: 0pt;text-align: left;">17,500.00</p>
+                <p class="s2" style="padding-top: 5pt;padding-left: 26pt;text-indent: 0pt;text-align: left;">@Model.employeeSalary.Earning_Monthly_Basic</p>
             </td>
             <td style="width:64pt;border-top-style:solid;border-top-width:1pt;border-top-color:#808080;border-right-style:solid;border-right-width:1pt;border-right-color:#808080">
-                <p class="s2" style="padding-top: 4pt;padding-left: 3pt;text-indent: 0pt;text-align: left;">1,41,500.00</p>
+                <p class="s2" style="padding-top: 4pt;padding-left: 12pt;text-indent: 0pt;text-align: left;">@Model.employeeSalary.Earning_YTD_Basic</p>
             </td>
             <td style="width:122pt;border-top-style:solid;border-top-width:1pt;border-top-color:#808080;border-left-style:solid;border-left-width:1pt;border-left-color:#808080">
-                <p class="s2" style="padding-top: 4pt;padding-left: 4pt;text-indent: 0pt;text-align: left;">PROFESSIONAL TAX</p>
+                <p class="s2" style="padding-top: 4pt;padding-left: 4pt;text-indent: 0pt;text-align: left;">Provident Fund(PF)</p>
             </td>
             <td style="width:152pt;border-top-style:solid;border-top-width:1pt;border-top-color:#808080;border-right-style:solid;border-right-width:1pt;border-right-color:#808080">
-                <p class="s2" style="padding-top: 5pt;padding-right: 4pt;text-indent: 0pt;text-align: right;">200.00   <span class="s5">1,800.00</span></p>
+                <p class="s2" style="padding-top: 5pt;padding-right: 4pt;text-indent: 0pt;text-align: right;"><span class="s5" style="padding-right: 10px;">@Model.employeeSalary.Deduction_Montly_ProvidentFund</span>   <span class="s5" style="padding-right: 3px;">@Model.employeeSalary.Deduction_YTD_ProvidentFund</span></p>
             </td>
         </tr>
         <tr style="height:25pt">
@@ -231,16 +233,16 @@
                 <p style="text-indent: 0pt;text-align: left;"><br /></p>
             </td>
             <td style="width:89pt">
-                <p class="s2" style="padding-top: 6pt;padding-left: 32pt;text-indent: 0pt;text-align: left;">7,000.00</p>
+                <p class="s2" style="padding-top: 6pt;padding-left: 32pt;text-indent: 0pt;text-align: left;">@Model.employeeSalary.Earning_Montly_HRA</p>
             </td>
             <td style="width:64pt;border-right-style:solid;border-right-width:1pt;border-right-color:#808080">
-                <p class="s2" style="padding-top: 5pt;padding-left: 12pt;text-indent: 0pt;text-align: left;">56,500.00</p>
+                <p class="s2" style="padding-top: 5pt;padding-left: 12pt;text-indent: 0pt;text-align: left;">@Model.employeeSalary.Earning_YTD_HRA</p>
             </td>
             <td style="width:122pt;border-left-style:solid;border-left-width:1pt;border-left-color:#808080">
-                <p class="s2" style="padding-top: 2pt;padding-left: 3pt;text-indent: 0pt;text-align: left;">Group Health Insurance</p>
+                <p class="s2" style="padding-top: 2pt;padding-left: 3pt;text-indent: 0pt;text-align: left;">Professional Tax</p>
             </td>
             <td style="width:152pt;border-right-style:solid;border-right-width:1pt;border-right-color:#808080">
-                <p class="s2" style="padding-top: 3pt;padding-right: 4pt;text-indent: 0pt;text-align: right;">1000.00  <span class="s5">9,000.00</span></p>
+                <p class="s2" style="padding-top: 5pt;padding-right: 4pt;text-indent: 0pt;text-align: right;"><span class="s5" style="padding-right: 10px;">@Model.employeeSalary.Deduction_Montly_PROFESSIONALTAX</span>   <span class="s5" style="padding-right: 3px;">@Model.employeeSalary.Deduction_YTD_PROFESSIONALTAX</span></p>
             </td>
         </tr>
         <tr style="height:24pt">
@@ -251,17 +253,18 @@
                 <p style="text-indent: 0pt;text-align: left;"><br /></p>
             </td>
             <td style="width:89pt">
-                <p class="s2" style="padding-top: 2pt;padding-left: 53pt;text-indent: 0pt;text-align: left;">0.00</p>
+                <p class="s2" style="padding-top: 2pt;padding-left: 49pt;text-indent: 0pt;text-align: left;">0.00</p>
             </td>
             <td style="width:64pt;border-right-style:solid;border-right-width:1pt;border-right-color:#808080">
-                <p class="s2" style="padding-top: 3pt;padding-left: 40pt;text-indent: 0pt;text-align: left;">0.00</p>
+                <p class="s2" style="padding-top: 3pt;padding-left: 47px;text-indent: 0pt;text-align: left;">0.00</p>
             </td>
             <td style="width:122pt;border-left-style:solid;border-left-width:1pt;border-left-color:#808080">
-                <p class="s2" style="padding-top: 2pt;padding-left: 4pt;text-indent: 0pt;text-align: left;">OTHERS</p>
+                <p class="s2" style="padding-top: 2pt;padding-left: 3pt;text-indent: 0pt;text-align: left;">Group Health Insurance</p>
             </td>
             <td style="width:152pt;border-right-style:solid;border-right-width:1pt;border-right-color:#808080">
-                <p class="s2" style="padding-top: 4pt;padding-right: 2pt;text-indent: 0pt;text-align: right;">0.00     0.00</p>
+                <p class="s2" style="padding-top: 5pt;padding-right: 4pt;text-indent: 0pt;text-align: right;"><span class="s5" style="padding-right: 10px;">@Model.employeeSalary.Deduction_Montly_GroupHealthInsurance</span>   <span class="s5" style="padding-right: 3px;">@Model.employeeSalary.Deduction_YTD_GroupHealthInsurance</span></p>
             </td>
+           
         </tr>
         <tr style="height:25pt">
             <td style="width:116pt;border-left-style:solid;border-left-width:1pt;border-left-color:#808080">
@@ -271,16 +274,16 @@
                 <p style="text-indent: 0pt;text-align: left;"><br /></p>
             </td>
             <td style="width:89pt">
-                <p class="s2" style="padding-top: 5pt;padding-left: 53pt;text-indent: 0pt;text-align: left;">0.00</p>
+                <p class="s2" style="padding-top: 5pt;padding-left: 49pt;text-indent: 0pt;text-align: left;">0.00</p>
             </td>
             <td style="width:64pt;border-right-style:solid;border-right-width:1pt;border-right-color:#808080">
-                <p class="s2" style="padding-top: 4pt;padding-left: 40pt;text-indent: 0pt;text-align: left;">0.00</p>
+                <p class="s2" style="padding-top: 4pt;padding-left: 47px;text-indent: 0pt;text-align: left;">0.00</p>
             </td>
             <td style="width:122pt;border-left-style:solid;border-left-width:1pt;border-left-color:#808080">
-                <p style="text-indent: 0pt;text-align: left;"><br /></p>
+                <p class="s2" style="padding-top: 2pt;padding-left: 4pt;text-indent: 0pt;text-align: left;">OTHERS</p>
             </td>
             <td style="width:152pt;border-right-style:solid;border-right-width:1pt;border-right-color:#808080">
-                <p style="text-indent: 0pt;text-align: left;"><br /></p>
+                <p class="s2" style="padding-top: 4pt;padding-right: 2pt;text-indent: 0pt;text-align: right;"><span class="s5" style="padding-right: 32px;">0.00</span>   <span class="s5" style="padding-right: 7px;">0.00</span></p>
             </td>
         </tr>
         <tr style="height:26pt">
@@ -291,10 +294,10 @@
                 <p style="text-indent: 0pt;text-align: left;"><br /></p>
             </td>
             <td style="width:89pt">
-                <p class="s2" style="padding-top: 5pt;padding-left: 34pt;text-indent: 0pt;text-align: left;">5,000.00</p>
+                <p class="s2" style="padding-top: 5pt;padding-left: 34pt;text-indent: 0pt;text-align: left;">@Model.employeeSalary.Earning_Montly_SPECIALALLOWANCE</p>
             </td>
             <td style="width:64pt;border-right-style:solid;border-right-width:1pt;border-right-color:#808080">
-                <p class="s2" style="padding-top: 4pt;padding-left: 15pt;text-indent: 0pt;text-align: left;">37,000.00</p>
+                <p class="s2" style="padding-top: 4pt;padding-left: 12pt;text-indent: 0pt;text-align: left;">@Model.employeeSalary.Earning_YTD_SPECIALALLOWANCE</p>
             </td>
             <td style="width:122pt;border-left-style:solid;border-left-width:1pt;border-left-color:#808080">
                 <p style="text-indent: 0pt;text-align: left;"><br /></p>
@@ -311,10 +314,10 @@
                 <p style="text-indent: 0pt;text-align: left;"><br /></p>
             </td>
             <td style="width:89pt">
-                <p class="s2" style="padding-top: 6pt;padding-left: 55pt;text-indent: 0pt;text-align: left;">0.00</p>
+                <p class="s2" style="padding-top: 6pt;padding-left: 49pt;text-indent: 0pt;text-align: left;">0.00</p>
             </td>
             <td style="width:64pt;border-right-style:solid;border-right-width:1pt;border-right-color:#808080">
-                <p class="s2" style="padding-top: 5pt;padding-left: 41pt;text-indent: 0pt;text-align: left;">0.00</p>
+                <p class="s2" style="padding-top: 5pt;padding-left: 47px;text-indent: 0pt;text-align: left;">0.00</p>
             </td>
             <td style="width:122pt;border-left-style:solid;border-left-width:1pt;border-left-color:#808080">
                 <p style="text-indent: 0pt;text-align: left;"><br /></p>
@@ -331,10 +334,10 @@
                 <p style="text-indent: 0pt;text-align: left;"><br /></p>
             </td>
             <td style="width:89pt">
-                <p class="s2" style="padding-top: 5pt;padding-left: 53pt;text-indent: 0pt;text-align: left;">0.00</p>
+                <p class="s2" style="padding-top: 5pt;padding-left: 49pt;text-indent: 0pt;text-align: left;">0.00</p>
             </td>
             <td style="width:64pt;border-right-style:solid;border-right-width:1pt;border-right-color:#808080">
-                <p class="s2" style="padding-top: 4pt;padding-left: 41pt;text-indent: 0pt;text-align: left;">0.00</p>
+                <p class="s2" style="padding-top: 4pt;padding-left: 47px;text-indent: 0pt;text-align: left;">0.00</p>
             </td>
             <td style="width:122pt;border-left-style:solid;border-left-width:1pt;border-left-color:#808080">
                 <p style="text-indent: 0pt;text-align: left;"><br /></p>
@@ -351,10 +354,10 @@
                 <p style="text-indent: 0pt;text-align: left;"><br /></p>
             </td>
             <td style="width:89pt;border-bottom-style:solid;border-bottom-width:1pt;border-bottom-color:#808080">
-                <p class="s2" style="padding-top: 4pt;padding-left: 33pt;text-indent: 0pt;text-align: left;">5,500.00</p>
+                <p class="s2" style="padding-top: 4pt;padding-left: 26pt;text-indent: 0pt;text-align: left;">@Model.employeeSalary.Earning_Montly_OTHERS</p>
             </td>
             <td style="width:64pt;border-bottom-style:solid;border-bottom-width:1pt;border-bottom-color:#808080;border-right-style:solid;border-right-width:1pt;border-right-color:#808080">
-                <p class="s2" style="padding-top: 3pt;padding-left: 14pt;text-indent: 0pt;text-align: left;">47,900.00</p>
+                <p class="s2" style="padding-top: 3pt;padding-left: 12pt;text-indent: 0pt;text-align: left;">@Model.employeeSalary.Earning_YTD_OTHERS</p>
             </td>
             <td style="width:122pt;border-left-style:solid;border-left-width:1pt;border-left-color:#808080;border-bottom-style:solid;border-bottom-width:1pt;border-bottom-color:#808080">
                 <p style="text-indent: 0pt;text-align: left;"><br /></p>
@@ -371,16 +374,18 @@
                 <p style="text-indent: 0pt;text-align: left;"><br /></p>
             </td>
             <td style="width:89pt;border-top-style:solid;border-top-width:1pt;border-top-color:#808080;border-bottom-style:solid;border-bottom-width:1pt;border-bottom-color:#808080">
-                <p class="s3" style="padding-top: 4pt;padding-left: 28pt;text-indent: 0pt;text-align: left;">35,000.00</p>
+                <p class="s3" style="padding-top: 4pt;padding-left: 28pt;text-indent: 0pt;text-align: left;">@Model.employeeSalary.Earning_Montly_GROSSEARNINGS</p>
             </td>
             <td style="width:64pt;border-top-style:solid;border-top-width:1pt;border-top-color:#808080;border-bottom-style:solid;border-bottom-width:1pt;border-bottom-color:#808080;border-right-style:solid;border-right-width:1pt;border-right-color:#808080">
-                <p class="s3" style="padding-top: 4pt;padding-left: 7pt;text-indent: 0pt;text-align: left;">2,83,000.00</p>
+                <p class="s3" style="padding-top: 4pt;padding-left: 12pt;text-indent: 0pt;text-align: left;">@Model.employeeSalary.Earning_YTD_GROSSEARNINGS</p>
             </td>
             <td style="width:122pt;border-top-style:solid;border-top-width:1pt;border-top-color:#808080;border-left-style:solid;border-left-width:1pt;border-left-color:#808080;border-bottom-style:solid;border-bottom-width:1pt;border-bottom-color:#808080">
                 <p class="s3" style="padding-top: 4pt;padding-left: 3pt;text-indent: 0pt;text-align: left;">GROSS DEDUCTIONS</p>
             </td>
             <td style="width:152pt;border-top-style:solid;border-top-width:1pt;border-top-color:#808080;border-bottom-style:solid;border-bottom-width:1pt;border-bottom-color:#808080;border-right-style:solid;border-right-width:1pt;border-right-color:#808080">
-                <p class="s3" style="padding-top: 2pt;padding-right: 2pt;text-indent: 0pt;text-align: right;">1,200.00 10,800.00</p>
+                <p class="s3" style="padding-top: 2pt;padding-right: 2pt;text-indent: 0pt;text-align: right;">
+                    <span class="s5" style="padding-right: 10px;font-weight: bold;">@Model.employeeSalary.Deduction_Montly_GROSSSDeduction</span>   <span class="s5" style="padding-right: 3px;font-weight: bold;">@Model.employeeSalary.Deduction_YTD_GROSSSDeduction</span>
+                </p>
             </td>
         </tr>
         <tr style="height:32pt">
@@ -391,7 +396,7 @@
                 <p class="s3" style="padding-top: 6pt;padding-left: 4pt;text-indent: 0pt;text-align: left;">:</p>
             </td>
             <td style="width:89pt;border-top-style:solid;border-top-width:1pt;border-top-color:#808080;border-bottom-style:solid;border-bottom-width:1pt;border-bottom-color:#808080">
-                <p class="s3" style="padding-top: 6pt;padding-right: 4pt;text-indent: 0pt;text-align: right;">33,800/-</p>
+                <p class="s3" style="padding-top: 6pt;padding-right: 4pt;text-indent: 0pt;text-align: right;">@Model.employeeSalary.NETPAY/-</p>
             </td>
             <td style="width:64pt;border-top-style:solid;border-top-width:1pt;border-top-color:#808080;border-bottom-style:solid;border-bottom-width:1pt;border-bottom-color:#808080">
                 <p style="text-indent: 0pt;text-align: left;"><br /></p>
@@ -411,7 +416,7 @@
                 <p class="s3" style="padding-top: 4pt;padding-left: 4pt;text-indent: 0pt;text-align: left;">:</p>
             </td>
             <td style="width:89pt;border-top-style:solid;border-top-width:1pt;border-top-color:#808080;border-bottom-style:solid;border-bottom-width:1pt;border-bottom-color:#808080">
-                <p class="s3" style="padding-top: 4pt;padding-right: 3pt;text-indent: 0pt;text-align: right;">33,800/-</p>
+                <p class="s3" style="padding-top: 4pt;padding-right: 3pt;text-indent: 0pt;text-align: right;">@Model.employeeSalary.NETTRANSFER/-</p>
             </td>
             <td style="width:64pt;border-top-style:solid;border-top-width:1pt;border-top-color:#808080;border-bottom-style:solid;border-bottom-width:1pt;border-bottom-color:#808080">
                 <p style="text-indent: 0pt;text-align: left;"><br /></p>
@@ -431,7 +436,7 @@
                 <p class="s3" style="padding-top: 4pt;padding-left: 3pt;text-indent: 0pt;text-align: left;">:</p>
             </td>
             <td style="width:427pt;border-top-style:solid;border-top-width:1pt;border-top-color:#808080;border-bottom-style:solid;border-bottom-width:1pt;border-bottom-color:#808080;border-right-style:solid;border-right-width:1pt;border-right-color:#808080" colspan="4">
-                <p class="s2" style="padding-top: 4pt;padding-left: 42pt;text-indent: 0pt;text-align: left;">Rupees Thirty three thousand eight hundred only</p>
+                <p class="s2" style="padding-top: 4pt;padding-left: 42pt;text-indent: 0pt;text-align: left;">@Model.employeeSalary.INWords</p>
             </td>
         </tr>
         <tr style="height:160pt">
@@ -440,7 +445,7 @@
             </td>
         </tr>
     </table>
-   
+
     <p style="padding-top: 6pt;padding-left: 59pt;text-indent: 0pt;text-align: left;"><a href="mailto:hr@betalen.in" class="a" target="_blank">*** this is system generated document ,hence singature not requires ,any queries please contact </a><a href="mailto:hr@betalen.in" target="_blank">hr@betalen.in</a></p>
 </body>
 </html>

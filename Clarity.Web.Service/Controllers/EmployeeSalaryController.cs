@@ -71,17 +71,31 @@ namespace Clarity.Web.Service.Controllers
 
         }
         [HttpGet]
-        [Route("FetchEmployeeSalary/{employeeSalaryId?}")]
-        public async Task<EmployeeSalaryModel> FetchEmployeeSalary (long employeeSalaryId)
+        [Route("FetchEmployeeSalaryAsync/{employeeId?}")]
+        public async Task<List<EmployeeSalaryModel>> FetchEmployeeSalaryAsync(long employeeId)
         {
             try
             {
-                var employeeSalary = await _employeeSalaryService.FetchEmployeeSalary(employeeSalaryId);
+                var employeeSalary = await _employeeSalaryService.FetchAllEmployeeSalarys(employeeId);
                  return employeeSalary;
             }
             catch (Exception ex)
             {
                 throw new Exception (ex.Message, ex);
+            }
+        }
+        [HttpGet]
+        [Route("FetchEmployeeSalary/{employeeSalaryId?}")]
+        public async Task<EmployeeSalaryModel> FetchEmployeeSalary(long employeeSalaryId)
+        {
+            try
+            {
+                var employeeSalary = await _employeeSalaryService.FetchEmployeeSalary(employeeSalaryId);
+                return employeeSalary;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message, ex);
             }
         }
     }

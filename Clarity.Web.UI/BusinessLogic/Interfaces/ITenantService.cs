@@ -6,5 +6,6 @@ namespace Clarity.Web.UI.BusinessLogic.Interfaces
     {
         Task<bool> fnRegisterUserAsync(RegisterUser registerUser);
         Task<List<User>> fetchUsers();
+        Task<User> fetchUser(long id);
     }
 }

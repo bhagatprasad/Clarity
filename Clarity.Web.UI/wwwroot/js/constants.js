@@ -6,7 +6,8 @@
     getCities: "/City/fetchAllCities",
     getStates: "/State/LoadStates",
     getUsers: "/Employee/fetchAllEmployess",
-    getFetchUsers: "/Tenant/fetchUsers"
+    getFetchUsers: "/Tenant/fetchUsers",
+    fetchEmployeeSalariesById: "/UserDashBoard/FetchAllEmployeeSalaries"
 };
 
 function generateNextCode(data) {
