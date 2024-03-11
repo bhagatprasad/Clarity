@@ -2,6 +2,7 @@
 using Clarity.Web.UI.BusinessLogic.Interfaces;
 using Clarity.Web.UI.BusinessLogic.Services;
 using Clarity.Web.UI.Models;
+using log4net;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.VisualStudio.Services.Account;
@@ -17,6 +18,7 @@ namespace Clarity.Web.UI.Controllers
         private readonly IDesignationService designationService;
         private readonly IDepartmentService departmentService;
         private readonly IEmployeeSalaryStructureService employeeSalaryStructureService;
+        private static readonly ILog log = LogManager.GetLogger(typeof(EmployeeController));
 
         public EmployeeSalaryController(IEmployeeSalaryService _employeeSalaryService, INotyfService _notyfService,
             IDocumentService documentService,
@@ -41,11 +43,13 @@ namespace Clarity.Web.UI.Controllers
             try
             {
                 var salaries = await employeeSalaryService.FetchAllEmployeeSalaries(null, null, null, null, 0);
+               
                 return Json(new { data = salaries });
             }
             catch (Exception ex)
             {
                 notyfService.Error(ex.Message);
+                log.Error("FetchAllEmployeeSalaries.." + ex);
                 throw ex;
             }
 
@@ -62,6 +66,7 @@ namespace Clarity.Web.UI.Controllers
             catch (Exception ex)
             {
                 notyfService.Error(ex.Message);
+                log.Error("FetchEmployeeSalary.." + ex);
                 throw ex;
             }
         }
@@ -114,6 +119,9 @@ namespace Clarity.Web.UI.Controllers
             catch (Exception ex)
             {
                 notyfService.Error(ex.Message);
+
+                log.Error("DownloadPaySlip.." + ex);
+
                 throw ex;
             }
 

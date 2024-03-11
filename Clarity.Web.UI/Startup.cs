@@ -10,6 +10,9 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json.Serialization;
+using System.Reflection;
+using log4net;
+using log4net.Config;
 
 namespace Clarity.Web.UI
 {
@@ -176,6 +179,10 @@ namespace Clarity.Web.UI
         }
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            var logRepository = LogManager.GetRepository(Assembly.GetEntryAssembly());
+            XmlConfigurator.Configure(logRepository, new FileInfo("log4net.config"));
+
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -183,6 +190,7 @@ namespace Clarity.Web.UI
             else
             {
                 app.UseExceptionHandler("/Home/Error");
+                app.UseHsts();
             }
 
             app.UseExceptionHandlerMiddleware();

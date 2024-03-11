@@ -23,8 +23,10 @@ namespace Clarity.Web.UI.Utility
             }
             catch (Exception ex)
             {
-                _logger.LogError($"An unexpected error occurred: {ex}");
-                await HandleExceptionAsync(context, ex);
+                _logger.LogError(ex, "An unexpected error occurred.");
+                context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
+                context.Response.ContentType = "application/json";
+                await context.Response.WriteAsync("An unexpected error occurred.");
             }
         }
 
