@@ -14,12 +14,6 @@
                         return row.employee.EmployeeCode + "-" + row.employee.FirstName + " " + row.employee.LastName;
                     }
                 },
-                //{
-                //    data: null,
-                //    render: function (data, type, row) {
-                //        return row.employeeSalary.Title;
-                //    }
-                //},
                 {
                     data: null,
                     render: function (data, type, row) {

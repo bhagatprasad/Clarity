@@ -48,12 +48,12 @@ namespace Clarity.Web.Service.Controllers
             }
         }
         [HttpGet]
-        [Route("fetchUser/id")]
-        public async Task<IActionResult> fetchUser(long id)
+        [Route("fetchUser/{userId}")]
+        public async Task<IActionResult> fetchUser(long userId)
         {
             try
             {
-                var responce = await userService.fetchUser(id);
+                var responce = await userService.fetchUser(userId);
 
                 return Ok(responce);
             }

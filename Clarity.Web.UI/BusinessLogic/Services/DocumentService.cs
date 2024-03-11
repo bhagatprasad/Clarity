@@ -57,9 +57,7 @@ namespace Clarity.Web.UI.BusinessLogic.Services
             {
                 PagesCount = true,
                 HtmlContent = htmlContent,
-                WebSettings = { DefaultEncoding = "utf-8" },
-                HeaderSettings = { FontSize = 10, Right = "Page [page] of [toPage]", Line = true },
-                FooterSettings = { FontSize = 8, Center = "PDF demo from JeminPro", Line = true },
+                WebSettings = { DefaultEncoding = "utf-8" }
             };
 
             var htmlToPdfDocument = new HtmlToPdfDocument()

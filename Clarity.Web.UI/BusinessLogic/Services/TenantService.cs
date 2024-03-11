@@ -16,6 +16,18 @@ namespace Clarity.Web.UI.BusinessLogic.Services
             _httpClient = httpClientService.GetHttpClient();
         }
 
+        public async Task<User> fetchUser(long id)
+        {
+            var url = Path.Combine("Tenant/fetchUser", id.ToString());
+            var responce = await _httpClient.GetAsync(url);
+            if (responce.IsSuccessStatusCode)
+            {
+                var content = await responce.Content.ReadAsStringAsync();
+                var contentReqponce = JsonConvert.DeserializeObject<User>(content);
+                return contentReqponce != null ? contentReqponce : new User();
+            }
+            return new User();
+        }
         public async Task<List<User>> fetchUsers()
         {
             var responce = await _httpClient.GetAsync("Tenant/fetchUsers");
