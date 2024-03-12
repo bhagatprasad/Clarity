@@ -1,5 +1,9 @@
 ﻿@model Clarity.Web.UI.Models.PayslipVM
+@{
+    DateTimeOffset dateTimeOffset = Model.employee.StartedOn.HasValue ?Model.employee.StartedOn.Value: DateTimeOffset.Now;
 
+    string formattedDate = dateTimeOffset.ToString("dd-MMMM-yyyy");
+}
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
@@ -101,7 +105,7 @@
             <td style="width:116pt;border-top-style:solid;border-top-width:1pt;border-top-color:#808080;border-left-style:solid;border-left-width:1pt;border-left-color:#808080">
                 <p class="s3" style="padding-top: 7pt;padding-left: 6pt;text-indent: 0pt;text-align: left;">EMPCODE</p>
             </td>
-            <td style="width:12pt;border-top-style:solid;border-top-width:1pt;border-top-color:#808080;border-bottom-style:solid;border-bottom-width:1pt;border-bottom-color:#808080" rowspan="6">
+            <td style="width:12pt;border-top-style:solid;border-top-width:1pt;border-top-color:#808080;" rowspan="6">
                 <p style="text-indent: 0pt;text-align: left;"><br /></p>
             </td>
             <td style="width:139pt;border-top-style:solid;border-top-width:1pt;border-top-color:#808080" colspan="2">
@@ -147,7 +151,7 @@
                 <p class="s3" style="padding-top: 1pt;padding-left: 5pt;text-indent: 0pt;text-align: left;">DOJ</p>
             </td>
             <td style="width:139pt" colspan="2">
-                <p class="s2" style="padding-top: 3pt;padding-left: 5pt;text-indent: 0pt;text-align: left;">: @Model.employee.StartedOn</p>
+                <p class="s2" style="padding-top: 3pt;padding-left: 5pt;text-indent: 0pt;text-align: left;">: @formattedDate</p>
             </td>
             <td style="width:136pt">
                 <p class="s3" style="padding-top: 1pt;padding-left: 13pt;text-indent: 0pt;text-align: left;">LOP DAYS</p>
@@ -170,15 +174,29 @@
                 <p class="s2" style="padding-top: 2pt;padding-left: 5pt;text-indent: 0pt;text-align: left;">: @Model.employeeSalaryStructure.BankName</p>
             </td>
         </tr>
+        <tr style="height:22pt">
+            <td style="width:116pt;border-left-style:solid;border-left-width:1pt;border-left-color:#808080">
+                <p class="s3" style="padding-top: 2pt;padding-left: 6pt;text-indent: 0pt;text-align: left;">UAN</p>
+            </td>
+            <td style="width:139pt" colspan="2">
+                <p class="s2" style="padding-top: 2pt;padding-left: 5pt;text-indent: 0pt;text-align: left;">: @Model.employeeSalaryStructure.UAN</p>
+            </td>
+            <td style="width:136pt">
+                <p class="s3" style="padding-top: 2pt;padding-left: 14pt;text-indent: 0pt;text-align: left;">PF NO</p>
+            </td>
+            <td style="width:152pt;border-right-style:solid;border-right-width:1pt;border-right-color:#808080">
+                <p class="s2" style="padding-top: 2pt;padding-left: 5pt;text-indent: 0pt;text-align: left;">: @Model.employeeSalaryStructure.PFNO</p>
+            </td>
+        </tr>
         <tr style="height:23pt">
             <td style="width:116pt;border-left-style:solid;border-left-width:1pt;border-left-color:#808080;border-bottom-style:solid;border-bottom-width:1pt;border-bottom-color:#808080">
                 <p class="s3" style="padding-top: 2pt;padding-left: 6pt;text-indent: 0pt;text-align: left;">PAN</p>
             </td>
             <td style="width:139pt;border-bottom-style:solid;border-bottom-width:1pt;border-bottom-color:#808080" colspan="2">
-                <p class="s2" style="padding-top: 2pt;padding-left: 6pt;text-indent: 0pt;text-align: left;">: @Model.employeeSalaryStructure.PAN</p>
+                <p class="s2" style="padding-top: 3pt;padding-left: 20pt;text-indent: 0pt;text-align: left;">: @Model.employeeSalaryStructure.PAN</p>
             </td>
-            <td style="width:136pt;border-bottom-style:solid;border-bottom-width:1pt;border-bottom-color:#808080">
-                <p class="s3" style="padding-top: 2pt;padding-left: 14pt;text-indent: 0pt;text-align: left;">ACCOUNT NO</p>
+            <td style="width:136pt;border-bottom-style:solid;border-bottom-width:1pt;border-bottom-color:#808080" colspan="2">
+                <p class="s3" style="padding-top: 2pt;padding-left: 78pt;text-indent: 0pt;text-align: left;">ACCOUNT NO</p>
             </td>
             <td style="width:152pt;border-bottom-style:solid;border-bottom-width:1pt;border-bottom-color:#808080;border-right-style:solid;border-right-width:1pt;border-right-color:#808080">
                 <p class="s2" style="padding-top: 2pt;padding-left: 6pt;text-indent: 0pt;text-align: left;">: @Model.employeeSalaryStructure.BankAccount</p>

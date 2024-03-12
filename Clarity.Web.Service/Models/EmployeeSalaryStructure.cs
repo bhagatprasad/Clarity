@@ -15,6 +15,8 @@ namespace Clarity.Web.Service.Models
         public string BankName { get; set; }
         public string IFSC { get; set; }
         public decimal? BASIC { get; set; }
+        public string UAN { get; set; }
+        public string PFNO { get; set; }
         public decimal? HRA { get; set; }
         public decimal? CONVEYANCE { get; set; }
         public decimal? MEDICALALLOWANCE { get; set; }

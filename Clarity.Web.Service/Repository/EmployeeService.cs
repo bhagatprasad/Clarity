@@ -132,6 +132,8 @@ namespace Clarity.Web.Service.Repository
                             BankName = employee.BankName,
                             IFSC = employee.IFSC,
                             PAN = employee.PAN,
+                            PFNO = employee.PFNO,
+                            UAN = employee.UAN,
                             BASIC = basic,
                             HRA = hra,
                             CONVEYANCE = 0,
