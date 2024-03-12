@@ -20,7 +20,8 @@
         public string BankAccount { get; set; }
         public string BankName { get; set; }
         public string IFSC { get; set; }
-
+        public string UAN { get; set; }
+        public string PFNO { get; set; }
 
     }
 }

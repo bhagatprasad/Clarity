@@ -7,6 +7,8 @@
 	[BankAccount] varchar(max) null,
 	[BankName] varchar(max) null,
 	[IFSC] varchar(max) null,
+	[UAN] varchar(max) null,
+	[PFNO] varchar(max) null,
 	[BASIC] decimal(10,2) NULL,
 	[HRA] decimal(10,2) NULL,
 	[CONVEYANCE]  decimal(10,2) NULL,
