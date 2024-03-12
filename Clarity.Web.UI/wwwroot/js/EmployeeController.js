@@ -383,6 +383,8 @@
             var BankAccount = $("#BankAccount").val();
             var BankName = $("#BankName").val();
             var IFSC = $("#IFSC").val();
+            var UAN = $("#UAN").val();
+            var PFNO = $("#PFNO").val();
             var employeeDetail = {
                 EmployeeId: 0,
                 EmployeeCode: Code,
@@ -424,7 +426,9 @@
                 Adhar: Adhar,
                 BankAccount: BankAccount,
                 BankName: BankName,
-                IFSC: IFSC
+                IFSC: IFSC,
+                UAN: UAN,
+                PFNO: PFNO
             };
 
             $.ajax({
