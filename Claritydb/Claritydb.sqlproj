@@ -81,5 +81,9 @@
     <Build Include="dbo\Tables\EmployeeSalaryStructure.sql" />
     <Build Include="dbo\Tables\EmployeeSalary.sql" />
     <Build Include="dbo\Tables\MonthlySalary.sql" />
+    <Build Include="dbo\Tables\RepotingManager.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Claritydb.publish.xml" />
   </ItemGroup>
 </Project>
