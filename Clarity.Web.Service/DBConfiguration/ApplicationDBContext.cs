@@ -1,4 +1,5 @@
 ﻿using Clarity.Web.Service.Models;
+using Clarity.Web.Service.Repository;
 using Microsoft.EntityFrameworkCore;
 
 namespace Clarity.Web.Service.DBConfiguration
@@ -28,5 +29,7 @@ namespace Clarity.Web.Service.DBConfiguration
         public DbSet<EmployeeSalaryStructure> employeeSalaryStructures { get; set; }
         public DbSet<EmployeeSalary> employeeSalaries { get; set; }
         public DbSet<MonthlySalary> monthlySalaries { get; set; }
+        public DbSet<RepotingManager> reportingManagers { get; set; }
+
     }
 }
