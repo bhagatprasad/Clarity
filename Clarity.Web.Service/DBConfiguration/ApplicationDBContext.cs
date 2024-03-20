@@ -28,5 +28,7 @@ namespace Clarity.Web.Service.DBConfiguration
         public DbSet<EmployeeSalaryStructure> employeeSalaryStructures { get; set; }
         public DbSet<EmployeeSalary> employeeSalaries { get; set; }
         public DbSet<MonthlySalary> monthlySalaries { get; set; }
+        public DbSet<TaskItem> taskItems { get; set; }
+        public DbSet<TaskCode> taskCodes { get; set; }
     }
 }
