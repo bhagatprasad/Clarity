@@ -4,7 +4,6 @@
     {
         public long RepotingManagerId { get; set; }
         public long EmployeeId { get; set; }
-
         public long ManagerId { get; set; }
         public string EmployeeCode { get; set; }
         public string EmployeeEmail { get; set; }

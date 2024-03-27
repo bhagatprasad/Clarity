@@ -46,7 +46,7 @@ namespace Clarity.Web.UI.BusinessLogic.Services
 
         public async Task<List<ReportingManagerVM>> FetchAllReportingManager()
         {
-            var response = await _httpClient.GetAsync("ReportingManager/FetchAllReportingManager");
+            var response = await _httpClient.GetAsync("ReportingManager/fetchAllReportingManagerAsync");
             if(response.IsSuccessStatusCode)
             {
                 var content = await response.Content.ReadAsStringAsync();

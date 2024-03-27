@@ -18,25 +18,15 @@ namespace Clarity.Web.UI.Controllers
 
         public ReportingManagerController(IReportingManagerService _reportingManagerService, INotyfService _notyfService)
         {
-            this.reportingManagerService = _reportingManagerService; 
+            this.reportingManagerService = _reportingManagerService;
             this.notyfService = _notyfService;
         }
-        public async Task< IActionResult> Index()
+        public async Task<IActionResult> Index()
         {
-            try
-            {
-                var responce = await reportingManagerService.FetchAllReportingManager();
-
-                return View(responce);
-            }
-            catch (Exception ex)
-            {
-                notyfService.Error(ex.Message);
-                throw ex;
-            }
+            return View();
         }
         [HttpGet]
-        public async Task<IActionResult> FetchAllReportingManager ()
+        public async Task<IActionResult> FetchAllReportingManager()
         {
             try
             {
@@ -58,14 +48,14 @@ namespace Clarity.Web.UI.Controllers
         {
             try
             {
-                if(reportingManager != null)
+                if (reportingManager != null)
                 {
                     bool response = false;
                     if (reportingManager.ManagerId > 0)
                         response = await reportingManagerService.UpdateReportingManager(reportingManager.EmployeeId, reportingManager);
                     else
                         response = await reportingManagerService.CreateReportingManager(reportingManager);
-                    if(response)
+                    if (response)
                     {
                         if (reportingManager.ManagerId > 0)
                             notyfService.Success("Reporting Manager is updated successfully");
@@ -80,7 +70,7 @@ namespace Clarity.Web.UI.Controllers
                 return Json(false);
 
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 notyfService.Error(ex.Message);
                 log.Error("InsertOrUpdateReportingManager.." + ex);
