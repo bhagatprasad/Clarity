@@ -1,0 +1,31 @@
+﻿<form id="AddOrChangeManagerForm">
+    <div class="modal fade" id="AddOrChangeManagerModal" tabindex="-1" aria-labelledby="AddOrChangeManagerModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-sm" style="max-width: 50% !important;">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="AddOrChangeManagerModalLabel">Add / Change Reporting Manager</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body" style="padding:10px !important">
+                    <input type="hidden" id="MonthlySalaryId" />
+                   
+                    <div class="form-row">
+                        <div class="col-12 mb-3">
+                            <label for="dropdownEmployees" class="form-label">Employee</label>
+                            <select id="dropdownEmployees" class="form-control custom-select" autofocus required></select>
+                        </div>
+                        <div class="col-12 mb-3">
+                            <label for="dropdownManager" class="form-label">Manager</label>
+                            <select id="dropdownManager" class="form-control custom-select" autofocus required></select>
+                        </div>
+                    </div>
+                  
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-success" id="AddOrChangeReportingManager">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

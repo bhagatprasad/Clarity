@@ -64,7 +64,7 @@ namespace Clarity.Web.Service.Repository
                           EmployeeId = employeeInfo != null?employeeInfo.EmployeeId : 0,
                           EmployeeCode = employeeInfo != null?employeeInfo.EmployeeCode : string.Empty,
                           EmployeeEmail = employeeInfo !=null? employeeInfo.Email : string.Empty,
-                          EmployeeName = employeeInfo != null? employeeInfo.FatherName + " " + employeeInfo.LastName : string.Empty,
+                          EmployeeName = employeeInfo != null? employeeInfo.FirstName + " " + employeeInfo.LastName : string.Empty,
                           ManagerId =  managerinfo != null? managerinfo.EmployeeId : 0,
                           ManagerCode = managerinfo != null?managerinfo.EmployeeCode : string.Empty,
                           ManagerEmail = managerinfo != null?managerinfo.Email : string.Empty,
