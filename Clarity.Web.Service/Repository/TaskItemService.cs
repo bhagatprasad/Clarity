@@ -51,11 +51,10 @@ namespace Clarity.Web.Service.Repository
                 taskItem.ModifiedOn = _taskItem.ModifiedOn;
                 taskItem.ModifiedBy = _taskItem.ModifiedBy;
                 taskItem.Code = _taskItem.Code;
-                taskItem.CreatedBy = _taskItem.CreatedBy;
-                taskItem.CreatedOn = _taskItem.CreatedOn;
-                taskItem.IsActive = _taskItem.IsActive;
             }
+
             var response=await dbcontext.SaveChangesAsync();
+
             return response==1?true:false;
         }
         

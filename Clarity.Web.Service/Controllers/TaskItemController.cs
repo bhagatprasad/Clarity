@@ -8,6 +8,7 @@ namespace Clarity.Web.Service.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [ClarityAuthorize]
     public class TaskItemController : ControllerBase
     {
         private readonly ITaskItemService taskItemService;
@@ -69,8 +70,9 @@ namespace Clarity.Web.Service.Controllers
                 throw new HttpRequestExceptionMessage("Error retrieving TaskItem", 500, ex.Message);
             }
         }
-        [Route("{taskItemId}")]
+       
         [HttpPut]
+        [Route("{taskItemId}")]
         public async Task<IActionResult> UpdateTaskItem(long taskItemId, TaskItem taskItem)
         {
             try

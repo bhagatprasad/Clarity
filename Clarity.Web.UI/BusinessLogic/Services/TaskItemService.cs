@@ -9,15 +9,17 @@ namespace Clarity.Web.UI.BusinessLogic.Services
     public class TaskItemService : ITaskItemService
     {
         private readonly HttpClient httpClient;
+
         public TaskItemService(HttpClientService httpClientService)
         {
-            httpClient= httpClientService.GetHttpClient();
+            httpClient = httpClientService.GetHttpClient();
         }
+
         public async Task<bool> CreateTaskItem(TaskItem _taskItem)
         {
             var taskItem = JsonConvert.SerializeObject(_taskItem);
             var requstContent = new StringContent(taskItem, Encoding.UTF8, "application/json");
-            var response = await httpClient.PostAsync("TaskItem",requstContent);
+            var response = await httpClient.PostAsync("TaskItem", requstContent);
             if (response.IsSuccessStatusCode)
             {
                 var content = await response.Content.ReadAsStringAsync();
@@ -34,19 +36,61 @@ namespace Clarity.Web.UI.BusinessLogic.Services
             throw new NotImplementedException();
         }
 
-        public Task<List<TaskItem>> GetAllTaskItems()
+        public async Task<List<TaskItem>> GetAllTaskItems()
         {
-            throw new NotImplementedException();
+            List<TaskItem> taskItems = new List<TaskItem>();
+
+            var responce = await httpClient.GetAsync("TaskItem");
+
+            if (responce.IsSuccessStatusCode)
+            {
+                var content = await responce.Content.ReadAsStringAsync();
+
+                var contentResponce = JsonConvert.DeserializeObject<List<TaskItem>>(content);
+
+                return contentResponce != null ? contentResponce : taskItems;
+            }
+            return taskItems;
         }
 
-        public Task<TaskItem> GetTaskItemById(long TaskItemId)
+        public async Task<TaskItem> GetTaskItemById(long TaskItemId)
         {
-            throw new NotImplementedException();
+            var urlContent = Path.Combine("TaskItem", TaskItemId.ToString());
+
+            var responce = await httpClient.GetAsync(urlContent);
+
+            if (responce.IsSuccessStatusCode)
+            {
+                var content = await responce.Content.ReadAsStringAsync();
+
+                var contentResponce = JsonConvert.DeserializeObject<TaskItem>(content);
+
+                return contentResponce != null ? contentResponce : null;
+            }
+            return null;
         }
 
-        public Task<bool> UpdateTaskItem(long TaskItemId, TaskItem taskItem)
+        public async Task<bool> UpdateTaskItem(long TaskItemId, TaskItem _taskItem)
         {
-            throw new NotImplementedException();
+            var urlContent = Path.Combine("TaskItem", TaskItemId.ToString());
+
+            var taskItem = JsonConvert.SerializeObject(_taskItem);
+
+            var requstContent = new StringContent(taskItem, Encoding.UTF8, "application/json");
+
+            var responce = await httpClient.PutAsync(urlContent, requstContent);
+            
+            if (responce.IsSuccessStatusCode)
+            {
+                var content = await responce.Content.ReadAsStringAsync();
+
+                var responceContent = JsonConvert.DeserializeObject<bool>(content);
+
+                return responceContent ? responceContent : false;
+            }
+
+            return false;
+
         }
     }
 }
