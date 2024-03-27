@@ -62,6 +62,7 @@ namespace Clarity.Web.UI
             services.AddScoped<IChangePasswordService, ChangePasswordService>();
             services.AddScoped<ITenantService, TenantService>();
             services.AddScoped<IEmployeeSalaryStructureService, EmployeeSalaryStructureService>();
+            services.AddScoped<IReportingManagerService, ReportingManagerService>();
             services.AddScoped<ITaskItemService, TaskItemService>();
             services.AddSession(options =>
             {
