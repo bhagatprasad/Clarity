@@ -63,6 +63,7 @@ namespace Clarity.Web.UI
             services.AddScoped<IChangePasswordService, ChangePasswordService>();
             services.AddScoped<ITenantService, TenantService>();
             services.AddScoped<IEmployeeSalaryStructureService, EmployeeSalaryStructureService>();
+            services.AddScoped<IReportingManagerService, ReportingManagerService>();
             services.AddSession(options =>
             {
                 options.IdleTimeout = TimeSpan.FromMinutes(30);

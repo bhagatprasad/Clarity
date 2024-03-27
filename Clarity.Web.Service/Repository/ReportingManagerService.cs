@@ -15,8 +15,10 @@ namespace Clarity.Web.Service.Repository
 
         public async Task<bool> CreateReportingManager(RepotingManager manager)
         {
-            if (manager != null)
+            if (manager != null &&  await context.reportingManagers.AnyAsync(x =>x.EmployeeId != manager.EmployeeId))
+            {
                 await context.reportingManagers.AddAsync(manager);
+            }
             var response = await context.SaveChangesAsync();
 
             return response == 1 ? true : false;

@@ -1,0 +1,72 @@
+﻿@{
+    ViewData["Title"] = "ReportingManager";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+<div class="page-header">
+    <h3 class="page-title">
+        <span class="page-title-icon bg-gradient-primary text-white me-2">
+            <i class="mdi mdi-home"></i>
+        </span> ReportingManager
+    </h3>
+    <nav aria-label="breadcrumb">
+        <ul class="breadcrumb">
+            <li class="breadcrumb-item active" aria-current="page">
+                <a href="@Url.Action("Create","ReportingManager",null)">
+                    <i class="mdi mdi-plus-circle-outline icon-sm text-primary align-middle"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</div>
+<div class="row">
+    <div class="col-12 grid-margin">
+        <div class="card">
+            <div class="card-body">
+                @*  <h4 class="card-title">ReportingManager</h4> *@
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th> ReportingManagerId </th>
+                                <th> EmployeeId </th>
+                                <th> EmployeeName </th>
+                                <th> EmployeeCode </th>
+                                <th> Email </th>
+                                <th> ManagerId </th>
+                                <th> ManagerName </th>
+                                <th> ManagerCode </th>
+                                <th> ManagerEmail </th>
+                                <th> Option </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>
+                                        @item.RepotingManagerId
+                                    </td>
+                                    <td> @item.EmployeeId </td>
+                                    <td>
+                                        @item.EmployeeName
+                                    </td>
+                                    <td> @item.EmployeeCode </td>
+                                    <td> @item.Email </td>
+                                    <td> @item.ManagerId </td>
+                                    <td> @item.ManagerName </td>
+                                    <td> @item.ManagerEmail </td>
+
+
+                                    <td>
+                                        <a href="@Url.Action("Edit","ReportingManager",new {EmployeeId=item.EmployeeId },null)"> <i class="mdi mdi-open-in-new icon-sm text-primary align-middle"></i></a>
+                                    </td>
+                                </tr>
+                            }
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
