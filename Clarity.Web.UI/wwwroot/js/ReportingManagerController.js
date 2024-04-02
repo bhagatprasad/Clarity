@@ -3,32 +3,14 @@
     self.coreEmployeesData = [];
     self.coreManagersData = [];
     self.alreadyAvilableList = [];
+    self.managersList = [];
     var requests = [];
     var actions = [];
     actions.push(serviceUrls.getUsers);
+    actions.push('/ReportingManager/FetchAllReportingManager');
     self.init = function () {
-        for (var i = 0; i < actions.length; i++) {
-            var ajaxConfig = {
-                url: actions[i],
-                method: 'GET',
-            };
-            requests.push($.ajax(ajaxConfig));
-        }
-        $.when.apply($, requests).done(function () {
-            var responses = arguments;
-            if (responses[0] && responses[0].data) {
-                responses[0].data.forEach(function (item) {
-                    self.coreEmployeesData.push(item.employee);
-                    self.coreManagersData.push(item.employee);
-                    self.alreadyAvilableList.push(item.employee);
-                });
-            }
-            self.loadEmployeesDropdown(self.coreEmployeesData);
-            self.loadManagersDropdown(self.coreManagersData);
-            console.log(responses);
-        }).fail(function () {
-            console.log('One or more requests failed.');
-        });
+        var form = $('#AddOrChangeManagerForm');
+        var signUpButton = $('#AddOrChangeReportingManager');
         var reposrtingManagerGrid = $('#ReportingManagerGrid').DataTable({
             ajax: {
                 url: '/ReportingManager/FetchAllReportingManager',
@@ -53,7 +35,7 @@
                 {
                     data: null,
                     render: function (data, type, row) {
-                        return '<i class="fas fa fa-edit icon-padding-right"  style="font-size:25px;color:blue" data-id="' + row.RepotingManagerId + '" ></i>';
+                        return '<i class="fas fa fa-unlink icon-padding-right"  style="font-size:25px;color:blue" data-id="' + row.RepotingManagerId + '" ></i>';
                     }
                 }
             ],
@@ -62,7 +44,56 @@
             "order": [[0, "asc"]],
             "pageLength": 20
         });
+        for (var i = 0; i < actions.length; i++) {
+            var ajaxConfig = {
+                url: actions[i],
+                method: 'GET',
+            };
+            requests.push($.ajax(ajaxConfig));
+        }
+        $.when.apply($, requests).done(function () {
+            var responses = arguments;
+            if (responses[0][0] && responses[0][0].data) {
+                responses[0][0].data.forEach(function (item) {
+                    self.coreEmployeesData.push(item.employee);
+                    self.coreManagersData.push(item.employee);
+                    self.alreadyAvilableList.push(item.employee);
+                });
+            }
 
+          
+            self.loadManagersDropdown(self.coreManagersData);
+            self.managersList = responses[1][0] && responses[1][0].data ? responses[1][0].data : [];
+
+            //loading employee dropdonw which is not avilable in managers list
+            if (self.coreEmployeesData && self.managersList) {
+                var mainArray = $.grep(self.coreEmployeesData, function (mainUser) {
+                    return $.grep(self.managersList, function (userToRemove) {
+                        return userToRemove.EmployeeId === mainUser.EmployeeId;
+                    }).length === 0;
+                });
+
+                self.loadEmployeesDropdown(mainArray);
+            } else {
+                self.loadEmployeesDropdown(self.coreEmployeesData);
+            }
+
+            console.log(responses);
+        }).fail(function () {
+            console.log('One or more requests failed.');
+        });
+
+        form.on('input', 'input, select, textarea', checkFormValidity);
+
+        checkFormValidity();
+
+        function checkFormValidity() {
+            if (form[0].checkValidity()) {
+                signUpButton.prop('disabled', false);
+            } else {
+                signUpButton.prop('disabled', true);
+            }
+        }
         $(document).on("click", "#addReportingManager", function () {
             $("#AddOrChangeManagerModal").modal("show");
         })
@@ -109,6 +140,56 @@
         $(document).on("change", "#dropdownEmployees", function () {
             var employee = $(this).val();
             console.log(employee);
+            self.loadManagersDropdownBasedOnEmployee(getManagersBasedOnEmployee(parseInt(employee)));
+
         });
+        $(document).on("click", ".fa-unlink", function () {
+            var data = $(this);
+            var row = data.closest('tr');
+            var dataItem = reposrtingManagerGrid.row(row).data();
+            console.log(dataItem);
+
+            self.loadEmployeesDropdown(self.coreEmployeesData);
+
+            $("#dropdownEmployees").val(dataItem.EmployeeId);
+            $("#dropdownEmployees").prop('disabled', true);
+            $("#AddOrChangeManagerModal").modal('show');
+        });
+        $(document).on("click", "#closeBtn", function () {
+            $('#dropdownEmployees').prop('selectedIndex', 0);
+            $('#dropdownManager').prop('selectedIndex', 0);
+            $("#dropdownEmployees").prop('disabled', false);
+            $("#AddOrChangeManagerModal").modal('show');
+        });
+        self.loadManagersDropdownBasedOnEmployee = function (response) {
+            var $dropdown = $('#dropdownManager');
+            $dropdown.empty();
+
+            var $defaultOption = $('<option>', {
+                value: '',
+                text: 'Select an Manager'
+            });
+            $dropdown.append($defaultOption);
+
+            response.forEach(function (item) {
+                var $option = $('<option>', {
+                    value: item.EmployeeId,
+                    text: item.FirstName + " " + item.LastName + " (" + item.EmployeeCode + "-" + item.Email + " )"
+                });
+                $dropdown.append($option);
+            });
+            $dropdown.dropdown();
+        }
+    };
+    function getManagersBasedOnEmployee(employeeId) {
+
+        var managers = [];
+        if (employeeId) {
+            managers = (self.coreManagersData) ? self.coreManagersData.filter(x => x.EmployeeId != employeeId) : [];
+        }
+        else {
+            managers = self.coreManagersData;
+        }
+        return managers;
     };
 }
