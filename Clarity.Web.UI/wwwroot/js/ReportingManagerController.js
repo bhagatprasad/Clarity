@@ -1,5 +1,6 @@
 ﻿function ReportingManagerController() {
     var self = this;
+    self.ApplicationUser = {};
     self.coreEmployeesData = [];
     self.coreManagersData = [];
     self.alreadyAvilableList = [];
@@ -9,6 +10,10 @@
     actions.push(serviceUrls.getUsers);
     actions.push('/ReportingManager/FetchAllReportingManager');
     self.init = function () {
+        var appuser = storageService.get("ApplicationUser");
+        if (appuser) {
+            self.ApplicationUser = appuser;
+        }
         var form = $('#AddOrChangeManagerForm');
         var signUpButton = $('#AddOrChangeReportingManager');
         var reposrtingManagerGrid = $('#ReportingManagerGrid').DataTable({
@@ -61,7 +66,7 @@
                 });
             }
 
-          
+
             self.loadManagersDropdown(self.coreManagersData);
             self.managersList = responses[1][0] && responses[1][0].data ? responses[1][0].data : [];
 
@@ -143,14 +148,48 @@
             self.loadManagersDropdownBasedOnEmployee(getManagersBasedOnEmployee(parseInt(employee)));
 
         });
+
+        $(document).on("click", "#AddOrChangeReportingManager", function () {
+            var employeeId = $('#dropdownEmployees').val();
+            var managerId = $('#dropdownManager').val();
+            var repotingManagerId = $("#RepotingManagerId").val();
+
+            var resportingManager = {
+                RepotingManagerId: repotingManagerId ? parseInt(repotingManagerId) : 0,
+                EmployeeId: parseInt(employeeId),
+                ManagerId: parseInt(managerId),
+                CreatedOn: new Date(),
+                CreatedBy: self.ApplicationUser?self.ApplicationUser.Id:1,
+                ModifiedOn: new Date(),
+                ModifiedBy: self.ApplicationUser ? self.ApplicationUser.Id : 1,
+                IsActive: true
+            };
+            $.ajax({
+                url: '/ReportingManager/AddEditReportingManager',
+                data: JSON.stringify(resportingManager),
+                type: "POST",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                processData: true,
+                cache: false,
+                success: function (response) {
+                    $('#AddOrChangeManagerModal').modal('hide');
+                    $("#AddOrChangeManagerForm")[0].reset();
+                    reposrtingManagerGrid.ajax.reload();
+                    $(".se-pre-con").hide();
+                },
+                error: function (xhr, status, error) {
+                    console.error(error);
+                }
+            });
+        });
         $(document).on("click", ".fa-unlink", function () {
             var data = $(this);
             var row = data.closest('tr');
             var dataItem = reposrtingManagerGrid.row(row).data();
             console.log(dataItem);
-
             self.loadEmployeesDropdown(self.coreEmployeesData);
-
+            $("#RepotingManagerId").val(parseInt(dataItem.RepotingManagerId));
             $("#dropdownEmployees").val(dataItem.EmployeeId);
             $("#dropdownEmployees").prop('disabled', true);
             $("#AddOrChangeManagerModal").modal('show');
@@ -159,6 +198,7 @@
             $('#dropdownEmployees').prop('selectedIndex', 0);
             $('#dropdownManager').prop('selectedIndex', 0);
             $("#dropdownEmployees").prop('disabled', false);
+            $("#RepotingManagerId").val('');
             $("#AddOrChangeManagerModal").modal('show');
         });
         self.loadManagersDropdownBasedOnEmployee = function (response) {

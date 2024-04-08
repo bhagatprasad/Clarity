@@ -13,11 +13,32 @@ namespace Clarity.Web.Service.Repository
             this.context = dBContext;
         }
 
-        public async Task<bool> CreateReportingManager(RepotingManager manager)
+        public async Task<bool> CreateReportingManager(RepotingManager reportingManager)
         {
-            if (manager != null &&  await context.reportingManagers.AnyAsync(x =>x.EmployeeId != manager.EmployeeId))
+            var alredyExists = await context.reportingManagers.AnyAsync(x => x.EmployeeId == reportingManager.EmployeeId);
+
+            if (reportingManager != null)
             {
-                await context.reportingManagers.AddAsync(manager);
+                if (alredyExists)
+                {
+                    var managers = await context.reportingManagers.FindAsync(reportingManager.RepotingManagerId);
+
+                    if (managers != null)
+                    {
+                        managers.EmployeeId = reportingManager.EmployeeId;
+                        managers.ManagerId = reportingManager.ManagerId;
+                        managers.CreatedOn = DateTime.Now;
+                        managers.CreatedBy = reportingManager.CreatedBy;
+                        managers.ModifiedOn = DateTime.Now;
+                        managers.ModifiedBy = reportingManager.ModifiedBy;
+                        managers.IsActive = reportingManager.IsActive;
+                    }
+                }
+                else
+                {
+                    await context.reportingManagers.AddAsync(reportingManager);
+                }
+               
             }
             var response = await context.SaveChangesAsync();
 
@@ -54,21 +75,23 @@ namespace Clarity.Web.Service.Repository
         {
             var manager = new List<ReportingManagerVM>();
             manager = (from reporting in context.reportingManagers.Where(x => x.IsActive == true)
-                       join employee in context.employees.Where(x =>x.IsActive== true) on
-                       reporting.EmployeeId equals employee.EmployeeId into employeejoin from employeeInfo in employeejoin.DefaultIfEmpty()
-                       join repomanager in context.employees.Where(x =>x.IsActive == true) on 
-                       reporting.EmployeeId equals repomanager.EmployeeId into managerjoin from managerinfo in managerjoin.DefaultIfEmpty()
+                       join employee in context.employees.Where(x => x.IsActive == true) on
+                       reporting.EmployeeId equals employee.EmployeeId into employeejoin
+                       from employeeInfo in employeejoin.DefaultIfEmpty()
+                       join repomanager in context.employees.Where(x => x.IsActive == true) on
+                       reporting.ManagerId equals repomanager.EmployeeId into managerjoin
+                       from managerinfo in managerjoin.DefaultIfEmpty()
                        select new ReportingManagerVM
                        {
-                          RepotingManagerId = reporting.RepotingManagerId,
-                          EmployeeId = employeeInfo != null?employeeInfo.EmployeeId : 0,
-                          EmployeeCode = employeeInfo != null?employeeInfo.EmployeeCode : string.Empty,
-                          EmployeeEmail = employeeInfo !=null? employeeInfo.Email : string.Empty,
-                          EmployeeName = employeeInfo != null? employeeInfo.FirstName + " " + employeeInfo.LastName : string.Empty,
-                          ManagerId =  managerinfo != null? managerinfo.EmployeeId : 0,
-                          ManagerCode = managerinfo != null?managerinfo.EmployeeCode : string.Empty,
-                          ManagerEmail = managerinfo != null?managerinfo.Email : string.Empty,
-                          ManagerName = managerinfo != null?managerinfo.FirstName + " "+ managerinfo.LastName : string.Empty
+                           RepotingManagerId = reporting.RepotingManagerId,
+                           EmployeeId = employeeInfo != null ? employeeInfo.EmployeeId : 0,
+                           EmployeeCode = employeeInfo != null ? employeeInfo.EmployeeCode : string.Empty,
+                           EmployeeEmail = employeeInfo != null ? employeeInfo.Email : string.Empty,
+                           EmployeeName = employeeInfo != null ? employeeInfo.FirstName + " " + employeeInfo.LastName : string.Empty,
+                           ManagerId = managerinfo != null ? managerinfo.EmployeeId : 0,
+                           ManagerCode = managerinfo != null ? managerinfo.EmployeeCode : string.Empty,
+                           ManagerEmail = managerinfo != null ? managerinfo.Email : string.Empty,
+                           ManagerName = managerinfo != null ? managerinfo.FirstName + " " + managerinfo.LastName : string.Empty
 
                        }).ToList();
             return manager;
