@@ -15,11 +15,12 @@ namespace Clarity.Web.UI.Controllers
         private readonly IReportingManagerService reportingManagerService;
         private readonly INotyfService notyfService;
         private static readonly ILog log = LogManager.GetLogger(typeof(ReportingManagerController));
-
-        public ReportingManagerController(IReportingManagerService _reportingManagerService, INotyfService _notyfService)
+        private readonly IEmployeeService employeeService;
+        public ReportingManagerController(IReportingManagerService _reportingManagerService, INotyfService _notyfService, IEmployeeService employeeService)
         {
             this.reportingManagerService = _reportingManagerService;
             this.notyfService = _notyfService;
+            this.employeeService = employeeService;
         }
         public async Task<IActionResult> Index()
         {
@@ -61,9 +62,13 @@ namespace Clarity.Web.UI.Controllers
                             notyfService.Success("Reporting Manager is updated successfully");
                         else
                             notyfService.Success("Reporting Manager is created successfully");
-                        return Json(true);
+
+                        var employees = await employeeService.fetchAllEmployeesAsync();
+
+                        return Json(new { data = employees });
                     }
                     notyfService.Warning("Something Went Wrong");
+
                     return Json(response);
                 }
                 notyfService.Warning("Something Went Wrong ");
