@@ -51,11 +51,7 @@ namespace Clarity.Web.UI.Controllers
             {
                 if (reportingManager != null)
                 {
-                    bool response = false;
-                    if (reportingManager.ManagerId > 0)
-                        response = await reportingManagerService.UpdateReportingManager(reportingManager.EmployeeId, reportingManager);
-                    else
-                        response = await reportingManagerService.CreateReportingManager(reportingManager);
+                    bool response = await reportingManagerService.CreateReportingManager(reportingManager);
                     if (response)
                     {
                         if (reportingManager.ManagerId > 0)

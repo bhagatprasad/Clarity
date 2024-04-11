@@ -116,7 +116,7 @@ namespace Clarity.Web.Service.Repository
                     }
 
                     return null;
-                   
+
                 }
                 else
                 {
@@ -126,6 +126,39 @@ namespace Clarity.Web.Service.Repository
             catch (Exception ex)
             {
 
+                throw ex;
+            }
+        }
+
+        public async Task<ApplicationUser> ForgotPassword(string userName)
+        {
+            ApplicationUser applicationUser = new ApplicationUser();
+
+            try
+            {
+                if (!string.IsNullOrEmpty(userName))
+                {
+                    var dbUser = await dbcontext.users.Where(x => x.IsActive == true && (x.Email.ToLower().Trim() == userName.ToLower().Trim() || x.Phone.Trim() == userName.ToLower().Trim())).FirstOrDefaultAsync();
+
+                    if (dbUser != null)
+                    {
+                        return new ApplicationUser()
+                        {
+                            Id = dbUser.Id,
+                            FirstName = dbUser.FirstName,
+                            LastName = dbUser.LastName,
+                            Email = dbUser.Email,
+                            Phone = dbUser.Phone,
+                            DepartmentId = dbUser.DepartmentId,
+                            RoleId = dbUser.RoleId
+
+                        };
+                    }
+                }
+                return applicationUser;
+            }
+            catch (Exception ex)
+            {
                 throw ex;
             }
         }

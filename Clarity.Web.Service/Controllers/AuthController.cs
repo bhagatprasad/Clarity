@@ -45,5 +45,19 @@ namespace Clarity.Web.Service.Controllers
                 throw ex;
             }
         }
+        [HttpGet]
+        [Route("ForgotPassword/{userName}")]
+        public async Task<IActionResult>ForgotPassword(string userName)
+        {
+            try
+            {
+                var response = await authService.ForgotPassword(userName);
+                return Ok(response);
+            }
+            catch(Exception ex)
+            {
+                throw ex;
+            }
+        }
     }
 }

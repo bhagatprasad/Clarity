@@ -81,12 +81,12 @@
         });
 
         $(document).on("click", "#btnForgotPassword", function () {
-            var email = $("#email").val();
-            var phone = $("#phone").val();
+            var email = $("#forgotPasswordUsername").val();
+            var phone = $("#fotgotPasswordPhone").val();
             $.ajax({
                 url: '/Password/ForgotPassword',
                 type: 'GET',
-                data: { email: JSON.stringify(email), phone: JSON.stringify(phone) },
+                data: { email: email, phone: phone },
                 success: function (responce) {
                     self.userResponceData = responce && responce.data ? responce.data : {};
                     $('#ForgotPasswordModal').modal("hide");
