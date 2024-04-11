@@ -1,8 +1,6 @@
-﻿namespace Clarity.Web.UI.Models
+﻿namespace Clarity.Web.Service.Models
 {
     public class ChangePassword : ResetPassword
     {
-
-
     }
 }

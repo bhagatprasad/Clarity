@@ -162,5 +162,35 @@ namespace Clarity.Web.Service.Repository
                 throw ex;
             }
         }
+
+        public async Task<bool> ResetPasswordAsync(ResetPassword resetPassword)
+        {
+            try
+            {
+                var dbUser = await dbcontext.users.FindAsync(resetPassword.UserId);
+                if (dbUser != null)
+                {
+                    if (!string.IsNullOrEmpty(resetPassword.NewPassword))
+                    {
+                        HashSalt hashSalt = HashSalt.GenerateSaltedHash(resetPassword.NewPassword);
+                        dbUser.PasswordHash = hashSalt.Hash;
+                        dbUser.PasswordSalt = hashSalt.Salt;
+                        dbUser.PasswordLastChangedBY = resetPassword.UserId;
+                        dbUser.ModifiedBy = resetPassword.UserId;
+                        dbUser.ModifiedOn = DateTimeOffset.Now;
+
+                    }
+
+                    var responce = await dbcontext.SaveChangesAsync();
+
+                    return responce == 1 ? true : false;
+                }
+                return false;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
     }
 }
