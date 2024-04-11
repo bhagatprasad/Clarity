@@ -12,7 +12,7 @@ namespace Clarity.Web.Service.Controllers
     public class ReportingManagerController : ControllerBase
     {
         private readonly IReportingManager reportingManager;
-        public ReportingManagerController(IReportingManager _reportingManager) 
+        public ReportingManagerController(IReportingManager _reportingManager)
         {
             this.reportingManager = _reportingManager;
         }
@@ -72,8 +72,6 @@ namespace Clarity.Web.Service.Controllers
             {
                 await reportingManager.UpdateReportingManager(employeeId, repoManager);
                 return Ok(true);
-                var data = await reportingManager.UpdateReportingManager(employeeId, repoManager);
-                return Ok(new HttpRequestResponseMessage<bool>(data));
             }
             catch (Exception ex)
             {

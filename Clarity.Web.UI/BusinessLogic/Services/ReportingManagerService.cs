@@ -20,7 +20,7 @@ namespace Clarity.Web.UI.BusinessLogic.Services
         {
             var repomanager = JsonConvert.SerializeObject(manager);
             var requestContent = new StringContent(repomanager,Encoding.UTF8,"application/json");
-            var response = await _httpClient.PostAsync("ReportingManager/CreateReportingManager", requestContent);
+            var response = await _httpClient.PostAsync("ReportingManager/InsertReportingManagerAsync", requestContent);
             if(response.IsSuccessStatusCode)
             {
                 var content = await response.Content.ReadAsStringAsync();

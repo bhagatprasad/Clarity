@@ -46,8 +46,8 @@
             ],
             responsive: false,
             serverSide: false,
-            "order": [[0, "asc"]],
-            "pageLength": 20
+            paging: false,
+            scrollY: '400px'
         });
         for (var i = 0; i < actions.length; i++) {
             var ajaxConfig = {
@@ -176,6 +176,27 @@
                     $('#AddOrChangeManagerModal').modal('hide');
                     $("#AddOrChangeManagerForm")[0].reset();
                     reposrtingManagerGrid.ajax.reload();
+                    if (response[0] && response[0].data) {
+                        response[0].data.forEach(function (item) {
+                            self.coreEmployeesData.push(item.employee);
+                            self.coreManagersData.push(item.employee);
+                            self.alreadyAvilableList.push(item.employee);
+                        });
+                    }
+                    self.loadManagersDropdown(self.coreManagersData);
+                    self.managersList = reposrtingManagerGrid.data();
+                    
+                    if (self.coreEmployeesData && self.managersList) {
+                        var mainArray = $.grep(self.coreEmployeesData, function (mainUser) {
+                            return $.grep(self.managersList, function (userToRemove) {
+                                return userToRemove.EmployeeId === mainUser.EmployeeId;
+                            }).length === 0;
+                        });
+
+                        self.loadEmployeesDropdown(mainArray);
+                    } else {
+                        self.loadEmployeesDropdown(self.coreEmployeesData);
+                    }
                     $(".se-pre-con").hide();
                 },
                 error: function (xhr, status, error) {
@@ -192,6 +213,7 @@
             $("#RepotingManagerId").val(parseInt(dataItem.RepotingManagerId));
             $("#dropdownEmployees").val(dataItem.EmployeeId);
             $("#dropdownEmployees").prop('disabled', true);
+            $('#dropdownManager').val(dataItem.ManagerId);
             $("#AddOrChangeManagerModal").modal('show');
         });
         $(document).on("click", "#closeBtn", function () {

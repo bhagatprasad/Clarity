@@ -6,5 +6,6 @@ namespace Clarity.Web.Service.Interfaces
     {
        Task<AuthResponse> AuthenticateUser(string username, string password);
         Task<ApplicationUser> GenarateUserClaims(AuthResponse authResponse);
+        Task<ApplicationUser> ForgotPassword(string userName);
     }
 }
