@@ -82,6 +82,7 @@
     <Build Include="dbo\Tables\EmployeeSalary.sql" />
     <Build Include="dbo\Tables\MonthlySalary.sql" />
     <Build Include="dbo\Tables\RepotingManager.sql" />
+    <Build Include="dbo\Tables\HolidayCallender.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Claritydb.publish.xml" />
