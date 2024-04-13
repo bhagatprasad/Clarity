@@ -19,6 +19,7 @@ namespace Clarity.Web.Service.Controllers
         }
 
         [HttpGet]
+        [Route("fetchAllHolidayCallendersAsync")]
         public async Task<ActionResult<List<HolidayCallender>>> GetAllHolidayCallendersAsync()
         {
             try
@@ -32,7 +33,8 @@ namespace Clarity.Web.Service.Controllers
             }
         }
 
-        [HttpGet("{year}")]
+        [HttpGet]
+        [Route("fetchAllHolidayCallendersAsync/{year}")]
         public async Task<ActionResult<List<HolidayCallender>>> GetHolidayCallendersByYearAsync(int year)
         {
             try
@@ -47,6 +49,7 @@ namespace Clarity.Web.Service.Controllers
         }
 
         [HttpPost]
+        [Route("InsertOrUpdateHolidayCallenderAsync")]
         public async Task<ActionResult> InsertOrUpdateHolidayCallenderAsync(HolidayCallender holidayCallender)
         {
             try
