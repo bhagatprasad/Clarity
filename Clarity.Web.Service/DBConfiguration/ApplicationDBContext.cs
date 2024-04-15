@@ -33,5 +33,6 @@ namespace Clarity.Web.Service.DBConfiguration
         public DbSet<TaskCode> taskCodes { get; set; }
         public DbSet<RepotingManager> reportingManagers { get; set; }
         public DbSet<HolidayCallender> holidayCallenders { get; set; }
+        public DbSet<DocumentType> documentTypes { get; set; }
     }
 }
