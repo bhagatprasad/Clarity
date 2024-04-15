@@ -7,7 +7,8 @@
     getStates: "/State/LoadStates",
     getUsers: "/Employee/fetchAllEmployess",
     getFetchUsers: "/Tenant/fetchUsers",
-    fetchEmployeeSalariesById: "/UserDashBoard/FetchAllEmployeeSalaries"
+    fetchEmployeeSalariesById: "/UserDashBoard/FetchAllEmployeeSalaries",
+    fetchDocumentTypes: "/DocumentType/FetchDocumentTypes"
 };
 
 function generateNextCode(data) {

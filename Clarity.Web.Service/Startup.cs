@@ -58,6 +58,7 @@ namespace Clarity.Web.Service
             services.AddScoped<IReportingManager, ReportingManagerService>();
             services.AddScoped<ITaskCodeService, TaskCodeService>();
             services.AddScoped<IHolidayCallenderService, HolidayCallenderService>();
+            services.AddScoped<IDocumentTypeService, DocumentTypeService>();
             services.AddCors(options =>
             {
                 options.AddPolicy("CorsPolicy",
