@@ -545,51 +545,53 @@
                 }
             });
         });
+
+        self.resetMasterForm = function () {
+            $("#Code").val("");
+            $("#FirstName").val("");
+            $("#LastName").val("");
+            $("#MotherName").val("");
+            $("#FatherName").val("");
+            $('#Gender').prop('selectedIndex', 0);
+            $("#DateOfBirth").val("");
+            $("#Email").val("");
+            $("#Phone").val("");
+            $('#Role').prop('selectedIndex', 0);
+            $('#Department').prop('selectedIndex', 0);
+            $('#Designation').prop('selectedIndex', 0);
+            $("#StartedOn").val("");
+            $("#EndedOn").val("");
+            $("#ResignedOn").val("");
+            $("#LastWorkingDay").val("");
+            $("#OfferRelesedOn").val("");
+            $("#OfferAcceptedOn").val("");
+            $("#OfferPrice").val("");
+            $("#CurrentPrice").val("");
+            $("#JoiningBonus").val("");
+            $("#PAN").val("");
+            $("#Adhar").val("");
+            $("#BankAccount").val("");
+            $("#BankName").val("");
+            $("#IFSC").val("");
+
+            self.employeeEducations = [];
+            educationGrid.clear().rows.add(self.employeeEducations).draw();
+            educationGrid.draw();
+
+            self.employeeEmployments = [];
+            employmentGrid.clear().rows.add(self.employeeEmployments).draw();
+            employmentGrid.draw();
+
+            self.employeeAddresses = [];
+            employeeAddressGrid.clear().rows.add(self.employeeAddresses).draw();
+            employeeAddressGrid.draw();
+
+            self.employeeEmergencyContacts = [];
+            contactsGrid.clear().rows.add(self.employeeEmergencyContacts).draw();
+            contactsGrid.draw();
+        };
     };
-    self.resetMasterForm = function () {
-        $("#Code").val("");
-        $("#FirstName").val("");
-        $("#LastName").val("");
-        $("#MotherName").val("");
-        $("#FatherName").val("");
-        $('#Gender').prop('selectedIndex', 0);
-        $("#DateOfBirth").val("");
-        $("#Email").val("");
-        $("#Phone").val("");
-        $('#Role').prop('selectedIndex', 0);
-        $('#Department').prop('selectedIndex', 0);
-        $('#Designation').prop('selectedIndex', 0);
-        $("#StartedOn").val("");
-        $("#EndedOn").val("");
-        $("#ResignedOn").val("");
-        $("#LastWorkingDay").val("");
-        $("#OfferRelesedOn").val("");
-        $("#OfferAcceptedOn").val("");
-        $("#OfferPrice").val("");
-        $("#CurrentPrice").val("");
-        $("#JoiningBonus").val("");
-        $("#PAN").val("");
-        $("#Adhar").val("");
-        $("#BankAccount").val("");
-        $("#BankName").val("");
-        $("#IFSC").val("");
-
-        self.employeeEducations = [];
-        educationGrid.clear().rows.add(self.employeeEducations).draw();
-        educationGrid.draw();
-
-        self.employeeEmployments = [];
-        employmentGrid.clear().rows.add(self.employeeEmployments).draw();
-        employmentGrid.draw();
-
-        self.employeeAddresses = [];
-        employeeAddressGrid.clear().rows.add(self.employeeAddresses).draw();
-        employeeAddressGrid.draw();
-
-        self.employeeEmergencyContacts = [];
-        contactsGrid.clear().rows.add(self.employeeEmergencyContacts).draw();
-        contactsGrid.draw();
-    };
+   
     function getStatesBasedOnCountry(country) {
 
         var states = [];
