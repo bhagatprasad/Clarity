@@ -6,6 +6,9 @@
     self.employeeSalaries = [];
     self.ApplicationUser = {};
     actions.push(serviceUrls.fetchEmployeeSalariesById);
+    actions.push(serviceUrls.fetchOfferLetter);
+    actions.push(serviceUrls.fetchAllHikesLetters);
+    actions.push(serviceUrls.fetchAllFormSixteensLetters);
     self.init = function () {
         var appuser = storageService.get("ApplicationUser");
         if (appuser) {
@@ -19,24 +22,28 @@
             };
 
             ajaxConfig.data = dataObjects[0];
-            
+
             requests.push($.ajax(ajaxConfig));
         }
         $.when.apply($, requests).done(function () {
             var responses = arguments;
-
-            if (responses[0] && responses[0].data) {
-                responses[0].data.forEach(function (item) {
+            console.log(responses);
+            if (responses[0][0] && responses[0][0].data) {
+                responses[0][0].data.forEach(function (item) {
                     self.employeeSalaries.push(item.employeeSalary);
                 });
             }
             console.log(self.employeeSalaries);
             self.loadPayslipDropdown(self.employeeSalaries);
+            self.loadOfferLetterDropdown(responses[1][0].data);
+            self.loadHikeLetterDropdown(responses[2][0].data);
+            self.loadForm16LetterDropdown(responses[3][0].data);
         }).fail(function () {
             console.log('One or more requests failed.');
         });
         populateDropdownOptions();
-        populatedropdownFormSixteenOptions();
+       // populatedropdownFormSixteenOptions();
+
     };
     function populateDropdownOptions() {
         var currentYear = new Date().getFullYear();
@@ -45,11 +52,11 @@
 
         for (var year = endYear; year >= startYear; year--) {
             var optionText = 'FY ' + year + '-' + (year + 1).toString().slice(2); // e.g., "FY 2022-23"
-            $('#dropdownFormSixteen,#dropdownHikeLetter').append(`<option value="${year}">${optionText}</option>`);
+            $('#dropdownFormSixteen').append(`<option value="${year}">${optionText}</option>`);
         }
     }
     function populatedropdownFormSixteenOptions() {
-        var currentYear = new Date().getFullYear()-1;
+        var currentYear = new Date().getFullYear() - 1;
         var months = [
             'January', 'February', 'March', 'April', 'May', 'June',
             'July', 'August', 'September', 'October', 'November', 'December'
@@ -65,6 +72,22 @@
             });
         }
     }
+    $(document).on("change", "#dropdownOfferLetter,#dropdownHikeLetter,#dropdownFormSixteen", function (event) {
+        console.log(event);
+        event.preventDefault();
+        var documentPath = $(this).val();
+        $.ajax({
+            url: '/UserDashBoard/DownloadEmployeeDocument',
+            type: 'GET',
+            data: { relativeFilePath: documentPath },
+            success: function (status) {
+                window.location.href = "/UserDashBoard/DownloadEmployeeDocument?relativeFilePath=" + documentPath;
+            },
+            error: function (error) {
+                console.error('Error:', error);
+            }
+        });
+    });
     $(document).on("change", "#dropdownPayslipMonth", function (event) {
         console.log(event);
         event.preventDefault();
@@ -81,6 +104,8 @@
                 console.error('Error:', error);
             }
         });
+
+
     });
     self.loadPayslipDropdown = function (response) {
         var $dropdown = $('#dropdownPayslipMonth');
@@ -90,7 +115,7 @@
             value: '',
             text: 'Choose month and year',
             selected: true,
-            disabled: true 
+            disabled: true
         });
         $dropdown.append($defaultOption);
         response.forEach(function (item) {
@@ -104,4 +129,73 @@
 
 
     };
+    self.loadOfferLetterDropdown = function (response) {
+        var $dropdown = $('#dropdownOfferLetter');
+        $dropdown.empty();
+
+        var $defaultOption = $('<option>', {
+            value: '',
+            text: 'Choose offer letter',
+            selected: true,
+            disabled: true
+        });
+        $dropdown.append($defaultOption);
+        response.forEach(function (item) {
+            var $option = $('<option>', {
+                value: item.DocumentPath,
+                text: item.DocumentName
+            });
+            $dropdown.append($option);
+        });
+        $dropdown.dropdown();
+
+
+    };
+
+    self.loadHikeLetterDropdown = function (response) {
+        var $dropdown = $('#dropdownHikeLetter');
+        $dropdown.empty();
+
+        var $defaultOption = $('<option>', {
+            value: '',
+            text: 'Choose hike letter',
+            selected: true,
+            disabled: true
+        });
+        $dropdown.append($defaultOption);
+        response.forEach(function (item) {
+            var $option = $('<option>', {
+                value: item.DocumentPath,
+                text: item.DocumentName
+            });
+            $dropdown.append($option);
+        });
+        $dropdown.dropdown();
+
+
+    };
+
+    self.loadForm16LetterDropdown = function (response) {
+        var $dropdown = $('#dropdownFormSixteen');
+        $dropdown.empty();
+
+        var $defaultOption = $('<option>', {
+            value: '',
+            text: 'Choose Form 16',
+            selected: true,
+            disabled: true
+        });
+        $dropdown.append($defaultOption);
+        response.forEach(function (item) {
+            var $option = $('<option>', {
+                value: item.DocumentPath,
+                text: item.DocumentName
+            });
+            $dropdown.append($option);
+        });
+        $dropdown.dropdown();
+
+
+    };
+
 }
