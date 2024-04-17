@@ -8,7 +8,10 @@
     getUsers: "/Employee/fetchAllEmployess",
     getFetchUsers: "/Tenant/fetchUsers",
     fetchEmployeeSalariesById: "/UserDashBoard/FetchAllEmployeeSalaries",
-    fetchDocumentTypes: "/DocumentType/FetchDocumentTypes"
+    fetchDocumentTypes: "/DocumentType/FetchDocumentTypes",
+    fetchOfferLetter: "/UserDashBoard/FetchOfferLetter",
+    fetchAllHikesLetters: "/UserDashBoard/FetchAllHikesLetters",
+    fetchAllFormSixteensLetters: "/UserDashBoard/FetchAllFormSixteensLetters"
 };
 
 function generateNextCode(data) {
