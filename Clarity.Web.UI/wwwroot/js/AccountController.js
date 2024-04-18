@@ -106,8 +106,8 @@
                 ConfirmPassword: confirmPassword
             };
             $.ajax({
-                url: '/Password/ForgotPassword',
-                type: 'GET',
+                url: '/Password/ResetPassword',
+                type: 'POST',
                 data: JSON.stringify(resetPassword),
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
@@ -117,6 +117,7 @@
                     self.userResponceData = {};
                     $('#ForgotPasswordModal').modal("hide");
                     $('#ResetpasswordModal').modal("hide");
+                    window.location.href = "/Account/Login";
                 },
                 error: function (xhr, status, error) {
                     console.error('Error:', error);

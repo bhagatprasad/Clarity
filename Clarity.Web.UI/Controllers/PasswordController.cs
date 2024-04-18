@@ -34,6 +34,7 @@ namespace Clarity.Web.UI.Controllers
                     var responce = await changePasswordService.fnChangePasswordAsync(changePassword);
                     if (responce)
                         notyfService.Success("Password changed successfully");
+                    return Json(responce);
                 }
                 notyfService.Error("something went wrong");
 
@@ -80,10 +81,16 @@ namespace Clarity.Web.UI.Controllers
                 if (resetPassword != null)
                 {
                     var responce = await changePasswordService.fnResetPasswordAsync(resetPassword);
+
                     if (responce)
                         notyfService.Success("Password reseted successfully");
+                    else
+                        notyfService.Error("something went wrong");
+
+                    return Json(responce);
                 }
                 notyfService.Error("something went wrong");
+
                 return Json(false);
             }
             catch (Exception ex)
@@ -92,5 +99,6 @@ namespace Clarity.Web.UI.Controllers
                 throw ex;
             }
         }
+      
     }
 }

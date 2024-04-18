@@ -3,8 +3,11 @@ using AspNetCoreHero.ToastNotification.Notyf;
 using Clarity.Web.UI.BusinessLogic.Interfaces;
 using Clarity.Web.UI.BusinessLogic.Services;
 using Clarity.Web.UI.Models;
+using Clarity.Web.UI.Utility;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Hosting.Internal;
 
 namespace Clarity.Web.UI.Controllers
 {
@@ -18,11 +21,14 @@ namespace Clarity.Web.UI.Controllers
         private readonly IDepartmentService departmentService;
         private readonly IEmployeeSalaryStructureService employeeSalaryStructureService;
         private readonly ITenantService tenantService;
+        private readonly IEmployeeDocumentService employeeDocumentService;
+        private readonly IWebHostEnvironment hostingEnvironment;
 
         public UserDashBoardController(IEmployeeSalaryService _employeeSalaryService, INotyfService _notyfService,
             IDocumentService documentService,
             IDesignationService designationService, IDepartmentService departmentService,
-            IEmployeeSalaryStructureService employeeSalaryStructureService, ITenantService tenantService)
+            IEmployeeSalaryStructureService employeeSalaryStructureService, ITenantService tenantService,
+            IEmployeeDocumentService employeeDocumentService, IWebHostEnvironment hostingEnvironment)
         {
             this.employeeSalaryService = _employeeSalaryService;
             this.notyfService = _notyfService;
@@ -31,6 +37,8 @@ namespace Clarity.Web.UI.Controllers
             this.departmentService = departmentService;
             this.employeeSalaryStructureService = employeeSalaryStructureService;
             this.tenantService = tenantService;
+            this.employeeDocumentService = employeeDocumentService;
+            this.hostingEnvironment = hostingEnvironment;
         }
         public IActionResult Index()
         {
@@ -61,6 +69,66 @@ namespace Clarity.Web.UI.Controllers
             }
         }
 
+        [HttpGet]
+        public async Task<IActionResult> FetchOfferLetter(long userId)
+        {
+            try
+            {
+                var documentType = EmployeeDocumentEnum.OfferLetter.ToString();
+
+                List<EmployeeDocument> employeeDocuments = new List<EmployeeDocument>();
+
+                employeeDocuments = await employeeDocumentService.FetchEmployeeDocumentsAsync("Offer Letter", userId);
+
+                var employmentDocuments = await employeeDocumentService.FetchEmployeeDocumentsAsync("Experience Certificate", userId);
+               
+                if (employmentDocuments.Count > 0)
+                    employeeDocuments = employeeDocuments.Concat(employmentDocuments).ToList();
+
+                return Json(new { data = employeeDocuments });
+            }
+            catch (Exception ex)
+            {
+                notyfService.Error(ex.Message);
+
+                throw ex;
+            }
+        }
+        [HttpGet]
+        public async Task<IActionResult> FetchAllHikesLetters(long userId)
+        {
+            try
+            {
+                var documentType = EmployeeDocumentEnum.HikeLetter.ToString();
+
+                var offerLetter = await employeeDocumentService.FetchEmployeeDocumentsAsync("Hike Letter", userId);
+
+                return Json(new { data = offerLetter });
+            }
+            catch (Exception ex)
+            {
+                notyfService.Error(ex.Message);
+
+                throw ex;
+            }
+        }
+        [HttpGet]
+        public async Task<IActionResult> FetchAllFormSixteensLetters(long userId)
+        {
+            try
+            {
+
+                var offerLetter = await employeeDocumentService.FetchEmployeeDocumentsAsync("FORM 16", userId);
+
+                return Json(new { data = offerLetter });
+            }
+            catch (Exception ex)
+            {
+                notyfService.Error(ex.Message);
+
+                throw ex;
+            }
+        }
         [HttpGet]
         public async Task<FileResult> GenaratePaySlip(long employeeSalaryId)
         {
@@ -114,5 +182,28 @@ namespace Clarity.Web.UI.Controllers
                 throw ex;
             }
         }
+        [HttpGet]
+        public IActionResult DownloadEmployeeDocument(string relativeFilePath)
+        {
+            try
+            {
+                string webRootPath = hostingEnvironment.WebRootPath;
+
+                string absoluteFilePath = Path.Combine(webRootPath, relativeFilePath);
+
+                if (!System.IO.File.Exists(absoluteFilePath))
+                {
+                    return NotFound();
+                }
+                return PhysicalFile(absoluteFilePath, "application/octet-stream", Path.GetFileName(absoluteFilePath));
+            }
+            catch (Exception ex)
+            {
+                notyfService.Error(ex.Message);
+
+                throw ex;
+            }
+        }
+
     }
 }

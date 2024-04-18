@@ -64,7 +64,7 @@
             paging: false,
             scrollY: '500px'
         });
-
+      
         $(document).on("click", ".fa-file-pdf-o", function (event) {
             var data = $(this);
             var row = data.closest('tr');
