@@ -125,5 +125,20 @@ namespace Clarity.Web.UI.Controllers
                 throw ex;
             }
         }
+        [HttpGet]
+        public async Task<IActionResult> fetchAllTaskItems()
+        {
+            try
+            {
+                var taskitems = await taskItemService.GetAllTaskItems();
+
+                return Json(new { data = taskitems });
+            }
+            catch (Exception ex)
+            {
+                notyfService.Error(ex.Message);
+                throw ex;
+            }
+        }
     }
 }

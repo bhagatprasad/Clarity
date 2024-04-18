@@ -12,7 +12,8 @@
     fetchOfferLetter: "/UserDashBoard/FetchOfferLetter",
     fetchAllHikesLetters: "/UserDashBoard/FetchAllHikesLetters",
     fetchAllFormSixteensLetters: "/UserDashBoard/FetchAllFormSixteensLetters",
-    fetchAllTaskItems: "/UserDashBoard/FetchAllFormSixteensLetters"
+    fetchAllTaskItems: "/TaskItem/fetchAllTaskItems"
+   /* fetchAllTaskCodes: "/TaskItem/fetchAllTaskItems"*/
 };
 
 function generateNextCode(data) {

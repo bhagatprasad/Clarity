@@ -5,6 +5,7 @@
     var actions = [];
     self.Employees = [];
     actions.push(serviceUrls.getUsers);
+    actions.push(serviceUrls.fetchAllTaskItems);
     self.init = function () {
         var appuser = storageService.get("ApplicationUser");
         if (appuser) {
@@ -19,11 +20,12 @@
         }
         $.when.apply($, requests).done(function () {
             var responses = arguments;
-            if (responses[0] && responses[0].data) {
-                responses[0].data.forEach(function (item) {
+            if (responses[0][0] && responses[0][0].data) {
+                responses[0][0].data.forEach(function (item) {
                     self.Employees.push(item.employee);
                 });
             }
+            console.log(responses);
         }).fail(function () {
             console.log('One or more requests failed.');
         });
