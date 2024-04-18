@@ -85,6 +85,8 @@
     <Build Include="dbo\Tables\HolidayCallender.sql" />
     <Build Include="dbo\Tables\DocumentType.sql" />
     <Build Include="dbo\Tables\EmployeeDocument.sql" />
+    <Build Include="dbo\Tables\Timesheet.sql" />
+    <Build Include="dbo\Tables\TimesheetTask.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Claritydb.publish.xml" />
