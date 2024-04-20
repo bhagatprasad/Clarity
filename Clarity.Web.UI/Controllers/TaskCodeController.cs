@@ -5,17 +5,18 @@ using Clarity.Web.UI.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
+
 namespace Clarity.Web.UI.Controllers
 {
     [Authorize(Roles = "Administrator,Admin")]
-    public class TaskItemController : Controller
+    public class TaskCodeController : Controller
     {
-        private readonly ITaskItemService taskItemService;
+        private readonly ITaskCodeService taskCodeService;
         private readonly INotyfService notyfService;
 
-        public TaskItemController(ITaskItemService taskItemService, INotyfService notyfService)
+        public TaskCodeController(ITaskCodeService taskCodeService, INotyfService notyfService)
         {
-            this.taskItemService = taskItemService;
+            this.taskCodeService = taskCodeService;
             this.notyfService = notyfService;
 
         }
@@ -25,31 +26,31 @@ namespace Clarity.Web.UI.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> LoadTaskItems()
+        public async Task<IActionResult> LoadTaskCodes()
         {
-            var taskItems = await taskItemService.GetAllTaskItems();
+            var taskItems = await taskCodeService.GetAllTaskCode();
 
             return Json(new { data = taskItems });
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddEditTaskItem([FromBody] TaskItem taskItem)
+        public async Task<IActionResult> AddEditTaskCode([FromBody] TaskCode taskCode)
         {
-            if (taskItem != null)
+            if (taskCode != null)
             {
                 bool responce = false;
 
-                if (taskItem.TaskItemId > 0)
-                    responce = await taskItemService.UpdateTaskItem(taskItem.TaskItemId, taskItem);
+                if (taskCode.TaskCodeId > 0)
+                    responce = await taskCodeService.UpdateTaskCode(taskCode.TaskCodeId,taskCode);
                 else
-                    responce = await taskItemService.CreateTaskItem(taskItem);
+                    responce = await taskCodeService.CreateTaskCode(taskCode);
 
                 if (responce)
                 {
-                    if (taskItem.TaskItemId > 0)
-                        notyfService.Success("TaskItem was Updated successfully");
+                    if (taskCode.TaskCodeId > 0)
+                        notyfService.Success("TaskCode was Updated successfully");
                     else
-                        notyfService.Success("TaskItem was Created successfully");
+                        notyfService.Success("TaskCode was Created successfully");
 
                     return Json(true);
                 }
