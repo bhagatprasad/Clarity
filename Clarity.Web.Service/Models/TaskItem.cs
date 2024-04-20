@@ -15,5 +15,6 @@ namespace Clarity.Web.Service.Models
         public long? ModifiedBy { get; set; }
         public DateTimeOffset? ModifiedOn { get; set; }
         public bool IsActive { get; set; }
+        public virtual List<TaskCode> taskCodes { get; set; }
     }
 }

@@ -35,5 +35,7 @@ namespace Clarity.Web.Service.DBConfiguration
         public DbSet<HolidayCallender> holidayCallenders { get; set; }
         public DbSet<DocumentType> documentTypes { get; set; }
         public DbSet<EmployeeDocument> employeeDocuments { get; set; }
+        public DbSet<Timesheet> timesheets { get; set; }
+        public DbSet<TimesheetTask> timesheetTasks { get; set; }
     }
 }

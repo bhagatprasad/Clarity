@@ -10,5 +10,6 @@
         public long? ModifiedBy { get; set; }
         public DateTimeOffset? ModifiedOn { get; set; }
         public bool IsActive { get; set; }
+        public List<TaskCode> taskCodes { get; set; }
     }
 }

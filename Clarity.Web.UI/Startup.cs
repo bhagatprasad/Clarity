@@ -68,6 +68,7 @@ namespace Clarity.Web.UI
             services.AddScoped<IDocumentTypeService, DocumentTypeService>();
             services.AddScoped<IEmployeeDocumentService, EmployeeDocumentService>();
             services.AddScoped<ITaskCodeService,TaskCodeService>();
+            services.AddScoped<ITimesheetService, TimesheetService>();
 
             services.AddSession(options =>
             {
