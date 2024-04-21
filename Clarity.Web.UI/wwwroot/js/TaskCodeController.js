@@ -17,6 +17,13 @@
             },
             columns: [
                 { data: 'TaskCodeId' },
+                {
+                    data: 'TaskItemId',
+                    render: function (data, type, row) {
+                        var taskItem = row && row.taskItem ? row.taskItem.Name : "";
+                        return taskItem;
+                    }
+                },
                 { data: 'Name' },
                 { data: 'Code' },
                 { data: 'CreatedOn' },
