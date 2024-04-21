@@ -1,6 +1,6 @@
 ﻿@{
     ViewData["Title"] = "Timesheet Manager";
-    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <div class="container-xxl flex-grow-1 container-p-y">
     <div class="row" style="padding-top:15px">
@@ -25,7 +25,7 @@
         </div>
     </div>
 </div>
-<partial name="_timesheetStatusChange.cshtml" />
+<partial name="~/Views/Timesheet/_timesheetStatusChange.cshtml" />
 <style>
     .form-row {
         display: inline-flex !important;
@@ -37,10 +37,10 @@
     }
 </style>
 <script src="~/lib/jquery/dist/jquery.js"></script>
-<script src="~/js/TimesheetController.js"></script>
+<script src="~/js/UserTimesheetController.js"></script>
 <script type="text/javascript">
     $(function () {
-        var ctrl = new TimesheetController();
+        var ctrl = new UserTimesheetController();
         ctrl.init();
     });
 </script>
