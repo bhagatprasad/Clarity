@@ -1,4 +1,6 @@
-﻿namespace Clarity.Web.UI.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace Clarity.Web.UI.Models
 {
     public class TaskCode
     {

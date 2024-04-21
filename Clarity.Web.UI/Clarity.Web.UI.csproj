@@ -14,6 +14,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Remove="wwwroot\js\file.ts" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Include="wwwroot\assets\css\style.css.map" />
     <None Include="wwwroot\assets\fonts\Ubuntu\Ubuntu-Bold.woff2" />
     <None Include="wwwroot\assets\fonts\Ubuntu\Ubuntu-Light.woff2" />
@@ -92,6 +96,10 @@
   <ItemGroup>
     <Folder Include="logs\" />
     <Folder Include="wwwroot\documents\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <TypeScriptCompile Include="wwwroot\js\file.ts" />
   </ItemGroup>
 
 </Project>
