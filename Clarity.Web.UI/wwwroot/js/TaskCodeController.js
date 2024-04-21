@@ -1,4 +1,4 @@
-﻿function TaskItemController() {
+﻿function TaskCodeController() {
     var self = this;
     self.ApplicationUser = {};
     self.init = function () {
@@ -6,17 +6,17 @@
         if (appuser) {
             self.ApplicationUser = appuser;
         }
-        $('#addEditTaskItemModal').modal({ backdrop: 'static', keyboard: false });
-        var taskItemsGrid = $("#TaskItemsGrid").DataTable({
+        $('#addEditTaskCodeModal').modal({ backdrop: 'static', keyboard: false });
+        var taskCodeGrid = $("#TaskCodeGrid").DataTable({
             responsive: false,
             serverSide: false,
             ajax: {
-                url: '/TaskItem/LoadTaskItems',
+                url: '/TaskCode/LoadTaskCodes',
                 type: 'GET',
                 dataSrc: 'data'
             },
             columns: [
-                { data: 'TaskItemId' },
+                { data: 'TaskCodeId' },
                 { data: 'Name' },
                 { data: 'Code' },
                 { data: 'CreatedOn' },
@@ -25,38 +25,38 @@
                 {
                     data: null,
                     render: function (data, type, row) {
-                        return '<i class="fas fa-edit edit-icon  icon-padding-right" data-id="' + row.TaskItemId + '"></i>' +
-                            '<i class="fas fa-trash delete-icon  icon-padding-right" data-id="' + row.TaskItemId + '"></i>' +
-                            '<i class="fas fa-eye eye-icon" data-id="' + row.TaskItemId + '"></i>';
+                        return '<i class="fas fa-edit edit-icon  icon-padding-right" data-id="' + row.TaskCodeId + '"></i>' +
+                            '<i class="fas fa-trash delete-icon  icon-padding-right" data-id="' + row.TaskCodeId + '"></i>' +
+                            '<i class="fas fa-eye eye-icon" data-id="' + row.TaskCodeId + '"></i>';
                     }
                 }
             ],
             "order": [[0, "asc"]],
             "pageLength": 15
         });
-        $(document).on("click", "#addTaskItem", function () {
-            $("#addEditTaskItemModalLabel").text("Add TaskItem");
-            $('#addEditTaskItemModal').modal('show');
+        $(document).on("click", "#addTaskCode", function () {
+            $("#addEditTaskCodeModalLabel").text("Add TaskCode");
+            $('#addEditTaskCodeModal').modal('show');
         });
 
-        $('#TaskItemsGrid').on('click', '.edit-icon', function () {
+        $('#TaskCodeGrid').on('click', '.edit-icon', function () {
             var data = $(this);
             var row = data.closest('tr');
-            var dataItem = taskItemsGrid.row(row).data();
+            var dataItem = taskCodeGrid.row(row).data();
             self.isEdit = true;
             $('#Name').val(dataItem.Name);
             $('#Code').val(dataItem.Code);
-            $("#TaskItemId").val(dataItem.TaskItemId);
-            $('#addEditTaskItemModal').modal('show');
-            $("#addEditTaskItemModalLabel").text("Edit TaskItem");
+            $("#TaskCodeId").val(dataItem.TaskCodeId);
+            $('#addEditTaskCodeModal').modal('show');
+            $("#addEditTaskCodeModalLabel").text("Edit TaskCode");
         });
 
-        $(document).on("click", "#AddEditTaskItem", function () {
+        $(document).on("click", "#AddEditTaskCode", function () {
             var name = $("#Name").val();
             var code = $("#Code").val();
-            var taskItemId = $("#TaskItemId").val();
+            var taskCodeId = $("#TaskCodeId").val();
             var task = {
-                TaskItemId: taskItemId ? parseInt(taskItemId) : 0,
+                TaskCodeId: taskCodeId ? parseInt(taskCodeId) : 0,
                 Name: name,
                 Code: code,
                 CreatedBy: self.ApplicationUser.Id,
@@ -67,7 +67,7 @@
             };
 
             $.ajax({
-                url: '/TaskItem/AddEditTaskItem',
+                url: '/TaskCode/AddEditTaskCode',
                 data: JSON.stringify(task),
                 type: "POST",
                 contentType: "application/json; charset=utf-8",
@@ -75,9 +75,9 @@
                 processData: true,
                 cache: false,
                 success: function (response) {
-                    $('#addEditTaskItemModal').modal('hide');
+                    $('#addEditTaskCodeModal').modal('hide');
                     self.clearInputs();
-                    taskItemsGrid.ajax.reload();
+                    taskCodeGrid.ajax.reload();
                 }
             });
         });
@@ -85,6 +85,6 @@
     self.clearInputs = function () {
         $("#Name").val("");
         $("#Code").val("");
-        $("#TaskItemId").val("");
+        $("#TaskCodeId").val("");
     };
 } 

@@ -19,111 +19,47 @@ namespace Clarity.Web.UI.Controllers
             this.notyfService = notyfService;
 
         }
-        [HttpGet]
         public async Task<IActionResult> Index()
-        {
-            try
-            {
-                var taskitems = await taskItemService.GetAllTaskItems();
-
-                return View(taskitems);
-            }
-            catch (Exception ex)
-            {
-                notyfService.Error(ex.Message);
-                throw ex;
-            }
-        }
-
-        [HttpGet]
-        public IActionResult Create()
         {
             return View();
         }
 
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(TaskItem taskItem)
-        {
-            try
-            {
-                if (ModelState.IsValid)
-                {
-                    taskItem.CreatedBy = 1;
-                    taskItem.CreatedOn = DateTimeOffset.Now;
-                    taskItem.ModifiedBy = 1;
-                    taskItem.ModifiedOn = DateTimeOffset.Now;
-                    taskItem.IsActive = true;
-
-                    bool response = await taskItemService.CreateTaskItem(taskItem);
-                    if (response)
-                    {
-                        notyfService.Success("TaskItem was Inserted successfully");
-                        return RedirectToAction("Index", "TaskItem", null);
-                    }
-                }
-
-                notyfService.Error("Somwthing went wrong");
-
-                return View(taskItem);
-
-            }
-            catch (Exception ex)
-            {
-                notyfService.Error(ex.Message);
-                throw ex;
-            }
-        }
-
-
         [HttpGet]
-        public async Task<IActionResult> Edit(long TaskItemId)
+        public async Task<IActionResult> LoadTaskItems()
         {
-            try
-            {
-                var responce = await taskItemService.GetTaskItemById(TaskItemId);
+            var taskItems = await taskItemService.GetAllTaskItems();
 
-                return View(responce);
-            }
-            catch (Exception ex)
-            {
-                notyfService.Error(ex.Message);
-                throw ex;
-            }
+            return Json(new { data = taskItems });
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(TaskItem taskItem)
+        public async Task<IActionResult> AddEditTaskItem([FromBody] TaskItem taskItem)
         {
-            try
+            if (taskItem != null)
             {
-                if (ModelState.IsValid)
+                bool responce = false;
+
+                if (taskItem.TaskItemId > 0)
+                    responce = await taskItemService.UpdateTaskItem(taskItem.TaskItemId, taskItem);
+                else
+                    responce = await taskItemService.CreateTaskItem(taskItem);
+
+                if (responce)
                 {
-                    taskItem.ModifiedBy = 1;
-                    taskItem.ModifiedOn = DateTimeOffset.Now;
-
-                    bool response = await taskItemService.UpdateTaskItem(taskItem.TaskItemId, taskItem);
-
-                    if (response)
-                    {
+                    if (taskItem.TaskItemId > 0)
                         notyfService.Success("TaskItem was Updated successfully");
+                    else
+                        notyfService.Success("TaskItem was Created successfully");
 
-                        return RedirectToAction("Index", "TaskItem", null);
-                    }
+                    return Json(true);
                 }
-
                 notyfService.Error("Somwthing went wrong");
-
-                return View(taskItem);
-
+                return Json(responce);
             }
-            catch (Exception ex)
-            {
-                notyfService.Error(ex.Message);
-                throw ex;
-            }
+
+            notyfService.Error("Somwthing went wrong");
+
+            return Json(false);
         }
         [HttpGet]
         public async Task<IActionResult> fetchAllTaskItems()
