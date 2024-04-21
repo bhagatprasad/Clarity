@@ -12,6 +12,9 @@
         $(document).on("click", "#ChangePassword", function () {
             $("#ChangePasswordModal").modal("show");
         });
+        $(document).on("click", "#Timesheet", function () {
+            window.location.href ="/UserTimesheet/Index"
+        });
         $(document).on("click", ".toggle-password", function () {
             var inputField = $(this).closest('.input-group').find('.form-control');
             var icon = $(this).find('i');
