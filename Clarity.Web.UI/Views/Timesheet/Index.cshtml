@@ -26,6 +26,8 @@
     </div>
 </div>
 <partial name="_timesheetStatusChange.cshtml" />
+<partial name="~/Views/Shared/_AddEditTimesheet.cshtml" />
+<partial name="~/Views/Shared/_AddTask.cshtml" />
 <style>
     .form-row {
         display: inline-flex !important;
@@ -34,6 +36,16 @@
 
     .col-6 {
         padding: 5px !important;
+    }
+
+    .ui-datepicker {
+        font-size: 14px; /* Adjust the font size */
+        width: 300px; /* Adjust the width */
+    }
+
+    .table-condensed {
+        font-size: 30px !important;
+        width: 495px !important;
     }
 </style>
 <script src="~/lib/jquery/dist/jquery.js"></script>
