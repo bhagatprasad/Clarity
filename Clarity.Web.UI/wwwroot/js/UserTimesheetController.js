@@ -219,6 +219,8 @@
                 EmployeeId: 0,
                 UserId: self.ApplicationUser.Id,
                 Status: timesheetId ? self.currentStatus : "Submitted",
+                AssignedOn: null,
+                AssignedTo: null,
                 ApprovedOn: null,
                 ApprovedBy: null,
                 ApprovedComments: null,

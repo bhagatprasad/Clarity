@@ -7,6 +7,8 @@
 	[EmployeeId]			bigint				NULL,
 	[UserId]				bigint				NULL,
 	[Status]				varchar(max)		NULL,
+	[AssignedOn]			dateTimeoffset		NULL,
+    [AssignedTo]			bigint				NULL,
 	[ApprovedOn]			dateTimeoffset		NULL,
     [ApprovedBy]			bigint				NULL,
     [ApprovedComments]		varchar(max)		NULL,

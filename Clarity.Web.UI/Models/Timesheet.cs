@@ -9,6 +9,8 @@
         public long? EmployeeId { get; set; }
         public long? UserId { get; set; }
         public string Status { get; set; }
+        public DateTimeOffset? AssignedOn { get; set; }
+        public long? AssignedTo { get; set; }
         public DateTimeOffset? ApprovedOn { get; set; }
         public long? ApprovedBy { get; set; }
         public string? ApprovedComments { get; set; }
