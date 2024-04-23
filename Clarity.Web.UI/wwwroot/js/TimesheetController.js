@@ -58,10 +58,36 @@
             },
             columns: [
                 { data: 'EmployeeId' },
-                { data: 'FromDate' },
+                {
+                    data: 'FromDate',
+                    render: function (data, type, row) {
+                        if (!data) return "";
+
+                        var dateObject = new Date(data);
+                        var options = { weekday: 'long', day: '2-digit', month: 'long', year: 'numeric' };
+
+                        var formattedDate = dateObject.toLocaleDateString('en-US', options);
+
+                        return formattedDate;
+                    }
+                },
+                {
+                    data: 'ToDate',
+                    render: function (data, type, row) {
+                        if (!data) return ""; // Handle case where data is null or undefined
+
+                        var dateObject = new Date(data);
+                        var options = { weekday: 'long', day: '2-digit', month: 'long', year: 'numeric' };
+
+                        // Format the date using the toLocaleDateString method
+                        var formattedDate = dateObject.toLocaleDateString('en-US', options);
+
+                        return formattedDate;
+                    }
+                },
                 { data: 'Description' },
                 { data: 'Status' },
-                { data: 'IsActive' },
+
                 {
                     data: null,
                     render: function (data, type, row) {
