@@ -15,6 +15,7 @@
         if (appuser) {
             self.ApplicationUser = appuser;
         }
+        console.log(33,self.ApplicationUser)
 
         var form = $('#AddEditTimesheetForm');
         var signUpButton = $('#SaveInsertOrUpdateTimesheet');
@@ -178,6 +179,68 @@
             $("#AddTaskForm")[0].reset();
             $('#AddTaskModal').modal('hide');
         });
+        //raju start............
+
+        $(document).on("click", "#SaveInsertOrUpdateTimesheet", function () {
+            var fromDate = $("#FromDate").val();
+            var toDate = $("#ToDate").val();
+            var description = $("#Description").val();
+            var id = $("#Id").val();
+
+            var timesheet = {
+                Id: id ? parseInt(id) : 0,
+                FromDate: new Date(fromDate),
+                ToDate: new Date (toDate),
+                Description: description,
+                Status: null,
+                EmployeeId: null,
+                UserId: self.ApplicationUser.Id,
+                ApprovedOn: new Date(),
+                ApprovedBy: null,
+                ApprovedComments: null,
+                CancelledOn: new Date(),
+                CancelledBy: null,
+                CancelledComments: null,
+                RejectedOn: null,
+                RejectedBy: null,
+                RejectedComments:null,
+                CreatedBy: self.ApplicationUser.Id,
+                CreatedOn: new Date(),
+                ModifiedOn: new Date(),
+                ModifiedBy: self.ApplicationUser.Id,
+                IsActive: true,
+                timesheetTasks: self.TaskGridData || []
+            };
+
+            var dataToSend = {
+                timesheet: timesheet
+            };
+
+            console.log(1234567899, dataToSend);
+
+            $.ajax({
+                url: '/Timesheet/SaveInsertOrUpdateTimesheet',
+                data: JSON.stringify(dataToSend),
+                type: "POST",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (response) {
+                    $('#AddEditTimesheetModal').modal('hide');
+                    self.clearInputs();
+                    timesheetGrid.ajax.reload();
+                }
+            });
+        });
+
+
+          //raju end........
+    };
+    self.clearInputs = function () {
+        $("#FromDate").val("");
+        $("#ToDate").val("");
+        $("#Description").val("");
+        $("#Status").val("");
+        $("#Id").val("");
     };
     function bindTaskItems() {
         var taskItemDropdown = $('#dropdownTaskItems');

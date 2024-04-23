@@ -1,5 +1,6 @@
 ﻿using AspNetCoreHero.ToastNotification.Abstractions;
 using Clarity.Web.UI.BusinessLogic.Interfaces;
+using Clarity.Web.UI.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -37,5 +38,35 @@ namespace Clarity.Web.UI.Controllers
             }
 
         }
+
+
+
+        [HttpPost]
+        public async Task<IActionResult> SaveInsertOrUpdateTimesheet([FromBody] Timesheet timesheet)
+        {
+
+            if (timesheet != null)
+            {
+                bool responce = false;
+
+                responce = await timesheetService.InsertOrUpdateTimesheet(timesheet);
+
+                if (responce)
+                {
+                    notyfService.Success("TimeSheet was Created successfully");
+
+                    return Json(true);
+                }
+                notyfService.Error("Somwthing went wrong");
+                return Json(responce);
+            }
+
+            notyfService.Error("Somwthing went wrong");
+
+            return Json(false);
+        }
+
+
+
     }
 }
