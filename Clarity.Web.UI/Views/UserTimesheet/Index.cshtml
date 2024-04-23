@@ -3,7 +3,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <div class="container-xxl flex-grow-1 container-p-y">
-    <div class="row" style="padding-top:15px">
+    <div class="row" style="padding-top:80px">
     </div>
     <!-- Bordered Table -->
     <div class="card">
@@ -26,6 +26,8 @@
     </div>
 </div>
 <partial name="~/Views/Timesheet/_timesheetStatusChange.cshtml" />
+<partial name="~/Views/Shared/_AddEditTimesheet.cshtml" />
+<partial name="~/Views/Shared/_AddTask.cshtml" />
 <style>
     .form-row {
         display: inline-flex !important;
@@ -34,6 +36,11 @@
 
     .col-6 {
         padding: 5px !important;
+    }
+
+    .table-condensed {
+        font-size: 30px !important;
+        width: 495px !important;
     }
 </style>
 <script src="~/lib/jquery/dist/jquery.js"></script>

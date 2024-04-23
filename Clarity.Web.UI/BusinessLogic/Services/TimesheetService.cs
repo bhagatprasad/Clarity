@@ -105,7 +105,7 @@ namespace Clarity.Web.UI.BusinessLogic.Services
 
             var requestContent = new StringContent(inputContent, Encoding.UTF8, "application/json");
 
-             var responce = await _httpClient.PostAsync("Timesheet/FetchAllTimesheetsByUserDatesAsync", requestContent);
+            var responce = await _httpClient.PostAsync("Timesheet/InsertOrUpdateTimesheet", requestContent);
             
             if (responce.IsSuccessStatusCode)
             {

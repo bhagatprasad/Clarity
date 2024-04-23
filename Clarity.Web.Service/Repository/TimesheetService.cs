@@ -21,7 +21,7 @@ namespace Clarity.Web.Service.Repository
 
         public async Task<List<Timesheet>> GetAllTimesheetsAsync(long userId)
         {
-            var userTimesheets = await dbcontext.timesheets.Where(x => x.UserId == userId).Include(t => t.timesheetTasks).ToListAsync();
+            var userTimesheets = await dbcontext.timesheets.Where(x => x.UserId == userId && x.IsActive == true).Include(t => t.timesheetTasks).ToListAsync();
 
             var employeeId = await dbcontext.users.Where(u => u.Id == userId).Select(u => u.EmployeeId).FirstOrDefaultAsync();
 
@@ -35,7 +35,7 @@ namespace Clarity.Web.Service.Repository
 
                     if (userIDs.Any())
                     {
-                        var otherTimesheets = await dbcontext.timesheets.Where(ts => userIDs.Contains(ts.UserId.Value)).ToListAsync();
+                        var otherTimesheets = await dbcontext.timesheets.Where(ts => userIDs.Contains(ts.UserId.Value) && ts.IsActive == true).ToListAsync();
 
                         userTimesheets.AddRange(otherTimesheets);
                     }
@@ -71,9 +71,9 @@ namespace Clarity.Web.Service.Repository
 
                         userTimesheets.AddRange(otherTimesheets);
                     }
-                   
+
                 }
-                  
+
             }
 
             return userTimesheets;
@@ -100,15 +100,15 @@ namespace Clarity.Web.Service.Repository
                 {
                     var userIDs = await dbcontext.users.Where(u => reportingEmployees.Contains(u.EmployeeId.Value)).Select(u => u.Id).ToListAsync();
 
-                    if(userIDs.Any())
+                    if (userIDs.Any())
                     {
                         var otherTimesheets = await dbcontext.timesheets.Where(ts => userIDs.Contains(ts.UserId.Value) && ts.FromDate >= fromdate && ts.ToDate <= todate).ToListAsync();
 
                         userTimesheets.AddRange(otherTimesheets);
                     }
-                  
+
                 }
-                   
+
             }
 
             return userTimesheets;
@@ -117,12 +117,21 @@ namespace Clarity.Web.Service.Repository
 
         public async Task<bool> InsertOrUpdateTimesheet(Timesheet timesheet)
         {
+            if (timesheet != null && timesheet.EmployeeId == 0 && timesheet.UserId > 0)
+            {
+                var employee = (from usr in dbcontext.users join emp in dbcontext.employees on usr.EmployeeId equals emp.EmployeeId where usr.Id == timesheet.UserId select emp).FirstOrDefault();
+                if (employee != null)
+                {
+                    timesheet.EmployeeId = employee.EmployeeId;
+                }
+            }
+
             if (timesheet != null)
                 await dbcontext.timesheets.AddAsync(timesheet);
 
             var timesheetSaveResult = await dbcontext.SaveChangesAsync();
 
-            if (timesheetSaveResult == 1)
+            if (timesheet.Id > 1)
             {
                 foreach (var timesheetTask in timesheet.timesheetTasks)
                 {
