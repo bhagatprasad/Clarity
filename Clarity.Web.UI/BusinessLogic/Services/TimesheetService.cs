@@ -100,12 +100,13 @@ namespace Clarity.Web.UI.BusinessLogic.Services
 
         public async Task<bool> InsertOrUpdateTimesheet(Timesheet timesheet)
         {
+            
             var inputContent = JsonConvert.SerializeObject(timesheet);
 
             var requestContent = new StringContent(inputContent, Encoding.UTF8, "application/json");
 
             var responce = await _httpClient.PostAsync("Timesheet/InsertOrUpdateTimesheet", requestContent);
-
+            
             if (responce.IsSuccessStatusCode)
             {
                 var content = await responce.Content.ReadAsStringAsync();
