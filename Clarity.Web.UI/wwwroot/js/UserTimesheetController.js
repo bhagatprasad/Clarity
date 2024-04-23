@@ -9,6 +9,7 @@
     self.TaskCodes = [];
     self.TaskGridData = [];
     self.currentStatus = "";
+    self.currentTimesheet = {};
 
     actions.push(serviceUrls.fetchAllTaskItemUser);
     self.init = function () {
@@ -88,12 +89,21 @@
                 },
                 { data: 'Description' },
                 { data: 'Status' },
-                
+
                 {
                     data: null,
                     render: function (data, type, row) {
-                        return '<i class="fas fa fa-calendar icon-padding-right"  style="font-size:20px;color:green;padding-right:10px;" data-id="' + row.Id + '" ></i>' +
-                            '<i class="fas fa fa-trash icon-padding-right"  style="font-size:20px;color:red" data-id="' + row.Id + '" ></i>';
+                        var icons = '';
+                        if (parseInt(self.ApplicationUser.Id) === row.UserId) {
+                            icons += '<i class="fas fa-trash delete-icon  icon-padding-right" data-id="' + row.Id + '" style="font-size: 20px;color: red;" title="Cancel/Delete Timesheet"></i>';
+                        }
+                        else {
+                            if (row.Status != "Approved" && row.Status != "Rejected" && row.Status != "Cancelled") {
+                                icons += '<i class="fas fa-check-circle approve-icon  icon-padding-right" data-id="' + row.Id + '" style="font-size: 20px;color: green;" title="Appove Timesheet"></i>' +
+                                    '<i class="fas  fa-times-circle-o reject-icon icon-padding-right" data-id="' + row.Id + '" style="font-size: 20px; color: Red;padding-left: 5px;" title="Reject Timesheet"></i>';
+                            }
+                        }
+                        return icons;
                     }
                 }
             ],
@@ -148,7 +158,7 @@
             scrollY: '100px'
         });
 
-        $('#AddEditTimesheetModal,#AddTaskModal').modal({ backdrop: 'static', keyboard: false });
+        $('#AddEditTimesheetModal,#AddTaskModal,#confirmModal').modal({ backdrop: 'static', keyboard: false });
         $('#toggleDrawer').click(function () {
             $('#AddEditTimesheetModal').modal('show');
         });
@@ -219,6 +229,8 @@
                 EmployeeId: 0,
                 UserId: self.ApplicationUser.Id,
                 Status: timesheetId ? self.currentStatus : "Submitted",
+                AssignedOn: null,
+                AssignedTo: null,
                 ApprovedOn: null,
                 ApprovedBy: null,
                 ApprovedComments: null,
@@ -256,6 +268,52 @@
                     console.error(error);
                 }
             });
+        });
+
+        $(document).on("click", ".approve-icon", function () {
+            self.currentStatus = "Approved";
+            var data = $(this);
+            var row = data.closest('tr');
+            var dataItem = timesheetGrid.row(row).data();
+            console.log(dataItem);
+            self.currentTimesheet = dataItem;
+            $('#confirmModal').modal('show');
+        });
+
+        $(document).on("click", "#confirmProcessRequest", function () {
+            var message = $("#ProcessTimesheetMessage").text();
+            var processTimesheet = {
+                TimesheetId: parseInt(self.currentTimesheet.Id),
+                ModifiedOn: new Date(),
+                ModifiedBy: self.ApplicationUser.Id,
+                Comment: message,
+                ChangeType: self.currentStatus,
+                Status: self.currentStatus
+            };
+            $.ajax({
+                url: '/UserTimesheet/TimesheetStatusChangeProcess',
+                data: JSON.stringify(processTimesheet),
+                type: "POST",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                processData: true,
+                cache: false,
+                success: function (response) {
+                    $('#confirmModal').modal('hide');
+                    $("#ProcessTimesheetMessage").text("")
+                    timesheetGrid.ajax.reload();
+                    self.currentTimesheet = {};
+                    self.currentStatus = "";
+                    $(".se-pre-con").hide();
+                },
+                error: function (xhr, status, error) {
+                    console.error(error);
+                }
+            });
+
+        });
+        $(document).on("click", ".reject-icon", function () {
+
         });
     };
     function bindTaskItems() {

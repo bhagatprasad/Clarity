@@ -75,5 +75,20 @@ namespace Clarity.Web.UI.Controllers
                 throw ex;
             }
         }
+        [HttpPost]
+        public async Task<IActionResult> TimesheetStatusChangeProcess([FromBody] TimesheetStatusChange timesheet)
+        {
+            try
+            {
+                var responce = await timesheetService.TimesheetStatusChangeProcess(timesheet);
+
+                return Json(new { data = responce });
+            }
+            catch (Exception ex)
+            {
+                notyfService.Error(ex.Message);
+                throw ex;
+            }
+        }
     }
 }
