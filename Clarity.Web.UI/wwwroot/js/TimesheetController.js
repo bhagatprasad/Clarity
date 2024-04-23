@@ -208,52 +208,54 @@
         //raju start............
 
         $(document).on("click", "#SaveInsertOrUpdateTimesheet", function () {
+            var description = $("#Description").val();
             var fromDate = $("#FromDate").val();
             var toDate = $("#ToDate").val();
-            var description = $("#Description").val();
-            var id = $("#Id").val();
+            var timesheetId = $("#Id").val();
 
             var timesheet = {
-                Id: id ? parseInt(id) : 0,
+                Id: timesheetId ? parseInt(timesheetId) : 0,
                 FromDate: new Date(fromDate),
-                ToDate: new Date (toDate),
+                ToDate: new Date(toDate),
                 Description: description,
-                Status: null,
-                EmployeeId: null,
+                EmployeeId: 0,
                 UserId: self.ApplicationUser.Id,
-                ApprovedOn: new Date(),
+                Status: timesheetId ? self.currentStatus : "Submitted",
+                ApprovedOn: null,
                 ApprovedBy: null,
                 ApprovedComments: null,
-                CancelledOn: new Date(),
+                CancelledOn: null,
                 CancelledBy: null,
                 CancelledComments: null,
                 RejectedOn: null,
                 RejectedBy: null,
-                RejectedComments:null,
+                RejectedComments: null,
                 CreatedBy: self.ApplicationUser.Id,
                 CreatedOn: new Date(),
-                ModifiedOn: new Date(),
                 ModifiedBy: self.ApplicationUser.Id,
+                ModifiedOn: new Date(),
                 IsActive: true,
-                timesheetTasks: self.TaskGridData || []
+                timesheetTasks: self.TaskGridData
             };
-
-            var dataToSend = {
-                timesheet: timesheet
-            };
-
-            console.log(1234567899, dataToSend);
-
             $.ajax({
-                url: '/Timesheet/SaveInsertOrUpdateTimesheet',
-                data: JSON.stringify(dataToSend),
+                url: '/Timesheet/InsertOrUpdateTimesheet',
+                data: JSON.stringify(timesheet),
                 type: "POST",
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
+                processData: true,
+                cache: false,
                 success: function (response) {
                     $('#AddEditTimesheetModal').modal('hide');
-                    self.clearInputs();
+                    $("#AddEditTimesheetForm")[0].reset();
                     timesheetGrid.ajax.reload();
+                    self.TaskGridData = [];
+                    taskGrid.clear().rows.add(self.TaskGridData).draw();
+                    taskGrid.draw();
+                    $(".se-pre-con").hide();
+                },
+                error: function (xhr, status, error) {
+                    console.error(error);
                 }
             });
         });

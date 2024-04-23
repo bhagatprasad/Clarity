@@ -42,30 +42,20 @@ namespace Clarity.Web.UI.Controllers
 
 
         [HttpPost]
-        public async Task<IActionResult> SaveInsertOrUpdateTimesheet([FromBody] Timesheet timesheet)
+        public async Task<IActionResult> InsertOrUpdateTimesheet([FromBody] Timesheet timesheet)
         {
-
-            if (timesheet != null)
+            try
             {
-                bool responce = false;
+                var responce = await timesheetService.InsertOrUpdateTimesheet(timesheet);
 
-                responce = await timesheetService.InsertOrUpdateTimesheet(timesheet);
-
-                if (responce)
-                {
-                    notyfService.Success("TimeSheet was Created successfully");
-
-                    return Json(true);
-                }
-                notyfService.Error("Somwthing went wrong");
-                return Json(responce);
+                return Json(new { data = responce });
             }
-
-            notyfService.Error("Somwthing went wrong");
-
-            return Json(false);
+            catch (Exception ex)
+            {
+                notyfService.Error(ex.Message);
+                throw ex;
+            }
         }
-
 
 
     }
