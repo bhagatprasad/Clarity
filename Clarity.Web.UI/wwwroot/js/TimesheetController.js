@@ -15,6 +15,7 @@
         if (appuser) {
             self.ApplicationUser = appuser;
         }
+        console.log(33,self.ApplicationUser)
 
         var form = $('#AddEditTimesheetForm');
         var signUpButton = $('#SaveInsertOrUpdateTimesheet');
@@ -204,6 +205,70 @@
             $("#AddTaskForm")[0].reset();
             $('#AddTaskModal').modal('hide');
         });
+        //raju start............
+
+        $(document).on("click", "#SaveInsertOrUpdateTimesheet", function () {
+            var description = $("#Description").val();
+            var fromDate = $("#FromDate").val();
+            var toDate = $("#ToDate").val();
+            var timesheetId = $("#Id").val();
+
+            var timesheet = {
+                Id: timesheetId ? parseInt(timesheetId) : 0,
+                FromDate: new Date(fromDate),
+                ToDate: new Date(toDate),
+                Description: description,
+                EmployeeId: 0,
+                UserId: self.ApplicationUser.Id,
+                Status: timesheetId ? self.currentStatus : "Submitted",
+                ApprovedOn: null,
+                ApprovedBy: null,
+                ApprovedComments: null,
+                CancelledOn: null,
+                CancelledBy: null,
+                CancelledComments: null,
+                RejectedOn: null,
+                RejectedBy: null,
+                RejectedComments: null,
+                CreatedBy: self.ApplicationUser.Id,
+                CreatedOn: new Date(),
+                ModifiedBy: self.ApplicationUser.Id,
+                ModifiedOn: new Date(),
+                IsActive: true,
+                timesheetTasks: self.TaskGridData
+            };
+            $.ajax({
+                url: '/Timesheet/InsertOrUpdateTimesheet',
+                data: JSON.stringify(timesheet),
+                type: "POST",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                processData: true,
+                cache: false,
+                success: function (response) {
+                    $('#AddEditTimesheetModal').modal('hide');
+                    $("#AddEditTimesheetForm")[0].reset();
+                    timesheetGrid.ajax.reload();
+                    self.TaskGridData = [];
+                    taskGrid.clear().rows.add(self.TaskGridData).draw();
+                    taskGrid.draw();
+                    $(".se-pre-con").hide();
+                },
+                error: function (xhr, status, error) {
+                    console.error(error);
+                }
+            });
+        });
+
+
+          //raju end........
+    };
+    self.clearInputs = function () {
+        $("#FromDate").val("");
+        $("#ToDate").val("");
+        $("#Description").val("");
+        $("#Status").val("");
+        $("#Id").val("");
     };
     function bindTaskItems() {
         var taskItemDropdown = $('#dropdownTaskItems');

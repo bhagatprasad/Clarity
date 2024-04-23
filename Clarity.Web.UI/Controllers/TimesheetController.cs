@@ -1,5 +1,6 @@
 ﻿using AspNetCoreHero.ToastNotification.Abstractions;
 using Clarity.Web.UI.BusinessLogic.Interfaces;
+using Clarity.Web.UI.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -37,5 +38,25 @@ namespace Clarity.Web.UI.Controllers
             }
 
         }
+
+
+
+        [HttpPost]
+        public async Task<IActionResult> InsertOrUpdateTimesheet([FromBody] Timesheet timesheet)
+        {
+            try
+            {
+                var responce = await timesheetService.InsertOrUpdateTimesheet(timesheet);
+
+                return Json(new { data = responce });
+            }
+            catch (Exception ex)
+            {
+                notyfService.Error(ex.Message);
+                throw ex;
+            }
+        }
+
+
     }
 }

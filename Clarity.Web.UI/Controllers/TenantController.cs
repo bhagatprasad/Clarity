@@ -75,5 +75,19 @@ namespace Clarity.Web.UI.Controllers
             }
            
         }
+        [HttpGet]
+        public async Task<IActionResult>GetByUsersId(long userId)
+        {
+            try
+            {
+                var user = await tenantService.fetchUser(userId);
+                return Json(new { data = user });
+            }
+            catch (Exception ex)
+            {
+                notyfService.Error(ex.Message);
+                throw ex;
+            }
+        }
     }
 }
