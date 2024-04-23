@@ -120,10 +120,17 @@ namespace Clarity.Web.Service.Repository
             if (timesheet != null && timesheet.EmployeeId == 0 && timesheet.UserId > 0)
             {
                 var employee = (from usr in dbcontext.users join emp in dbcontext.employees on usr.EmployeeId equals emp.EmployeeId where usr.Id == timesheet.UserId select emp).FirstOrDefault();
+
                 if (employee != null)
                 {
+                    var manager = await dbcontext.reportingManagers.Where(x => x.EmployeeId == employee.EmployeeId).FirstOrDefaultAsync();
+
                     timesheet.EmployeeId = employee.EmployeeId;
+
+                    timesheet.AssignedTo = manager != null ? manager.ManagerId : 0;
+                    timesheet.AssignedOn = DateTimeOffset.Now;
                 }
+
             }
 
             if (timesheet != null)
