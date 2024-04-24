@@ -47,9 +47,9 @@
             //}
             self.CoreTaskItems = responses[0] && responses[0].data ? responses[0].data : [];
             bindTaskItems();
-            console.log(self.CoreTaskItems);
+          //  console.log(self.CoreTaskItems);
         }).fail(function () {
-            console.log('One or more requests failed.');
+          //  console.log('One or more requests failed.');
         });
 
         var timesheetGrid = $('#TimesheetGrid').DataTable({
@@ -94,7 +94,7 @@
                     data: null,
                     render: function (data, type, row) {
                         var icons = '';
-                        if (parseInt(self.ApplicationUser.Id) === row.UserId) {
+                        if (parseInt(self.ApplicationUser.Id) === row.UserId && row.Status != "Approved" && row.Status != "Rejected" && row.Status != "Cancelled") {
                             icons += '<i class="fas fa-trash delete-icon  icon-padding-right" data-id="' + row.Id + '" style="font-size: 20px;color: red;" title="Cancel/Delete Timesheet"></i>';
                         }
                         else {
@@ -265,7 +265,7 @@
                     $(".se-pre-con").hide();
                 },
                 error: function (xhr, status, error) {
-                    console.error(error);
+                   // console.error(error);
                 }
             });
         });
@@ -275,7 +275,7 @@
             var data = $(this);
             var row = data.closest('tr');
             var dataItem = timesheetGrid.row(row).data();
-            console.log(dataItem);
+           // console.log(dataItem);
             self.currentTimesheet = dataItem;
             $('#confirmModal').modal('show');
         });
@@ -312,8 +312,23 @@
             });
 
         });
-        $(document).on("click", ".reject-icon", function () {
+       
 
+        $(document).on("click", ".reject-icon", function () {
+            self.currentStatus = "Rejected";
+            var data = $(this);
+            var row = data.closest('tr');
+            var dataItem = timesheetGrid.row(row).data();
+            self.currentTimesheet = dataItem;
+            $('#confirmModal').modal('show');
+        });
+        $(document).on("click", ".delete-icon", function () {
+            self.currentStatus = "Cancelled";
+            var data = $(this);
+            var row = data.closest('tr');
+            var dataItem = timesheetGrid.row(row).data();
+            self.currentTimesheet = dataItem;
+            $('#confirmModal').modal('show');
         });
     };
     function bindTaskItems() {
