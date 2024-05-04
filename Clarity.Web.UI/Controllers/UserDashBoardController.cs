@@ -23,12 +23,13 @@ namespace Clarity.Web.UI.Controllers
         private readonly ITenantService tenantService;
         private readonly IEmployeeDocumentService employeeDocumentService;
         private readonly IWebHostEnvironment hostingEnvironment;
+        private readonly ITimesheetService timesheetService;
 
         public UserDashBoardController(IEmployeeSalaryService _employeeSalaryService, INotyfService _notyfService,
             IDocumentService documentService,
             IDesignationService designationService, IDepartmentService departmentService,
             IEmployeeSalaryStructureService employeeSalaryStructureService, ITenantService tenantService,
-            IEmployeeDocumentService employeeDocumentService, IWebHostEnvironment hostingEnvironment)
+            IEmployeeDocumentService employeeDocumentService, IWebHostEnvironment hostingEnvironment, ITimesheetService timesheetService)
         {
             this.employeeSalaryService = _employeeSalaryService;
             this.notyfService = _notyfService;
@@ -39,6 +40,7 @@ namespace Clarity.Web.UI.Controllers
             this.tenantService = tenantService;
             this.employeeDocumentService = employeeDocumentService;
             this.hostingEnvironment = hostingEnvironment;
+            this.timesheetService = timesheetService;
         }
         public IActionResult Index()
         {
@@ -203,6 +205,22 @@ namespace Clarity.Web.UI.Controllers
 
                 throw ex;
             }
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> FetchUserApprovedAndPendingTimesheet (long userId)
+        {
+            try
+            {
+                var response = await timesheetService.FetchUserPaindingAndApprovedHrs(userId);
+                return Json(new{data = response});
+            }
+            catch (Exception ex)
+            {
+                notyfService.Error(ex.Message);
+                throw ex;
+            }
+            
         }
 
     }

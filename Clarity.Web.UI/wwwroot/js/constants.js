@@ -13,7 +13,8 @@
     fetchAllHikesLetters: "/UserDashBoard/FetchAllHikesLetters",
     fetchAllFormSixteensLetters: "/UserDashBoard/FetchAllFormSixteensLetters",
     fetchAllTaskItems: "/TaskItem/fetchAllTaskItems",
-    fetchAllTaskItemUser: "/UserTimesheet/fetchAllTaskItemUser"
+    fetchAllTaskItemUser: "/UserTimesheet/fetchAllTaskItemUser",
+    fetchUserPendingAndApprovedTimesheetHrs:"/UserTimesheet/FetchUserPaindingAndApprovedHrs"
 };
 
 function generateNextCode(data) {
