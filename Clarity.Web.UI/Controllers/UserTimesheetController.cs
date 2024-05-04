@@ -90,5 +90,21 @@ namespace Clarity.Web.UI.Controllers
                 throw ex;
             }
         }
+
+        [HttpGet]
+        public async Task<IActionResult> FetchUserPaindingAndApprovedHrs(long userId)
+        {
+            try
+            {
+                var responce = await timesheetService.FetchUserPaindingAndApprovedHrs(userId);
+                return Json(new { data = responce });
+            }
+            catch (Exception ex)
+            {
+                notyfService.Error(ex.Message);
+                throw ex;
+            }
+        }
+
     }
 }

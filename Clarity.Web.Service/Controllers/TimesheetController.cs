@@ -129,5 +129,19 @@ namespace Clarity.Web.Service.Controllers
                 return StatusCode(500, $"Internal server error: {ex.Message}");
             }
         }
+        [HttpGet]
+        [Route("FetchUserPaindingAndApprovedHrs/{userId}")]
+        public async Task<IActionResult> FetchUserPaindingAndApprovedHrs(long userId)
+        {
+            try
+            {
+                var response = await timesheetService.FetchUserPaindingAndApprovedHrs(userId);
+                return Ok(response);
+            }
+            catch(Exception ex) 
+            {
+               return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
+        }
     }
 }

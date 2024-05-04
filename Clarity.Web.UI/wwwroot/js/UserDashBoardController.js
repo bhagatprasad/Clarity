@@ -5,10 +5,12 @@
     var dataObjects = [];
     self.employeeSalaries = [];
     self.ApplicationUser = {};
+    self.UserPendingAndApprovedTimesheetHrs = {};
     actions.push(serviceUrls.fetchEmployeeSalariesById);
     actions.push(serviceUrls.fetchOfferLetter);
     actions.push(serviceUrls.fetchAllHikesLetters);
     actions.push(serviceUrls.fetchAllFormSixteensLetters);
+    actions.push(serviceUrls.fetchUserPendingAndApprovedTimesheetHrs);
     self.init = function () {
         var appuser = storageService.get("ApplicationUser");
         if (appuser) {
@@ -38,6 +40,22 @@
             self.loadOfferLetterDropdown(responses[1][0].data);
             self.loadHikeLetterDropdown(responses[2][0].data);
             self.loadForm16LetterDropdown(responses[3][0].data);
+            self.UserPendingAndApprovedTimesheetHrs = responses[4][0] ? responses[4][0].data : null;
+            if (self.UserPendingAndApprovedTimesheetHrs) {
+                var approvedHrs = self.UserPendingAndApprovedTimesheetHrs.ApprovedHrs ? self.UserPendingAndApprovedTimesheetHrs.ApprovedHrs + " Hrs" : "0 Hrs";
+                var pendingHrs = self.UserPendingAndApprovedTimesheetHrs.PendingHrs ? self.UserPendingAndApprovedTimesheetHrs.PendingHrs + " Hrs" : "0 Hrs";
+
+                $("#ShowTimesheetApprovedHrs").text(approvedHrs);
+                $("#ShowTimesheetPendingHrs").text(pendingHrs);
+
+            }
+            else {
+                var approvedHrs = "0 Hrs"; 
+                $("#ShowTimesheetApprovedHrs").text(approvedHrs);
+                $("#ShowTimesheetPendingHrs").text(approvedHrs);
+            }
+
+            
         }).fail(function () {
             console.log('One or more requests failed.');
         });

@@ -2,6 +2,7 @@
 using Clarity.Web.Service.Interfaces;
 using Clarity.Web.Service.Models;
 using Microsoft.EntityFrameworkCore;
+using NetTopologySuite.IO;
 using System.Linq;
 
 namespace Clarity.Web.Service.Repository
@@ -12,6 +13,28 @@ namespace Clarity.Web.Service.Repository
         public TimesheetService(ApplicationDBContext dbcontext)
         {
             this.dbcontext = dbcontext;
+        }
+
+        public async Task<UserPendingAndAprovedTimesheet> FetchUserPaindingAndApprovedHrs(long userId)
+        {
+            UserPendingAndAprovedTimesheet userPendingAndAproved = new UserPendingAndAprovedTimesheet();
+            var userTimesheet = await dbcontext.timesheets.Where(x => x.UserId == userId).ToListAsync();
+            var approvedTimesheets = userTimesheet.Where(x => x.Status.ToLower() == "approved").Select(x => x.Id).ToList();
+            var pendingTimesheets = userTimesheet.Where(x => x.Status.ToLower() != "approved").Select(x => x.Id).ToList();
+
+            if (userTimesheet.Any())
+            {
+                var approvedTimesheethrs = dbcontext.timesheetTasks.Where(x => approvedTimesheets.Contains(x.TimesheetId.Value)).Select(entity => entity.MondayHours +
+                      entity.TuesdayHours + entity.WednesdayHours + entity.ThursdayHours + entity.FridayHours).Sum(x => x);
+
+                var paindingTimesheethrs = dbcontext.timesheetTasks.Where(x => pendingTimesheets.Contains(x.TimesheetId.Value)).Select(entity => entity.MondayHours +
+                      entity.TuesdayHours + entity.WednesdayHours + entity.ThursdayHours + entity.FridayHours).Sum(x => x);
+                userPendingAndAproved.ApprovedHrs = approvedTimesheethrs;
+                userPendingAndAproved.ApprovedHrs = paindingTimesheethrs;
+            }
+
+
+            return userPendingAndAproved;
         }
 
         public async Task<List<Timesheet>> GetAllTimesheetsAsync()

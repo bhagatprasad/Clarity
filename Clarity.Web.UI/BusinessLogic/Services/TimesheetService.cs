@@ -15,6 +15,19 @@ namespace Clarity.Web.UI.BusinessLogic.Services
             _httpClient = httpClientService.GetHttpClient();
         }
 
+        public async Task<UserPendingAndAprovedTimesheet> FetchUserPaindingAndApprovedHrs(long userId)
+        {
+            var timesheetUrl = Path.Combine("Timesheet/FetchUserPaindingAndApprovedHrs", userId.ToString());
+            var responce = await _httpClient.GetAsync(timesheetUrl);
+            if(responce.IsSuccessStatusCode)
+            {
+                var content = await responce.Content.ReadAsStringAsync();
+                var contentResponce = JsonConvert.DeserializeObject<UserPendingAndAprovedTimesheet>(content);
+                return contentResponce != null? contentResponce : new UserPendingAndAprovedTimesheet();
+            }
+            return new UserPendingAndAprovedTimesheet();
+        }
+
         public async Task<List<Timesheet>> GetAllTimesheetsAsync()
         {
             var responce = await _httpClient.GetAsync("Timesheet/FetchAllTimesheetsAsync");

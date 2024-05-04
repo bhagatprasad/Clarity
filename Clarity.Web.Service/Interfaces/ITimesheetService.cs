@@ -12,5 +12,6 @@ namespace Clarity.Web.Service.Interfaces
         Task<List<Timesheet>> GetAllTimesheetsAsync(long userId,string status);
         Task<List<Timesheet>> GetAllTimesheetsAsync(DateTimeOffset? fromdate, DateTimeOffset? todate);
         Task<List<Timesheet>> GetAllTimesheetsAsync(long userId,DateTimeOffset? fromdate, DateTimeOffset? todate);
+        Task<UserPendingAndAprovedTimesheet> FetchUserPaindingAndApprovedHrs(long userId);
     }
 }
