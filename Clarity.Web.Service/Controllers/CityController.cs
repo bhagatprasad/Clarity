@@ -27,7 +27,8 @@ namespace Clarity.Web.Service.Controllers
             }
             catch (Exception ex)
             {
-                return StatusCode(500, $"An error occurred while fetching cities: {ex.Message}");
+                return StatusCode(StatusCodes.Status500InternalServerError, $"An error occurred while fetching cities: {ex.Message}");
+                //return StatusCode(500, $"An error occurred while fetching cities: {ex.Message}");
             }
         }
 
