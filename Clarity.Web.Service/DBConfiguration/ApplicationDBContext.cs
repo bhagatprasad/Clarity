@@ -37,5 +37,6 @@ namespace Clarity.Web.Service.DBConfiguration
         public DbSet<EmployeeDocument> employeeDocuments { get; set; }
         public DbSet<Timesheet> timesheets { get; set; }
         public DbSet<TimesheetTask> timesheetTasks { get; set; }
+        public DbSet<NotificationType> notificationTypes { get; set; }
     }
 }
