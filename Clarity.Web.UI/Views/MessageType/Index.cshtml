@@ -1,0 +1,49 @@
+﻿@{
+    ViewData["Title"] = "Message Types";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+<div class="container-xxl flex-grow-1 container-p-y">
+    <div class="row" style="padding-top:15px">
+    </div>
+    <!-- Bordered Table -->
+    <div class="card">
+        <div class="card-header">
+            <div class="col-md-8 float-left" style="text-align: right;float: right;">
+                <button id="AddDepartments" class="btn btn-success">
+                    <i class="fas fa-plus"></i> Add MessageType
+                </button>
+                <button id="importData" class="btn btn-primary">
+                    <i class="fas fa-download"></i> Import
+                </button>
+                <button id="ExportData" class="btn btn-info">
+                    <i class="fas fa-upload"></i> Export
+                </button>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive text-nowrap">
+                <table class="table table-striped table-bordered text-nowrap" style="width:100%" id="MessageTypeGrid">
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Name</th>
+                            <th>Created On</th>
+                            <th>Modified On</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="~/lib/jquery/dist/jquery.js"></script>
+<script src="~/js/MessageTypeController.js"></script>
+<script type="text/javascript">
+    $(function () {
+        var ctrl = new MessageTypeController();
+        ctrl.init();
+    });
+</script>

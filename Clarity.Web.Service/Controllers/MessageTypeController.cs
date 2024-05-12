@@ -7,6 +7,7 @@ namespace Clarity.Web.Service.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [ClarityAuthorize]
     public class MessageTypeController : ControllerBase
     {
         private readonly IMessageTypeService messageTypeService;
