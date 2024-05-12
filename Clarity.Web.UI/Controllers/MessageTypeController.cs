@@ -1,8 +1,10 @@
 ﻿using Clarity.Web.UI.BusinessLogic.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Clarity.Web.UI.Controllers
 {
+    [Authorize(Roles = "Administrator,Admin,Software Engineer/Developer,Full-stack Developer")]
     public class MessageTypeController : Controller
     {
         private readonly IMessageTypeService messageService;
@@ -10,10 +12,15 @@ namespace Clarity.Web.UI.Controllers
         {
             this.messageService = _messageTypeService;
         }
-        public IActionResult Index()
+
+        [HttpGet]
+        public async Task<IActionResult> Index()
         {
+           
             return View();
         }
+
+
         [HttpGet]
         public async Task<IActionResult> GetAllMessageType()
         {

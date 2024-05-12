@@ -14,7 +14,7 @@ namespace Clarity.Web.UI.BusinessLogic.Services
         }
         public async Task<List<MessageType>> GetAllMessageTypes()
         {
-            var response = await _httpClient.GetAsync("MessageType/GetAllMessageTypes");
+            var response = await _httpClient.GetAsync("MessageType/FetchAllMessageType");
             if(response.IsSuccessStatusCode)
             {
                 var content=await response.Content.ReadAsStringAsync();
