@@ -39,12 +39,12 @@ namespace Clarity.Web.UI.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> InsertMailMessage(MailBox mailBox)
+        public async Task<IActionResult> InsertMailMessage([FromBody] MailBox mailBox)
         {
             try
             {
                 var mail = await mailBoxService.InsertMailMessageForClientAsync(mailBox);
-                return Json(new {data = mail});
+                return Json(new { data = mail });
             }
             catch (Exception ex)
             {
