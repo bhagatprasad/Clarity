@@ -67,9 +67,10 @@ namespace Clarity.Web.UI
             services.AddScoped<IHolidayCallenderService, HolidayCallenderService>();
             services.AddScoped<IDocumentTypeService, DocumentTypeService>();
             services.AddScoped<IEmployeeDocumentService, EmployeeDocumentService>();
-            services.AddScoped<ITaskCodeService,TaskCodeService>();
+            services.AddScoped<ITaskCodeService, TaskCodeService>();
             services.AddScoped<ITimesheetService, TimesheetService>();
             services.AddScoped<IMessageTypeService, MessageTypeService>();
+            services.AddScoped<IMailBoxService, MailBoxService>();
             services.AddSession(options =>
             {
                 options.IdleTimeout = TimeSpan.FromMinutes(30);
