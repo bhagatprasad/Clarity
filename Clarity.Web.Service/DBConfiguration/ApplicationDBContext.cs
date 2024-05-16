@@ -38,5 +38,6 @@ namespace Clarity.Web.Service.DBConfiguration
         public DbSet<Timesheet> timesheets { get; set; }
         public DbSet<TimesheetTask> timesheetTasks { get; set; }
         public DbSet<MessageType> messageTypes { get; set; }
+        public DbSet<MailBox> mailBoxes { get; set; }
     }
 }

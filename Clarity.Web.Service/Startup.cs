@@ -62,6 +62,8 @@ namespace Clarity.Web.Service
             services.AddScoped<IEmployeeDocumentService, EmployeeDocumentService>();
             services.AddScoped<ITimesheetService, TimesheetService>();
             services.AddScoped<IMessageTypeService, MessageTypeService>();
+            services.AddScoped<IMailBoxService, MailBoxService>();
+
             services.AddCors(options =>
             {
                 options.AddPolicy("CorsPolicy",
@@ -75,12 +77,7 @@ namespace Clarity.Web.Service
 
             var usedGenaratesTokenKey = _configuration.GetValue<string>("UsedGenaratesTokenKey");
 
-
-
-            services.AddScoped<IAuthService>
-                (x => new AuthService
-                (usedGenaratesTokenKey, x.GetRequiredService<ApplicationDBContext>()));
-
+            services.AddScoped<IAuthService>(x => new AuthService (usedGenaratesTokenKey, x.GetRequiredService<ApplicationDBContext>()));
 
             var key = Encoding.ASCII.GetBytes(usedGenaratesTokenKey);
 
@@ -152,7 +149,6 @@ namespace Clarity.Web.Service
             app.UseAuthentication();
 
             app.UseAuthorization();
-
 
             app.UseCors("CorsPolicy");
 
