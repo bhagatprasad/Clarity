@@ -25,5 +25,20 @@ namespace Clarity.Web.Service.Repository
                 throw;
             }
         }
+
+        public async Task<MailBox> InsertMailMessageAsync(MailBox mailBox)
+        {
+            try
+            {
+                await context.mailBoxes.AddAsync(mailBox);
+                await context.SaveChangesAsync();
+                return mailBox;
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+
+        }
     }
 }

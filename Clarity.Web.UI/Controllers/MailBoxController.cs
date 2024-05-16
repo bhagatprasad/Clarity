@@ -1,5 +1,6 @@
 ﻿using AspNetCoreHero.ToastNotification.Abstractions;
 using Clarity.Web.UI.BusinessLogic.Interfaces;
+using Clarity.Web.UI.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -34,6 +35,20 @@ namespace Clarity.Web.UI.Controllers
                 notyfService.Error(ex.Message);
 
                 throw ex;
+            }
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> InsertMailMessage(MailBox mailBox)
+        {
+            try
+            {
+                var mail = await mailBoxService.InsertMailMessageForClientAsync(mailBox);
+                return Json(new {data = mail});
+            }
+            catch (Exception ex)
+            {
+                throw;
             }
         }
     }
