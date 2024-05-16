@@ -1,4 +1,5 @@
-﻿using Clarity.Web.Service.Interfaces;
+﻿using Clarity.Web.Service.Helpers;
+using Clarity.Web.Service.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Text.RegularExpressions;
@@ -7,6 +8,7 @@ namespace Clarity.Web.Service.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [ClarityAuthorize]
     public class MailBoxController : ControllerBase
     {
         private readonly IMailBoxService mailBoxService;
