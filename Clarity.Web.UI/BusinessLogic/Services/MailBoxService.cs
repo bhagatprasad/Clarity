@@ -29,5 +29,20 @@ namespace Clarity.Web.UI.BusinessLogic.Services
 
             return null;
         }
+
+        public async Task<MailBox> InsertMailMessageForClientAsync(MailBox mailBox)
+        {
+            var inputContent = JsonConvert.SerializeObject(mailBox);
+            var requestContent = new StringContent(inputContent);
+            var responce = await httpClient.PostAsync("MailBox/InsertMailMessageAsync",requestContent);
+
+            if(responce.IsSuccessStatusCode)
+            {
+                var content = await responce.Content.ReadAsStringAsync();
+                var mail = JsonConvert.DeserializeObject<MailBox>(content);
+                return mail;
+            }
+            return null;
+        }
     }
 }

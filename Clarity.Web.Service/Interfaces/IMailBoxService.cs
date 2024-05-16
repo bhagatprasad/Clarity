@@ -6,5 +6,7 @@ namespace Clarity.Web.Service.Interfaces
     {
         Task<List<MailBox>> GetMailBoxesAsync();
 
+        Task<MailBox> InsertMailMessageAsync(MailBox mailBox);
+
     }
 }

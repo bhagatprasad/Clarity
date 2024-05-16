@@ -1,5 +1,6 @@
 ﻿using Clarity.Web.Service.Helpers;
 using Clarity.Web.Service.Interfaces;
+using Clarity.Web.Service.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Text.RegularExpressions;
@@ -30,6 +31,21 @@ namespace Clarity.Web.Service.Controllers
             }catch(Exception ex)
             {
                 return new StatusCodeResult(StatusCodes.Status500InternalServerError);
+            }
+        }
+
+        [HttpPost]
+        [Route("InsertMailMessageAsync")]
+        public async Task<IActionResult> InsertMailMessageAsync(MailBox mailBox)
+        {
+            try
+            {
+                var mail = await mailBoxService.InsertMailMessageAsync(mailBox);
+                return Ok(mail);
+            }
+            catch(Exception ex)
+            {
+                return new StatusCodeResult(StatusCodes.Status200OK);
             }
         }
     }
