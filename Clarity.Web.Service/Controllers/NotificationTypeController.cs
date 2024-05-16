@@ -29,7 +29,7 @@ namespace Clarity.Web.Service.Controllers
             }
             catch (Exception ex)
             {
-                throw ex;
+                throw new HttpRequestExceptionMessage("Error Getting NotificationType", 500, ex.Message);
             }
         }
 
@@ -45,7 +45,7 @@ namespace Clarity.Web.Service.Controllers
             }
             catch (Exception ex)
             {
-                throw ex;
+                throw new HttpRequestExceptionMessage("Error Saving or Updating NotificationType", 500, ex.Message);
             }
         }
         [HttpDelete]
@@ -59,7 +59,7 @@ namespace Clarity.Web.Service.Controllers
             }
             catch (Exception ex)
             {
-                throw ex;
+                throw new HttpRequestExceptionMessage("Error Deleting NotificationType", 500, ex.Message);
             }
         }
 
@@ -74,7 +74,8 @@ namespace Clarity.Web.Service.Controllers
             }
             catch (Exception ex)
             {
-                throw ex;
+                throw new HttpRequestExceptionMessage("Error Getting  NotificationType by Id ", 500, ex.Message);
+
             }
         }
     }
