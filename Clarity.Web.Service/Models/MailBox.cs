@@ -23,9 +23,9 @@ namespace Clarity.Web.Service.Models
 
         public bool IsForAll { get; set; }
 
-        public string FromUser { get; set; }
+        public string? FromUser { get; set; }
 
-        public string ToUser { get; set; }
+        public string? ToUser { get; set; }
 
         public long? CreatedBy { get; set; }
 

@@ -9,7 +9,7 @@
     <div class="card">
         <div class="card-header">
             <div class="col-md-8 float-left" style="text-align: right;float: right;">
-                <button id="AddDepartments" class="btn btn-success">
+                <button id="AddMail" class="btn btn-success">
                     <i class="fas fa-plus"></i> Add Mail
                 </button>
                 <button id="importData" class="btn btn-primary">
@@ -40,8 +40,37 @@
             </div>
         </div>
     </div>
+    <partial name="_AddMail.cshtml" />
 </div>
+<style>
+    .form-row {
+        display: inline-flex !important;
+        width: 100% !important;
+    }
 
+    .col-6 {
+        padding: 5px !important;
+    }
+    .isForAll{
+        display:none !important;
+    }
+
+
+    .dataTables_wrapper {
+        width: 100%;
+    }
+
+        .dataTables_wrapper table {
+            width: 100%;
+            table-layout: fixed; /* Fix table layout */
+        }
+
+        .dataTables_wrapper td {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+</style>
 <script src="~/lib/jquery/dist/jquery.js"></script>
 <script src="~/js/MailBoxController.js"></script>
 <script type="text/javascript">

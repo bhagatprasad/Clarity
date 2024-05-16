@@ -2,6 +2,7 @@
 using Clarity.Web.UI.Models;
 using Clarity.Web.UI.Utility;
 using Newtonsoft.Json;
+using System.Text;
 
 namespace Clarity.Web.UI.BusinessLogic.Services
 {
@@ -33,8 +34,8 @@ namespace Clarity.Web.UI.BusinessLogic.Services
         public async Task<MailBox> InsertMailMessageForClientAsync(MailBox mailBox)
         {
             var inputContent = JsonConvert.SerializeObject(mailBox);
-            var requestContent = new StringContent(inputContent);
-            var responce = await httpClient.PostAsync("MailBox/InsertMailMessageAsync",requestContent);
+            var requestContent = new StringContent(inputContent, Encoding.UTF8, "application/json");
+            var responce = await httpClient.PostAsync("MailBox/InsertMailMessageAsync", requestContent);
 
             if(responce.IsSuccessStatusCode)
             {
