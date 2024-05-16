@@ -69,7 +69,7 @@ namespace Clarity.Web.UI
             services.AddScoped<IEmployeeDocumentService, EmployeeDocumentService>();
             services.AddScoped<ITaskCodeService,TaskCodeService>();
             services.AddScoped<ITimesheetService, TimesheetService>();
-
+            services.AddScoped<IMessageTypeService, MessageTypeService>();
             services.AddSession(options =>
             {
                 options.IdleTimeout = TimeSpan.FromMinutes(30);
@@ -209,7 +209,6 @@ namespace Clarity.Web.UI
                     ctx.Context.Response.Headers["Cache-Control"] = "no-cache, no-store";
                     ctx.Context.Response.Headers["Pragma"] = "no-cache";
                     ctx.Context.Response.Headers["Expires"] = "-1";
-
                 }
             });
             app.UseRouting();
