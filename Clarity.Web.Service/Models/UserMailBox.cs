@@ -17,7 +17,6 @@ namespace Clarity.Web.Service.Models
         public long? ModifiedBy { get; set; }
         public DateTimeOffset? ModifiedOn { get; set; }
         public bool? IsActive { get; set; }
-
-
+        public virtual MailBox mailBox { get; set; }
     }
 }

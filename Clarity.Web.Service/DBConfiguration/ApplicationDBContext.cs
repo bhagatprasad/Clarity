@@ -40,5 +40,6 @@ namespace Clarity.Web.Service.DBConfiguration
         public DbSet<NotificationType> notificationTypes { get; set; }
         public DbSet<MessageType> messageTypes { get; set; }
         public DbSet<MailBox> mailBoxes { get; set; }
+        public DbSet<UserMailBox> userMailBoxes { get; set; }
     }
 }
