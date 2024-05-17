@@ -89,6 +89,7 @@
     <Build Include="dbo\Tables\TimesheetTask.sql" />
     <Build Include="dbo\Tables\MessageType.sql" />
     <Build Include="dbo\Tables\MailBox.sql" />
+    <Build Include="dbo\Tables\UserMailBox.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Claritydb.publish.xml" />
