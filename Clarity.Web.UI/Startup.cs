@@ -71,6 +71,7 @@ namespace Clarity.Web.UI
             services.AddScoped<ITimesheetService, TimesheetService>();
             services.AddScoped<IMessageTypeService, MessageTypeService>();
             services.AddScoped<IMailBoxService, MailBoxService>();
+            services.AddScoped<IUserMailBoxService, UserMailBoxService>();
             services.AddSession(options =>
             {
                 options.IdleTimeout = TimeSpan.FromMinutes(30);
