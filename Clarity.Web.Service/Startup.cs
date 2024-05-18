@@ -63,6 +63,7 @@ namespace Clarity.Web.Service
             services.AddScoped<ITimesheetService, TimesheetService>();
             services.AddScoped<IMessageTypeService, MessageTypeService>();
             services.AddScoped<IMailBoxService, MailBoxService>();
+            services.AddScoped<IUserMailBoxService, UserMailBoxService>();
 
             services.AddCors(options =>
             {
