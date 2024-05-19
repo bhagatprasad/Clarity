@@ -1,8 +1,10 @@
 ﻿using Clarity.Web.UI.BusinessLogic.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Clarity.Web.UI.Controllers
 {
+    [Authorize(Roles = "Software Engineer/Developer,Full-stack Developer")]
     public class UserMailBoxController : Controller
     {
         private readonly IUserMailBoxService userMailBoxService;
@@ -15,22 +17,9 @@ namespace Clarity.Web.UI.Controllers
         {
             return View();
         }
-        [HttpGet]
-        public async Task<IActionResult> GetAllUserMailBoxAsync()
-        {
-            try
-            {
-                var mailbox = await userMailBoxService.GetAllUserMailBoxAsync();
-                return Json(new { data = mailbox });
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-        }
 
         [HttpGet]
-        public async Task<IActionResult> GetAllUserMailBoxAsync(long userId)
+        public async Task<IActionResult> GetAllUserMailBoxes(long userId)
         {
             try
             {
@@ -39,6 +28,7 @@ namespace Clarity.Web.UI.Controllers
             }
             catch (Exception ex)
             {
+                
                 throw ex;
             }
         }
