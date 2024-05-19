@@ -33,7 +33,7 @@ namespace Clarity.Web.Service.Controllers
         }
 
         [HttpGet]
-        [Route("GetAllUserMailBoxByID")]
+        [Route("GetAllUserMailBoxByID/{userId}")]
         public async Task<IActionResult> GetAllUserMailBoxByID(long userId)
         {
             try

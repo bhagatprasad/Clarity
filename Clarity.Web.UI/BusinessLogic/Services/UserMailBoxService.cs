@@ -28,7 +28,9 @@ namespace Clarity.Web.UI.BusinessLogic.Services
 
         public async Task<List<UserMailBox>> GetAllUserMailBoxAsync(long userId)
         {
-            var responce = await _httpClient.GetAsync("UserMailBox/GetAllUserMailBoxByID/userId");
+            var url = Path.Combine("UserMailBox/GetAllUserMailBoxByID", userId.ToString());
+
+            var responce = await _httpClient.GetAsync(url);
 
             if (responce.IsSuccessStatusCode)
             {
