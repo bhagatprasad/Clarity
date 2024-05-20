@@ -24,6 +24,12 @@ namespace Clarity.Web.Service.Repository
             return await context.userMailBoxes.Where(x => x.UserId == userId).Include(x => x.mailBox).ThenInclude(x => x.messageType).ToListAsync();
         }
 
+        public async Task InsertOrUpdateUserMailBox(UserMailBox mailBox)
+        {
+            await context.userMailBoxes.AddAsync(mailBox);
+            await context.SaveChangesAsync();
+        }
+
         public async Task<bool> ReadUserMailBox(UserMailBox mailBox)
         {
             var userMailbox = await context.userMailBoxes.FindAsync(mailBox.UserMailBoxId);
