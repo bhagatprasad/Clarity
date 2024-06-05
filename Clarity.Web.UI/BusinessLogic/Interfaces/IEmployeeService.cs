@@ -8,5 +8,6 @@ namespace Clarity.Web.UI.BusinessLogic.Interfaces
         Task<List<AddEditEmployee>> fetchAllEmployeesAsync();
         Task<bool> InsertOrUpdateAsync(AddEditEmployee employee);
         Task<AddEditEmployee> fetchEmployeeAsync(long employeeId);
+        Task<bool> SalaryHikeAsync(SalaryHike salaryHike);
     }
 }

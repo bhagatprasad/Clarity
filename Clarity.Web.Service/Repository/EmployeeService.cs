@@ -3,7 +3,10 @@ using Clarity.Web.Service.Helpers;
 using Clarity.Web.Service.Interfaces;
 using Clarity.Web.Service.Models;
 using EFCore.BulkExtensions;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using System;
 
 namespace Clarity.Web.Service.Repository
 {
@@ -165,6 +168,69 @@ namespace Clarity.Web.Service.Repository
 
                 }
             }
+            return false;
+        }
+
+        public async Task<bool> SalaryHikeAsync(SalaryHike salaryHike)
+        {
+            var employee = await context.employees.FindAsync(salaryHike.EmployeeId);
+
+            if (employee != null)
+            {
+                employee.CurrentPrice = salaryHike.LatestSalary;
+                employee.ModifiedBy = salaryHike.ModifiedBy;
+                employee.ModifiedOn = salaryHike.ModifiedOn;
+
+                await context.SaveChangesAsync();
+
+                if (salaryHike.LatestSalary.HasValue && salaryHike.LatestSalary.Value > 0)
+                {
+                    decimal monthlyGross = salaryHike.LatestSalary.Value / 12;
+                    decimal basic = monthlyGross * 0.4m;
+                    decimal hra = basic * 0.5m;
+
+                    decimal pfAmount = 3600;
+                    decimal insurance = 1000;
+                    decimal professionalTax = 200;
+                    decimal special_allowance = 5000;
+                    decimal statunory = 2000;
+
+                    decimal grossEarnings = basic + hra + special_allowance + statunory;
+                    decimal grossDeductions = pfAmount + insurance + professionalTax;
+                    decimal netPay = grossEarnings - grossDeductions;
+
+                    decimal otherAmount = monthlyGross - grossEarnings;
+                    decimal finalGrossEarnings = grossEarnings + otherAmount;
+
+                    var exstingSalaryStructer = await context.employeeSalaryStructures.Where(x => x.EmployeeId == employee.EmployeeId).FirstOrDefaultAsync();
+
+                    if (exstingSalaryStructer != null)
+                    {
+
+                        exstingSalaryStructer.BASIC = basic;
+                        exstingSalaryStructer.HRA = hra;
+                        exstingSalaryStructer.CONVEYANCE = 0;
+                        exstingSalaryStructer.MEDICALALLOWANCE = 0;
+                        exstingSalaryStructer.SPECIALALLOWANCE = special_allowance;
+                        exstingSalaryStructer.SPECIALBONUS = 0;
+                        exstingSalaryStructer.STATUTORYBONUS = statunory;
+                        exstingSalaryStructer.OTHERS = otherAmount;
+                        exstingSalaryStructer.EmployeeId = employee.EmployeeId;
+                        exstingSalaryStructer.ESIC = insurance;
+                        exstingSalaryStructer.GROSSDEDUCTIONS = grossDeductions;
+                        exstingSalaryStructer.GROSSEARNINGS = finalGrossEarnings;
+                        exstingSalaryStructer.GroupHealthInsurance = insurance;
+                        exstingSalaryStructer.PF = pfAmount;
+                        exstingSalaryStructer.PROFESSIONALTAX = professionalTax;
+                        exstingSalaryStructer.ModifiedBy = salaryHike.ModifiedBy;
+                        exstingSalaryStructer.ModifiedOn = salaryHike.ModifiedOn;
+
+                        await context.SaveChangesAsync();
+                    }
+                }
+                return true;
+            }
+
             return false;
         }
     }

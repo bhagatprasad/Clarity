@@ -64,5 +64,19 @@ namespace Clarity.Web.Service.Controllers
                 return StatusCode(500, $"An error occurred while inserting/updating employee: {ex.Message}");
             }
         }
+        [HttpPost]
+        [Route("SalaryHikeAsync")]
+        public async Task<ActionResult<bool>> SalaryHikeAsync(SalaryHike salaryHike)
+        {
+            try
+            {
+                var result = await _employeeService.SalaryHikeAsync(salaryHike);
+                return result;
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"An error occurred while Salary Hike Async employee: {ex.Message}");
+            }
+        }
     }
 }
