@@ -72,6 +72,9 @@ namespace Clarity.Web.UI
             services.AddScoped<IMessageTypeService, MessageTypeService>();
             services.AddScoped<IMailBoxService, MailBoxService>();
             services.AddScoped<IUserMailBoxService, UserMailBoxService>();
+            services.AddScoped<IEmployeePaymentService, EmployeePaymentService>();
+            services.AddScoped<IPaymentTypeService, PaymentTypeService>();
+            services.AddScoped<IPaymentMethodService, PaymentMethodService>();
             services.AddSession(options =>
             {
                 options.IdleTimeout = TimeSpan.FromMinutes(30);
