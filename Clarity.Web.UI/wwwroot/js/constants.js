@@ -14,7 +14,9 @@
     fetchAllFormSixteensLetters: "/UserDashBoard/FetchAllFormSixteensLetters",
     fetchAllTaskItems: "/TaskItem/fetchAllTaskItems",
     fetchAllTaskItemUser: "/UserTimesheet/fetchAllTaskItemUser",
-    fetchUserPendingAndApprovedTimesheetHrs:"/UserTimesheet/FetchUserPaindingAndApprovedHrs"
+    fetchUserPendingAndApprovedTimesheetHrs: "/UserTimesheet/FetchUserPaindingAndApprovedHrs",
+    fetchPaymentTypes: "/PaymentType/GetAllPaymentTypes",
+    fetchPaymentMethods: "/PaymentMethod/GetAllPaymentMethods"
 };
 
 function generateNextCode(data) {

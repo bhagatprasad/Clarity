@@ -1,0 +1,46 @@
+﻿<form id="EmployeePaymentForm">
+    <div class="modal fade" id="empoyeePaymentModel" tabindex="-1" aria-labelledby="empoyeePaymentModelLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-sm" style="max-width: 50% !important;">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="empoyeePaymentModelLabel">Make Payment &nbsp;</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body" style="padding:10px !important">
+                    <div class="form-row">
+                        <div class="col-12 mb-3">
+                            <label for="dropdownEmployee" class="form-label">Employee</label>
+                            <select id="dropdownEmployee" class="form-control custom-select" autofocus required></select>
+                        </div>
+                       
+                    </div>
+                    <div class="form-row">
+                        <div class="col-6 mb-3">
+                            <label for="dropdownPaymentMethods" class="form-label">Payment Method</label>
+                            <select id="dropdownPaymentMethods" class="form-control custom-select" autofocus required></select>
+                        </div>
+                        <div class="col-6 mb-3">
+                            <label for="Amount" class="form-label">Amount</label>
+                            <input type="text" class="form-control" id="Amount" name="Amount" placeholder="amount required" autofocus required />
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-6 mb-3">
+                            <label for="dropdownPaymentTypes" class="form-label">Payment Type</label>
+                            <select id="dropdownPaymentTypes" class="form-control custom-select" autofocus required></select>
+                        </div>
+                        
+                        <div class="col-6 mb-3">
+                            <label for="PaymentMessage" class="form-label">Message</label>
+                            <input type="text" class="form-control" id="PaymentMessage" name="Amount" placeholder="amount required" autofocus required />
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-success" id="SaveEmployeePaymentsToGrid">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

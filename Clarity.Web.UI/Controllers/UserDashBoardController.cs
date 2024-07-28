@@ -11,7 +11,7 @@ using Microsoft.Extensions.Hosting.Internal;
 
 namespace Clarity.Web.UI.Controllers
 {
-    [Authorize(Roles = "Software Engineer/Developer,Full-stack Developer")]
+    //[Authorize(Roles = "Software Engineer/Developer,Full-stack Developer")]
     public class UserDashBoardController : Controller
     {
         private readonly IEmployeeSalaryService employeeSalaryService;

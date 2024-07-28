@@ -90,6 +90,10 @@
     <Build Include="dbo\Tables\MessageType.sql" />
     <Build Include="dbo\Tables\MailBox.sql" />
     <Build Include="dbo\Tables\UserMailBox.sql" />
+    <Build Include="dbo\Tables\PaymentType.sql" />
+    <Build Include="dbo\Tables\PaymentMethod.sql" />
+    <Build Include="dbo\Tables\TutionFee.sql" />
+    <Build Include="dbo\Tables\EmployeePayment.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Claritydb.publish.xml" />

@@ -41,5 +41,9 @@ namespace Clarity.Web.Service.DBConfiguration
         public DbSet<MessageType> messageTypes { get; set; }
         public DbSet<MailBox> mailBoxes { get; set; }
         public DbSet<UserMailBox> userMailBoxes { get; set; }
+        public DbSet<PaymentMethod> paymentMethods { get; set; }
+        public DbSet<PaymentType> paymentTypes { get; set; }
+        public DbSet<EmployeePayment> employeePayments { get; set; }
+        public DbSet<TutionFee> tutionFees { get; set; }
     }
 }

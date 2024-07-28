@@ -64,6 +64,10 @@ namespace Clarity.Web.Service
             services.AddScoped<IMessageTypeService, MessageTypeService>();
             services.AddScoped<IMailBoxService, MailBoxService>();
             services.AddScoped<IUserMailBoxService, UserMailBoxService>();
+            services.AddScoped<IPaymentMethodService, PaymentMethodRepository>();
+            services.AddScoped<IPaymentTypeService, PaymentTypeRepository>();
+            services.AddScoped<IEmployeePaymentService, EmployeePaymentRepository>();
+            services.AddScoped<ITutionFeeService, TutionFeeService>();
 
             services.AddCors(options =>
             {
