@@ -75,6 +75,7 @@ namespace Clarity.Web.UI
             services.AddScoped<IEmployeePaymentService, EmployeePaymentService>();
             services.AddScoped<IPaymentTypeService, PaymentTypeService>();
             services.AddScoped<IPaymentMethodService, PaymentMethodService>();
+            services.AddScoped<ITutionFeeService, TutionFeeService>();
             services.AddSession(options =>
             {
                 options.IdleTimeout = TimeSpan.FromMinutes(30);

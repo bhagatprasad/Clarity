@@ -1,0 +1,46 @@
+﻿<form id="TutionFeeForm">
+    <div class="modal fade" id="tutionFeeModel" tabindex="-1" aria-labelledby="tutionFeeModel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-sm" style="max-width: 50% !important;">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="tutionFeeModelLabel">Make Payment &nbsp;</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body" style="padding:10px !important">
+                    <div class="form-row">
+                        <div class="col-12 mb-3">
+                            <label for="dropdownEmployee" class="form-label">Employee</label>
+                            <select id="dropdownEmployee" class="form-control custom-select" autofocus required></select>
+                        </div>
+
+                    </div>
+                    <div class="form-row">
+                        <div class="col-6 mb-3">
+                            <label for="TutionFee" class="form-label">Tution Fee</label>
+                            <input type="text" class="form-control" id="TutionFee" name="Amount" placeholder="amount required" autofocus required />
+                        </div>
+                        <div class="col-6 mb-3">
+                            <label for="ActualFee" class="form-label">Actual Fee</label>
+                            <input type="text" class="form-control" id="ActualFee" name="Amount" placeholder="amount required" autofocus required />
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-6 mb-3">
+                            <label for="FinalFee" class="form-label">Final Fee</label>
+                            <input type="text" class="form-control" id="FinalFee" name="Amount" placeholder="amount required" autofocus required />
+                        </div>
+
+                        <div class="col-6 mb-3">
+                            <label for="PaidFee" class="form-label">Paid Fee</label>
+                            <input type="text" class="form-control" id="PaidFee" name="Amount" placeholder="amount required" autofocus required />
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-success" id="SaveTutionFeeToGrid">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
