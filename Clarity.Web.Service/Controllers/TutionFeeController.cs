@@ -22,10 +22,7 @@ namespace Clarity.Web.Service.Controllers
             try
             {
                 var result = await _tutionFeeService.InsertOrUpdateTutionFee(tutionFee);
-                if (result)
-                    return Ok("City inserted or updated successfully.");
-                else
-                    return BadRequest("Failed to insert or update city.");
+               return Ok(result);
             }
             catch (Exception ex)
             {

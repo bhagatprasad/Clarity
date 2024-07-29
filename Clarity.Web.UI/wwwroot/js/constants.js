@@ -16,7 +16,8 @@
     fetchAllTaskItemUser: "/UserTimesheet/fetchAllTaskItemUser",
     fetchUserPendingAndApprovedTimesheetHrs: "/UserTimesheet/FetchUserPaindingAndApprovedHrs",
     fetchPaymentTypes: "/PaymentType/GetAllPaymentTypes",
-    fetchPaymentMethods: "/PaymentMethod/GetAllPaymentMethods"
+    fetchPaymentMethods: "/PaymentMethod/GetAllPaymentMethods",
+    fetchAllTutionFees: "TutionFee/fetchAllTutionFees"
 };
 
 function generateNextCode(data) {

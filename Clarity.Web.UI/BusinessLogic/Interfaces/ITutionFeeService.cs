@@ -1,6 +1,6 @@
-﻿using Clarity.Web.Service.Models;
+﻿using Clarity.Web.UI.Models;
 
-namespace Clarity.Web.Service.Interfaces
+namespace Clarity.Web.UI.BusinessLogic.Interfaces
 {
     public interface ITutionFeeService
     {

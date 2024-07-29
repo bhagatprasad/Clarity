@@ -5,17 +5,34 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Clarity.Web.Service.Repository
 {
-    public class TutionFeeService: ITutionFeeService
+    public class TutionFeeService : ITutionFeeService
     {
         private readonly ApplicationDBContext _dbContext;
         public TutionFeeService(ApplicationDBContext applicationDBContext)
         {
-            this._dbContext = applicationDBContext;    
+            this._dbContext = applicationDBContext;
         }
 
-        public async Task<List<TutionFee>> fetchAllTutionFees()
+        public async Task<List<EmployeeTutionFeesModel>> fetchAllTutionFees()
         {
-            return await _dbContext.tutionFees.ToListAsync();
+
+            var tutionFees = (from tutionFee in _dbContext.tutionFees
+                              join emplopyee in _dbContext.employees on tutionFee.EmployeeId equals emplopyee.EmployeeId into employeeTutionFees
+                              from employeeTutionFeeJoin in employeeTutionFees.DefaultIfEmpty()
+                              select new EmployeeTutionFeesModel
+                              {
+                                  Id= tutionFee.Id,
+                                  EmployeeId= tutionFee.EmployeeId,
+                                  EmployeeFullName = employeeTutionFeeJoin != null ? employeeTutionFeeJoin.FirstName + "" + employeeTutionFeeJoin.LastName : string.Empty,
+                                  ActualFee = tutionFee.ActualFee,
+                                  FinalFee = tutionFee.FinalFee,
+                                  RemaingFee = tutionFee.RemaingFee,
+                                  PaidFee = tutionFee.PaidFee,
+                                  CreatedOn = tutionFee.CreatedOn,
+
+                              }).ToList();
+
+            return tutionFees;
         }
 
         public async Task<bool> InsertOrUpdateTutionFee(TutionFee tutionFee)
