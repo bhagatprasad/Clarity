@@ -1,5 +1,4 @@
-﻿using Azure;
-using Clarity.Web.UI.BusinessLogic.Interfaces;
+﻿using Clarity.Web.UI.BusinessLogic.Interfaces;
 using Clarity.Web.UI.Models;
 using Clarity.Web.UI.Utility;
 using Newtonsoft.Json;

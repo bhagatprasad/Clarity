@@ -1,4 +1,5 @@
-﻿using Clarity.Web.Service.Models;
+﻿
+using Clarity.Web.UI.Utility;
 
 namespace Clarity.Web.UI.Models
 {
