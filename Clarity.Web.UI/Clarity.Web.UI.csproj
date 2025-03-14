@@ -99,10 +99,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Clarity.Web.Service\Clarity.Web.Service.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
     <TypeScriptCompile Include="wwwroot\js\file.ts" />
   </ItemGroup>
 
