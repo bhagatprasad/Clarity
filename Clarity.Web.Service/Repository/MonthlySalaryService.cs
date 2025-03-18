@@ -34,7 +34,7 @@ namespace Clarity.Web.Service.Repository
             {
                 var salaryStructure = await context.employeeSalaryStructures.Where(x => activeEmployeeIds.Contains(x.EmployeeId.Value)).ToListAsync();
 
-                var salaries = await context.employeeSalaries.Where(x => activeEmployeeIds.Contains(x.EmployeeId.Value)).ToListAsync();
+                var salaries = await context.employeeSalaries.Where(x => activeEmployeeIds.Contains(x.EmployeeId.Value) && x.SalaryYear== monthlySalary.SalaryYear).ToListAsync();
 
                 List<EmployeeSalary> employeeSalaries = new List<EmployeeSalary>();
 
