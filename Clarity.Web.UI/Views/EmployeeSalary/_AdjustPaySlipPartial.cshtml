@@ -1,0 +1,422 @@
+﻿<form id="EmployeeSalaryForm">
+    <div class="modal fade" id="EmployeeSalaryFormModel" tabindex="-1" aria-labelledby="EmployeeSalaryFormModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg" style="max-width: 60% !important;">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="EmployeeSalaryFormModalLabel">Adjust salary slip</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body" style="padding:10px !important">
+                    <input type="hidden" id="EmployeeSalaryId" name="EmployeeSalaryId" />
+                    <input type="hidden" id="EmployeeId" name="EmployeeId" />
+                    <input type="hidden" id="MonthlySalaryId" name="MonthlySalaryId" />
+
+                    <div class="form-row">
+                        <div class="col-12 mb-3">
+                            <label for="Title" class="form-label">Title</label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="fas fa-briefcase"></i></span>
+                                </div>
+                                <input type="text" class="form-control" id="Title" name="Title" placeholder="Title" autofocus required />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="col-6 mb-3">
+                            <label for="SalaryMonth" class="form-label">Month</label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="fas fa-calendar-alt"></i></span>
+                                </div>
+                                <select id="SalaryMonth" class="form-control custom-select" name="SalaryMonth" required></select>
+                            </div>
+                        </div>
+                        <div class="col-6 mb-3">
+                            <label for="SalaryYear" class="form-label">Year</label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="fas fa-calendar-year"></i></span>
+                                </div>
+                                <select id="SalaryYear" class="form-control custom-select" name="SalaryYear" required></select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="col-6 mb-3">
+                            <label for="LOCATION" class="form-label">Location</label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="fas fa-map-marker-alt"></i></span>
+                                </div>
+                                <select id="LOCATION" class="form-control custom-select" name="LOCATION" required></select>
+                            </div>
+                        </div>
+                        <div class="col-6 mb-3">
+                            <label for="STDDAYS" class="form-label">Standard Days</label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="fas fa-calendar"></i></span>
+                                </div>
+                                <input type="text" class="form-control" id="STDDAYS" name="STDDAYS" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="col-6 mb-3">
+                            <label for="WRKDAYS" class="form-label">Working Days</label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="fas fa-calendar"></i></span>
+                                </div>
+                                <input type="text" class="form-control" id="WRKDAYS" name="WRKDAYS" />
+                            </div>
+                        </div>
+                        <div class="col-6 mb-3">
+                            <label for="LOPDAYS" class="form-label">Loss of Pay Days</label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="fas fa-calendar"></i></span>
+                                </div>
+                                <input type="text" class="form-control" id="LOPDAYS" name="LOPDAYS" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="col-6 mb-3">
+                            <label for="Earning_Monthly_Basic" class="form-label">Earning Monthly Basic</label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="fa fa-money"></i></span>
+                                </div>
+                                <input type="text" class="form-control" id="Earning_Monthly_Basic" name="Earning_Monthly_Basic" />
+                            </div>
+                        </div>
+                        <div class="col-6 mb-3">
+                            <label for="Earning_YTD_Basic" class="form-label">Earning YTD Basic</label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="fa fa-money"></i></span>
+                                </div>
+                                <input type="text" class="form-control" id="Earning_YTD_Basic" name="Earning_YTD_Basic" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="col-6 mb-3">
+                            <label for="Earning_Montly_HRA" class="form-label">Earning Monthly HRA</label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="fa fa-money"></i></span>
+                                </div>
+                                <input type="text" class="form-control" id="Earning_Montly_HRA" name="Earning_Montly_HRA" />
+                            </div>
+                        </div>
+                        <div class="col-6 mb-3">
+                            <label for="Earning_YTD_HRA" class="form-label">Earning YTD HRA</label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="fa fa-money"></i></span>
+                                </div>
+                                <input type="text" class="form-control" id="Earning_YTD_HRA" name="Earning_YTD_HRA" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="col-6 mb-3">
+                            <label for="Earning_Montly_CONVEYANCE" class="form-label">Earning Monthly Conveyance</label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="fa fa-money"></i></span>
+                                </div>
+                                <input type="text" class="form-control" id="Earning_Montly_CONVEYANCE" name="Earning_Montly_CONVEYANCE" />
+                            </div>
+                        </div>
+                        <div class="col-6 mb-3">
+                            <label for="Earning_YTD_CONVEYANCE" class="form-label">Earning YTD Conveyance</label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="fa fa-money"></i></span>
+                                </div>
+                                <input type="text" class="form-control" id="Earning_YTD_CONVEYANCE" name="Earning_YTD_CONVEYANCE" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="col-6 mb-3">
+                            <label for="Earning_Montly_MEDICALALLOWANCE" class="form-label">Earning Monthly Medical Allowance</label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="fa fa-money"></i></span>
+                                </div>
+                                <input type="text" class="form-control" id="Earning_Montly_MEDICALALLOWANCE" name="Earning_Montly_MEDICALALLOWANCE" />
+                            </div>
+                        </div>
+                        <div class="col-6 mb-3">
+                            <label for="Earning_YTD_MEDICALALLOWANCE" class="form-label">Earning YTD Medical Allowance</label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="fa fa-money"></i></span>
+                                </div>
+                                <input type="text" class="form-control" id="Earning_YTD_MEDICALALLOWANCE" name="Earning_YTD_MEDICALALLOWANCE" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="col-6 mb-3">
+                            <label for="Earning_Montly_SPECIALALLOWANCE" class="form-label">Earning Monthly Special Allowance</label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="fa fa-money"></i></span>
+                                </div>
+                                <input type="text" class="form-control" id="Earning_Montly_SPECIALALLOWANCE" name="Earning_Montly_SPECIALALLOWANCE" />
+                            </div>
+                        </div>
+                        <div class="col-6 mb-3">
+                            <label for="Earning_YTD_SPECIALALLOWANCE" class="form-label">Earning YTD Special Allowance</label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="fa fa-money"></i></span>
+                                </div>
+                                <input type="text" class="form-control" id="Earning_YTD_SPECIALALLOWANCE" name="Earning_YTD_SPECIALALLOWANCE" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="col-6 mb-3">
+                            <label for="Earning_Montly_SPECIALBONUS" class="form-label">Earning Monthly Special Bonus</label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="fa fa-money"></i></span>
+                                </div>
+                                <input type="text" class="form-control" id="Earning_Montly_SPECIALBONUS" name="Earning_Montly_SPECIALBONUS" />
+                            </div>
+                        </div>
+                        <div class="col-6 mb-3">
+                            <label for="Earning_YTD_SPECIALBONUS" class="form-label">Earning YTD Special Bonus</label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="fa fa-money"></i></span>
+                                </div>
+                                <input type="text" class="form-control" id="Earning_YTD_SPECIALBONUS" name="Earning_YTD_SPECIALBONUS" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="col-6 mb-3">
+                            <label for="Earning_Montly_STATUTORYBONUS" class="form-label">Earning Monthly Statutory Bonus</label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="fa fa-money"></i></span>
+                                </div>
+                                <input type="text" class="form-control" id="Earning_Montly_STATUTORYBONUS" name="Earning_Montly_STATUTORYBONUS" />
+                            </div>
+                        </div>
+                        <div class="col-6 mb-3">
+                            <label for="Earning_YTD_STATUTORYBONUS" class="form-label">Earning YTD Statutory Bonus</label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="fa fa-money"></i></span>
+                                </div>
+                                <input type="text" class="form-control" id="Earning_YTD_STATUTORYBONUS" name="Earning_YTD_STATUTORYBONUS" />
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                    <div class="form-row">
+                        <div class="col-6 mb-3">
+                            <label for="Earning_Montly_OTHERS" class="form-label">Earning Monthly Others</label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="fa fa-money"></i></span>
+                                </div>
+                                <input type="text" class="form-control" id="Earning_Montly_OTHERS" name="Earning_Montly_OTHERS" />
+                            </div>
+                        </div>
+                        <div class="col-6 mb-3">
+                            <label for="Earning_YTD_OTHERS" class="form-label">Earning YTD Others</label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="fa fa-money"></i></span>
+                                </div>
+                                <input type="text" class="form-control" id="Earning_YTD_OTHERS" name="Earning_YTD_OTHERS" />
+                            </div>
+                        </div>
+                    </div>
+                    <hr />
+                    <div class="form-row">
+                        <div class="col-6 mb-3">
+                            <label for="Earning_Montly_GROSSEARNINGS" class="form-label">Earning Monthly Gross Earnings</label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="fa fa-money"></i></span>
+                                </div>
+                                <input type="text" class="form-control" id="Earning_Montly_GROSSEARNINGS" name="Earning_Montly_GROSSEARNINGS" />
+                            </div>
+                        </div>
+                        <div class="col-6 mb-3">
+                            <label for="Earning_YTD_GROSSEARNINGS" class="form-label">Earning YTD Gross Earnings</label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="fa fa-money"></i></span>
+                                </div>
+                                <input type="text" class="form-control" id="Earning_YTD_GROSSEARNINGS" name="Earning_YTD_GROSSEARNINGS" />
+                            </div>
+                        </div>
+                    </div>
+                    <hr />
+                    <div class="form-row">
+                        <div class="col-6 mb-3">
+                            <label for="Deduction_Montly_PROFESSIONALTAX" class="form-label">Deduction Monthly Professional Tax</label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="fa fa-money"></i></span>
+                                </div>
+                                <input type="text" class="form-control" id="Deduction_Montly_PROFESSIONALTAX" name="Deduction_Montly_PROFESSIONALTAX" />
+                            </div>
+                        </div>
+                        <div class="col-6 mb-3">
+                            <label for="Deduction_YTD_PROFESSIONALTAX" class="form-label">Deduction YTD Professional Tax</label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="fa fa-money"></i></span>
+                                </div>
+                                <input type="text" class="form-control" id="Deduction_YTD_PROFESSIONALTAX" name="Deduction_YTD_PROFESSIONALTAX" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="col-6 mb-3">
+                            <label for="Deduction_Montly_ProvidentFund" class="form-label">Deduction Monthly Provident Fund</label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="fa fa-money"></i></span>
+                                </div>
+                                <input type="text" class="form-control" id="Deduction_Montly_ProvidentFund" name="Deduction_Montly_ProvidentFund" />
+                            </div>
+                        </div>
+                        <div class="col-6 mb-3">
+                            <label for="Deduction_YTD_ProvidentFund" class="form-label">Deduction YTD Provident Fund</label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="fa fa-money"></i></span>
+                                </div>
+                                <input type="text" class="form-control" id="Deduction_YTD_ProvidentFund" name="Deduction_YTD_ProvidentFund" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-6 mb-3">
+                            <label for="Deduction_Montly_GroupHealthInsurance" class="form-label">Deduction Monthly Insurense</label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="fa fa-money"></i></span>
+                                </div>
+                                <input type="text" class="form-control" id="Deduction_Montly_GroupHealthInsurance" name="Deduction_Montly_GroupHealthInsurance" />
+                            </div>
+                        </div>
+                        <div class="col-6 mb-3">
+                            <label for="Deduction_YTD_GroupHealthInsurance" class="form-label">Deduction YTD Insurense</label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="fa fa-money"></i></span>
+                                </div>
+                                <input type="text" class="form-control" id="Deduction_YTD_GroupHealthInsurance" name="Deduction_YTD_GroupHealthInsurance" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-6 mb-3">
+                            <label for="Deduction_Montly_OTHERS" class="form-label">Deduction Monthly Others</label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="fa fa-money"></i></span>
+                                </div>
+                                <input type="text" class="form-control" id="Deduction_Montly_OTHERS" name="Deduction_Montly_OTHERS" />
+                            </div>
+                        </div>
+                        <div class="col-6 mb-3">
+                            <label for="Deduction_YTD_OTHERS" class="form-label">Deduction YTD Others</label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="fa fa-money"></i></span>
+                                </div>
+                                <input type="text" class="form-control" id="Deduction_YTD_OTHERS" name="Deduction_YTD_OTHERS" />
+                            </div>
+                        </div>
+                    </div>
+                    <hr />
+                    <div class="form-row">
+                        <div class="col-6 mb-3">
+                            <label for="Deduction_Montly_GROSSSDeduction" class="form-label">Deduction Montly GROSSS Deduction</label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="fa fa-money"></i></span>
+                                </div>
+                                <input type="text" class="form-control" id="Deduction_Montly_GROSSSDeduction" name="Deduction_Montly_GROSSSDeduction" />
+                            </div>
+                        </div>
+                        <div class="col-6 mb-3">
+                            <label for="Deduction_YTD_GROSSSDeduction" class="form-label">Deduction YTD GROSSS Deduction</label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="fa fa-money"></i></span>
+                                </div>
+                                <input type="text" class="form-control" id="Deduction_YTD_GROSSSDeduction" name="Deduction_YTD_GROSSSDeduction" />
+                            </div>
+                        </div>
+                    </div>
+                    <hr />
+                    <div class="form-row">
+                        <div class="col-6 mb-3">
+                            <label for="NETPAY" class="form-label">NETPAY</label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="fa fa-money"></i></span>
+                                </div>
+                                <input type="text" class="form-control" id="NETPAY" name="NETPAY" />
+                            </div>
+                        </div>
+                        <div class="col-6 mb-3">
+                            <label for="NETTRANSFER" class="form-label">NETTRANSFER</label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="fa fa-money"></i></span>
+                                </div>
+                                <input type="text" class="form-control" id="NETTRANSFER" name="NETTRANSFER" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-12 mb-3">
+                            <label for="INWords" class="form-label">INWords</label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="fas fa-briefcase"></i></span>
+                                </div>
+                                <input type="text" class="form-control" id="INWords" name="Title" placeholder="INWords" autofocus required />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" form="EmployeeSalaryForm" class="btn btn-success" id="btnsubmit">Save</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

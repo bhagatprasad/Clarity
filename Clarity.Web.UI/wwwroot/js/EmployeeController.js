@@ -129,6 +129,12 @@
             var employeeCode = generateNextCode(self.employees);
             $("#Code").val(employeeCode);
             $('#Code').prop('disabled', true);
+
+            var employees = storageService.get('employees');
+            if (employees) {
+                storageService.remove('employees');
+            }
+            storageService.set('employees', self.employees);
             console.log(responses);
         }).fail(function () {
             console.log('One or more requests failed.');

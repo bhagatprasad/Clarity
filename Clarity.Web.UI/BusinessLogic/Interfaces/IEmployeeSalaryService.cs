@@ -8,5 +8,7 @@ namespace Clarity.Web.UI.BusinessLogic.Interfaces
      
         Task<EmployeeSalaryModel> FetchEmployeeSalary(long employeeSalaryId);
         Task<List<EmployeeSalaryModel>> FetchEmployeeSalaryAsync(long employeeId);
+
+        Task<EmployeeSalary> InsertOrUpdateEmployeeSalaryAsync(EmployeeSalary employeeSalary);
     }
 }
