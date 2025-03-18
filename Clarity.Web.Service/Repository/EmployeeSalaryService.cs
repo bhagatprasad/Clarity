@@ -1,4 +1,5 @@
 ﻿using Clarity.Web.Service.DBConfiguration;
+using Clarity.Web.Service.Helpers;
 using Clarity.Web.Service.Interfaces;
 using Clarity.Web.Service.Models;
 using Microsoft.EntityFrameworkCore;
@@ -19,18 +20,18 @@ namespace Clarity.Web.Service.Repository
 
         public async Task<List<EmployeeSalaryModel>> FetchAllEmployeeSalarys(string employeeCode)
         {
-            return await FetchEmployeeSalaries("",employeeCode);
+            return await FetchEmployeeSalaries("", employeeCode);
         }
 
         public async Task<List<EmployeeSalaryModel>> FetchAllEmployeeSalarys(long employeeId)
         {
-            return await FetchEmployeeSalaries("","","","",employeeId);
+            return await FetchEmployeeSalaries("", "", "", "", employeeId);
 
         }
 
         public async Task<List<EmployeeSalaryModel>> FetchAllEmployeeSalarys(string month = "", string year = "")
         {
-            return await FetchEmployeeSalaries("","",month,year);
+            return await FetchEmployeeSalaries("", "", month, year);
 
         }
 
@@ -40,12 +41,33 @@ namespace Clarity.Web.Service.Repository
             return employeeSalary.FirstOrDefault();
         }
 
+        public async Task<EmployeeSalary> InsertOrUpdateEmployeeSalaryAsync(EmployeeSalary employeeSalary)
+        {
+            if (employeeSalary.EmployeeSalaryId > 0)
+            {
+                var dbEmployeeSalary = await _dbContext.employeeSalaries.FindAsync(employeeSalary.EmployeeSalaryId);
+                if (dbEmployeeSalary != null)
+                {
+                    bool hasChanges = EntityUpdater.HasChanges(dbEmployeeSalary, employeeSalary, nameof(EmployeeSalary.CreatedBy), nameof(EmployeeSalary.CreatedOn));
+
+                    if (hasChanges)
+                    {
+                        EntityUpdater.UpdateProperties(dbEmployeeSalary, employeeSalary, nameof(EmployeeSalary.CreatedBy), nameof(EmployeeSalary.CreatedOn));
+                    }
+                }
+            }
+
+            await _dbContext.SaveChangesAsync();
+
+            return employeeSalary;
+        }
+
         private async Task<List<EmployeeSalaryModel>> FetchEmployeeSalaries(string all = "", string employeeCode = "", string month = "", string year = "",
                                                                                long employeeId = 0, long employeeSalaryId = 0)
         {
             List<EmployeeSalaryModel> employeeSalaries = new List<EmployeeSalaryModel>();
-            var employies = await _dbContext.employees.Where(x => x.IsActive == true).ToListAsync();
-            var employeesSalaries = await _dbContext.employeeSalaries.Where(x => x.IsActive == true).ToListAsync();
+            var employies = await _dbContext.employees.ToListAsync();
+            var employeesSalaries = await _dbContext.employeeSalaries.ToListAsync();
 
             if (!string.IsNullOrEmpty(employeeCode))
             {
@@ -73,7 +95,7 @@ namespace Clarity.Web.Service.Repository
                                 join employee in employies
                                 on salary.EmployeeId equals employee.EmployeeId into employeejoin
                                 from employeeinfo in employeejoin.DefaultIfEmpty()
-                                select new EmployeeSalaryModel { employee = employeeinfo, employeeSalary = salary }).ToList();
+                                select new EmployeeSalaryModel { employee = employeeinfo, employeeSalary = salary }).OrderByDescending(x=>x.employeeSalary.CreatedBy).ToList();
 
             return employeeSalaries;
         }

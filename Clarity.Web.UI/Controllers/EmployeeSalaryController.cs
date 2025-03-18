@@ -71,6 +71,22 @@ namespace Clarity.Web.UI.Controllers
             }
         }
 
+        [HttpPost]
+        public async Task<IActionResult> InsertOrUpdateEmployeeSalary([FromBody] EmployeeSalary employeeSalary)
+        {
+            try
+            {
+                var _employeeSalary = await employeeSalaryService.InsertOrUpdateEmployeeSalaryAsync(employeeSalary);
+                return Json(new { data = _employeeSalary });
+            }
+            catch (Exception ex)
+            {
+                notyfService.Error(ex.Message);
+                log.Error("FetchEmployeeSalary.." + ex);
+                throw ex;
+            }
+        }
+
         [HttpGet]
         public async Task<FileResult> DownloadPaySlip(long employeeSalaryId)
         {

@@ -21,7 +21,7 @@ namespace Clarity.Web.UI.BusinessLogic.Services
             var url = "EmployeeSalary/FetchEmployeeSalaryAsync";
 
             var serviceUrl = Path.Combine(url, employeeId.ToString());
-          
+
             var responce = await _httpClient.GetAsync(serviceUrl);
 
             if (responce.IsSuccessStatusCode)
@@ -63,6 +63,23 @@ namespace Clarity.Web.UI.BusinessLogic.Services
                 return contentReqponce != null ? contentReqponce : new EmployeeSalaryModel();
             }
             return new EmployeeSalaryModel();
+        }
+
+        public async Task<EmployeeSalary> InsertOrUpdateEmployeeSalaryAsync(EmployeeSalary employeeSalary)
+        {
+            var inputContent = JsonConvert.SerializeObject(employeeSalary);
+
+            var requestContent = new StringContent(inputContent, Encoding.UTF8, "application/json");
+
+            var responce = await _httpClient.PostAsync("EmployeeSalary/InsertOrUpdateEmployeeSalaryAsync", requestContent);
+
+            if (responce.IsSuccessStatusCode)
+            {
+                var content = await responce.Content.ReadAsStringAsync();
+                var responceContent = JsonConvert.DeserializeObject<EmployeeSalary>(content);
+                return responceContent;
+            }
+            return null;
         }
     }
 }
