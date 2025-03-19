@@ -543,7 +543,6 @@
                 success: function (responce) {
                     $('#OrignalSalary').val("");
                     $('#LatestSalary').val("");
-                    $('#ProcessTimesheetMessage').val("");
                     self.salaryHikeItem = {};
                     $("#SalaryHike").modal("hide");
                 },
