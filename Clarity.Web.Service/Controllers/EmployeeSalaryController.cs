@@ -98,5 +98,20 @@ namespace Clarity.Web.Service.Controllers
                 throw new Exception(ex.Message, ex);
             }
         }
+
+        [HttpPost]
+        [Route("InsertOrUpdateEmployeeSalaryAsync")]
+        public async Task<IActionResult> InsertOrUpdateEmployeeSalaryAsync(EmployeeSalary employeeSalary)
+        {
+            try
+            {
+                var _employeeSalary = await _employeeSalaryService.InsertOrUpdateEmployeeSalaryAsync(employeeSalary);
+                return Ok(_employeeSalary);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message, ex);
+            }
+        }
     }
 }

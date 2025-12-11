@@ -61,15 +61,21 @@ namespace Clarity.Web.UI.BusinessLogic.Services
 
         }
 
-        //private AddEditEmployee ValidateEmployeeInput(AddEditEmployee employeeDetails)
-        //{
-        //    if (employeeDetails.employee.DateOfBirth == null)
-        //    {
-        //        // Parse the date string only if DateOfBirth is null
-        //        employeeDetails.employee.DateOfBirth = DateTimeOffset.Parse(employeeDetails.employee.DateOfBirth, new CultureInfo("en-US", true));
-        //    }
+        public async Task<bool> SalaryHikeAsync(SalaryHike salaryHike)
+        {
+            var inputContent = JsonConvert.SerializeObject(salaryHike);
 
-        //    return employeeDetails;
-        //}
+            var requestContent = new StringContent(inputContent, Encoding.UTF8, "application/json");
+
+            var responce = await _httpClient.PostAsync("Employee/SalaryHikeAsync", requestContent);
+
+            if (responce.IsSuccessStatusCode)
+            {
+                var content = await responce.Content.ReadAsStringAsync();
+                var responceContent = JsonConvert.DeserializeObject<bool>(content);
+                return responceContent ? responceContent : false;
+            }
+            return false;
+        }
     }
 }

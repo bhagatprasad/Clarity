@@ -36,6 +36,9 @@
                     <li class="nav-item"> <a class="nav-link" href="@Url.Action("Index","Status",null)">Status</a></li>
                     <li class="nav-item"> <a class="nav-link" href="@Url.Action("Index","DocumentTypes",null)">Document Types</a></li>
                     <li class="nav-item"> <a class="nav-link" href="@Url.Action("Index","ActivityTypes",null)">Activity Types</a></li>
+                    <li class="nav-item"> <a class="nav-link" href="@Url.Action("Index","HolidayCallender",null)">HolyDays</a></li>
+                    <li class="nav-item"> <a class="nav-link" href="@Url.Action("Index","MessageType",null)">Message Types</a></li>
+                    <li class="nav-item"> <a class="nav-link" href="@Url.Action("Index","MailBox",null)">MailBox</a></li>
                 </ul>
             </div>
         </li>
@@ -49,6 +52,8 @@
                 <ul class="nav flex-column sub-menu">
                     <li class="nav-item"> <a class="nav-link" href="@Url.Action("Index","Employee",null)">Employee</a></li>
                     <li class="nav-item"> <a class="nav-link" href="@Url.Action("Index","Employee",null)">User Access</a></li>
+                    <li class="nav-item"> <a class="nav-link" href="@Url.Action("Index","ReportingManager",null)">Reporting Manager</a></li>
+                    <li class="nav-item"> <a class="nav-link" href="@Url.Action("Index","EmployeeDocument",null)">Document Manager</a></li>
                     <li class="nav-item"> <a class="nav-link" href="#" id="ChangePassword">Change Password</a></li>
                 </ul>
             </div>
@@ -84,6 +89,33 @@
                     <li class="nav-item"> <a class="nav-link" href="pages/ui-features/typography.html">Status</a></li>
                     <li class="nav-item"> <a class="nav-link" href="pages/ui-features/typography.html">Document Types</a></li>
                     <li class="nav-item"> <a class="nav-link" href="pages/ui-features/typography.html">Activity Types</a></li>
+                </ul>
+            </div>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" data-bs-toggle="collapse" href="#ui-timesheet" aria-expanded="false" aria-controls="ui-timesheet">
+                <span class="menu-title">Time Sheet Management</span>
+                <i class="menu-arrow"></i>
+                <i class="mdi mdi-crosshairs-gps menu-icon"></i>
+            </a>
+            <div class="collapse" id="ui-timesheet">
+                <ul class="nav flex-column sub-menu">
+                    <li class="nav-item"> <a class="nav-link" href="@Url.Action("Index","TaskItem",null)">Task Item</a></li>
+                    <li class="nav-item"> <a class="nav-link" href="@Url.Action("Index","TaskCode",null)">Task Code</a></li>
+                    <li class="nav-item"> <a class="nav-link" href="@Url.Action("Index","Timesheet",null)">Timesheet Manager</a></li>
+                </ul>
+            </div>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" data-bs-toggle="collapse" href="#ui-employeePayment" aria-expanded="false" aria-controls="ui-employeePayment">
+                <span class="menu-title">Employee Payments</span>
+                <i class="menu-arrow"></i>
+                <i class="mdi mdi-currency-usd menu-icon"></i>
+            </a>
+            <div class="collapse" id="ui-employeePayment">
+                <ul class="nav flex-column sub-menu">
+                    <li class="nav-item"> <a class="nav-link" href="@Url.Action("Index","EmployeePayment",null)">Payment Method</a></li>
+                    <li class="nav-item"> <a class="nav-link" href="@Url.Action("Index","TutionFee",null)">Tuition Fee</a></li>
                 </ul>
             </div>
         </li>

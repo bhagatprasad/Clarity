@@ -1,0 +1,53 @@
+﻿@{
+    ViewData["Title"] = "Timesheet Manager";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+ }
+<div class="container-xxl flex-grow-1 container-p-y">
+    <div class="row" style="padding-top:80px">
+    </div>
+    <!-- Bordered Table -->
+    <div class="card">
+        <div class="card-header">
+            <div class="col-md-8 float-left" style="text-align: right;float: right;">
+                <button id="toggleDrawer" class="btn btn-success">
+                    <i class="fas fa-plus"></i> Add
+                </button>
+                <button id="importData" class="btn btn-primary">
+                    <i class="fas fa-download"></i> Import
+                </button>
+                <button id="ExportData" class="btn btn-info">
+                    <i class="fas fa-upload"></i> Export
+                </button>
+            </div>
+        </div>
+        <div class="card-body">
+            <partial name="~/Views/Shared/_timesheetGridPartial.cshtml" />
+        </div>
+    </div>
+</div>
+<partial name="~/Views/Timesheet/_timesheetStatusChange.cshtml" />
+<partial name="~/Views/Shared/_AddEditTimesheet.cshtml" />
+<partial name="~/Views/Shared/_AddTask.cshtml" />
+<style>
+    .form-row {
+        display: inline-flex !important;
+        width: 100% !important;
+    }
+
+    .col-6 {
+        padding: 5px !important;
+    }
+
+    .table-condensed {
+        font-size: 30px !important;
+        width: 495px !important;
+    }
+</style>
+<script src="~/lib/jquery/dist/jquery.js"></script>
+<script src="~/js/UserTimesheetController.js"></script>
+<script type="text/javascript">
+    $(function () {
+        var ctrl = new UserTimesheetController();
+        ctrl.init();
+    });
+</script>

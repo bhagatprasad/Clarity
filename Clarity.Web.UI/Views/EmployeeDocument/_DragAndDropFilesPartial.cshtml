@@ -1,0 +1,38 @@
+﻿<form id="fileUploadForm" enctype="multipart/form-data">
+    <div class="modal fade" id="fileUploadModal" tabindex="-1" role="dialog" aria-labelledby="fileUploadModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-sm" style="max-width: 40% !important;">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="fileUploadModalLabel">Import Files</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="btnImportClose">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-row">
+                        <div class="col-12 mb-3">
+                            <label for="dropdownEmployees" class="form-label">Employee</label>
+                            <select id="dropdownEmployees" class="form-control custom-select" autofocus required></select>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-12 mb-3">
+                            <label for="dropdownDocumentType" class="form-label">Document Type</label>
+                            <select id="dropdownDocumentType" class="form-control custom-select" autofocus required></select>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-12 mb-3">
+                            <label for="fileInput">Choose File:</label>
+                            <input type="file" class="form-control-file" id="fileInput">
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal" id="btnImportClose">Close</button>
+                    <button type="button" class="btn btn-primary" id="uploadButton">Upload</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

@@ -1,4 +1,5 @@
 ﻿using Clarity.Web.Service.Models;
+using Clarity.Web.Service.Repository;
 using Microsoft.EntityFrameworkCore;
 
 namespace Clarity.Web.Service.DBConfiguration
@@ -28,5 +29,21 @@ namespace Clarity.Web.Service.DBConfiguration
         public DbSet<EmployeeSalaryStructure> employeeSalaryStructures { get; set; }
         public DbSet<EmployeeSalary> employeeSalaries { get; set; }
         public DbSet<MonthlySalary> monthlySalaries { get; set; }
+        public DbSet<TaskItem> taskItems { get; set; }
+        public DbSet<TaskCode> taskCodes { get; set; }
+        public DbSet<RepotingManager> reportingManagers { get; set; }
+        public DbSet<HolidayCallender> holidayCallenders { get; set; }
+        public DbSet<DocumentType> documentTypes { get; set; }
+        public DbSet<EmployeeDocument> employeeDocuments { get; set; }
+        public DbSet<Timesheet> timesheets { get; set; }
+        public DbSet<TimesheetTask> timesheetTasks { get; set; }
+        public DbSet<NotificationType> notificationTypes { get; set; }
+        public DbSet<MessageType> messageTypes { get; set; }
+        public DbSet<MailBox> mailBoxes { get; set; }
+        public DbSet<UserMailBox> userMailBoxes { get; set; }
+        public DbSet<PaymentMethod> paymentMethods { get; set; }
+        public DbSet<PaymentType> paymentTypes { get; set; }
+        public DbSet<EmployeePayment> employeePayments { get; set; }
+        public DbSet<TutionFee> tutionFees { get; set; }
     }
 }

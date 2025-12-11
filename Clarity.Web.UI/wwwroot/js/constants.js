@@ -7,7 +7,17 @@
     getStates: "/State/LoadStates",
     getUsers: "/Employee/fetchAllEmployess",
     getFetchUsers: "/Tenant/fetchUsers",
-    fetchEmployeeSalariesById: "/UserDashBoard/FetchAllEmployeeSalaries"
+    fetchEmployeeSalariesById: "/UserDashBoard/FetchAllEmployeeSalaries",
+    fetchDocumentTypes: "/DocumentType/FetchDocumentTypes",
+    fetchOfferLetter: "/UserDashBoard/FetchOfferLetter",
+    fetchAllHikesLetters: "/UserDashBoard/FetchAllHikesLetters",
+    fetchAllFormSixteensLetters: "/UserDashBoard/FetchAllFormSixteensLetters",
+    fetchAllTaskItems: "/TaskItem/fetchAllTaskItems",
+    fetchAllTaskItemUser: "/UserTimesheet/fetchAllTaskItemUser",
+    fetchUserPendingAndApprovedTimesheetHrs: "/UserTimesheet/FetchUserPaindingAndApprovedHrs",
+    fetchPaymentTypes: "/PaymentType/GetAllPaymentTypes",
+    fetchPaymentMethods: "/PaymentMethod/GetAllPaymentMethods",
+    fetchAllTutionFees: "TutionFee/fetchAllTutionFees"
 };
 
 function generateNextCode(data) {

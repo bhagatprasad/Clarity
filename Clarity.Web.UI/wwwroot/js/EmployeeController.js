@@ -15,6 +15,8 @@
     self.tenants = [];
     var requests = [];
     var actions = [];
+    self.salaryHikeItem = {};
+    self.ApplicationUser = {};
     actions.push(serviceUrls.getRoles);
     actions.push(serviceUrls.getDesignations);
     actions.push(serviceUrls.getDepartments);
@@ -24,6 +26,11 @@
     actions.push(serviceUrls.getUsers);
     actions.push(serviceUrls.getFetchUsers);
     self.init = function () {
+
+        var appuser = storageService.get("ApplicationUser");
+        if (appuser) {
+            self.ApplicationUser = appuser;
+        }
         var employeeGrid = $('#EmployeesGrid').DataTable({
             data: self.employees,
             columns: [
@@ -71,7 +78,8 @@
                             return record.EmployeeId === row.EmployeeId;
                         }).length > 0;
                         if (exists) {
-                            icons += '<i class="fas fa-trash delete-icon  icon-padding-right" data-id="' + row.EmployeeId + '" style="font-size: 20px;color: red;"></i>';
+                            icons += '<i class="fas fa-trash delete-icon  icon-padding-right" data-id="' + row.EmployeeId + '" style="font-size: 20px;color: red;"></i>' +
+                                '<i class="fas fa-solid fa-money money-icon icon-padding-right" data-id="' + row.EmployeeId + '" style="font-size: 20px; color: blue;padding-left: 5px;"></i>';
                         } else {
                             icons += '<i class="fas fa-trash delete-icon  icon-padding-right" data-id="' + row.EmployeeId + '" style="font-size: 20px;color: red;"></i>' +
                                 '<i class="fas fa-solid fa-user-circle-o assign-icon icon-padding-right" data-id="' + row.EmployeeId + '" style="font-size: 20px; color: green;padding-left: 5px;"></i>';
@@ -121,6 +129,12 @@
             var employeeCode = generateNextCode(self.employees);
             $("#Code").val(employeeCode);
             $('#Code').prop('disabled', true);
+
+            var employees = storageService.get('employees');
+            if (employees) {
+                storageService.remove('employees');
+            }
+            storageService.set('employees', self.employees);
             console.log(responses);
         }).fail(function () {
             console.log('One or more requests failed.');
@@ -498,6 +512,45 @@
             $("#userAccessLastName").prop('disabled', true);
             $("#CreateUserAccessModal").modal("show");
         });
+        $(document).on("click", ".money-icon", function () {
+            var data = $(this);
+            var row = data.closest('tr');
+            var dataItem = employeeGrid.row(row).data();
+            self.salaryHikeItem = dataItem;
+            console.log(self.salaryHikeItem)
+            $('#OrignalSalary').val(self.salaryHikeItem.CurrentPrice);
+            $('#OrignalSalary').prop('disabled', true);
+            $("#OrignalSalary").prop('disabled', true);
+            $("#SalaryHike").modal("show");
+        });
+        $(document).on("click", "#confirmProcessRequest", function () {
+            var latestSalary = $("#LatestSalary").val();
+            var salaryHike = {
+                EmployeeId: self.salaryHikeItem.EmployeeId,
+                OrignalSalary: self.salaryHikeItem.CurrentPrice,
+                LatestSalary: parseFloat(latestSalary),
+                ModifiedBy: self.ApplicationUser.Id,
+                ModifiedOn: new Date()
+            };
+            $.ajax({
+                url: '/Employee/EmployeeSalaryHike',
+                type: 'POST',
+                data: JSON.stringify(salaryHike),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                processData: true,
+                cache: false,
+                success: function (responce) {
+                    $('#OrignalSalary').val("");
+                    $('#LatestSalary').val("");
+                    self.salaryHikeItem = {};
+                    $("#SalaryHike").modal("hide");
+                },
+                error: function (xhr, status, error) {
+                    console.error('Error:', error);
+                }
+            });
+        });
         $(document).on("click", "#createUserAccess", function () {
             var userAccess = {
                 Id: 0,
@@ -545,51 +598,53 @@
                 }
             });
         });
+
+        self.resetMasterForm = function () {
+            $("#Code").val("");
+            $("#FirstName").val("");
+            $("#LastName").val("");
+            $("#MotherName").val("");
+            $("#FatherName").val("");
+            $('#Gender').prop('selectedIndex', 0);
+            $("#DateOfBirth").val("");
+            $("#Email").val("");
+            $("#Phone").val("");
+            $('#Role').prop('selectedIndex', 0);
+            $('#Department').prop('selectedIndex', 0);
+            $('#Designation').prop('selectedIndex', 0);
+            $("#StartedOn").val("");
+            $("#EndedOn").val("");
+            $("#ResignedOn").val("");
+            $("#LastWorkingDay").val("");
+            $("#OfferRelesedOn").val("");
+            $("#OfferAcceptedOn").val("");
+            $("#OfferPrice").val("");
+            $("#CurrentPrice").val("");
+            $("#JoiningBonus").val("");
+            $("#PAN").val("");
+            $("#Adhar").val("");
+            $("#BankAccount").val("");
+            $("#BankName").val("");
+            $("#IFSC").val("");
+
+            self.employeeEducations = [];
+            educationGrid.clear().rows.add(self.employeeEducations).draw();
+            educationGrid.draw();
+
+            self.employeeEmployments = [];
+            employmentGrid.clear().rows.add(self.employeeEmployments).draw();
+            employmentGrid.draw();
+
+            self.employeeAddresses = [];
+            employeeAddressGrid.clear().rows.add(self.employeeAddresses).draw();
+            employeeAddressGrid.draw();
+
+            self.employeeEmergencyContacts = [];
+            contactsGrid.clear().rows.add(self.employeeEmergencyContacts).draw();
+            contactsGrid.draw();
+        };
     };
-    self.resetMasterForm = function () {
-        $("#Code").val("");
-        $("#FirstName").val("");
-        $("#LastName").val("");
-        $("#MotherName").val("");
-        $("#FatherName").val("");
-        $('#Gender').prop('selectedIndex', 0);
-        $("#DateOfBirth").val("");
-        $("#Email").val("");
-        $("#Phone").val("");
-        $('#Role').prop('selectedIndex', 0);
-        $('#Department').prop('selectedIndex', 0);
-        $('#Designation').prop('selectedIndex', 0);
-        $("#StartedOn").val("");
-        $("#EndedOn").val("");
-        $("#ResignedOn").val("");
-        $("#LastWorkingDay").val("");
-        $("#OfferRelesedOn").val("");
-        $("#OfferAcceptedOn").val("");
-        $("#OfferPrice").val("");
-        $("#CurrentPrice").val("");
-        $("#JoiningBonus").val("");
-        $("#PAN").val("");
-        $("#Adhar").val("");
-        $("#BankAccount").val("");
-        $("#BankName").val("");
-        $("#IFSC").val("");
 
-        self.employeeEducations = [];
-        educationGrid.clear().rows.add(self.employeeEducations).draw();
-        educationGrid.draw();
-
-        self.employeeEmployments = [];
-        employmentGrid.clear().rows.add(self.employeeEmployments).draw();
-        employmentGrid.draw();
-
-        self.employeeAddresses = [];
-        employeeAddressGrid.clear().rows.add(self.employeeAddresses).draw();
-        employeeAddressGrid.draw();
-
-        self.employeeEmergencyContacts = [];
-        contactsGrid.clear().rows.add(self.employeeEmergencyContacts).draw();
-        contactsGrid.draw();
-    };
     function getStatesBasedOnCountry(country) {
 
         var states = [];

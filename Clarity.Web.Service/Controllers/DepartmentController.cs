@@ -21,7 +21,7 @@ namespace Clarity.Web.Service.Controllers
         {
             try
             {
-                ;
+                
                 await departmentServices.CreateDepartment(department);
                 return Ok(true);
 

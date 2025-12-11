@@ -1,0 +1,50 @@
+﻿<form id="AddEditTimesheetForm">
+    <div class="modal fade" id="AddEditTimesheetModal" tabindex="-1" aria-labelledby="AddEditTimesheetModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg" style="max-width: 60% !important;">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="AddEditTimesheetModalLabel">Add/Edit Timesheet</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body" style="padding:10px !important">
+                    <input type="hidden" id="Id" />
+                    <div class="form-row">
+                        <div class="col-12 mb-3">
+                            <label for="Description" class="form-label">Title</label>
+                            <input type="text" class="form-control" id="Description" name="Description" placeholder="US-12344 Add Single signin service" autofocus required />
+                        </div>
+                    </div>
+                  
+                    <div class="form-row">
+                        <div class="col-6 mb-3">
+                            <label for="FromDate" class="form-label">From Date</label>
+                            <input type="text" class="form-control" id="FromDate" name="FromDate" autofocus />
+                        </div>
+                        <div class="col-6 mb-3">
+                            <label for="ToDate" class="form-label">To Date</label>
+                            <input type="text" class="form-control" id="ToDate" name="ToDate" autofocus />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6 mb-3">
+                           
+                        </div>
+                        <div class="col-6 mb-3">
+                            <button id="addTaskItemToGrid" class="btn btn-success float-left" style="text-align: right;float: right;" type="button" >
+                                <i class="fas fa-plus"></i>
+                            </button>
+                        </div>
+                      
+                    </div>
+                    <div class="row">
+                        <partial name="~/Views/Shared/TaskGrid.cshtml" />
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-success" id="SaveInsertOrUpdateTimesheet">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

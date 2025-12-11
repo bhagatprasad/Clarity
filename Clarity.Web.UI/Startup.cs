@@ -45,8 +45,7 @@ namespace Clarity.Web.UI
             services.AddHttpContextAccessor();
             services.AddScoped<HttpClientService>();
             services.AddTransient<TokenAuthorizationHttpClientHandler>();
-            services.AddHttpClient("AuthorizedClient")
-                   .AddHttpMessageHandler<TokenAuthorizationHttpClientHandler>();
+            services.AddHttpClient("AuthorizedClient").AddHttpMessageHandler<TokenAuthorizationHttpClientHandler>();
             services.AddScoped<IRolesService, RolesService>();
             services.AddScoped<IDesignationService, DesignationService>();
             services.AddScoped<IDepartmentService, DepartmentService>();
@@ -63,6 +62,20 @@ namespace Clarity.Web.UI
             services.AddScoped<IChangePasswordService, ChangePasswordService>();
             services.AddScoped<ITenantService, TenantService>();
             services.AddScoped<IEmployeeSalaryStructureService, EmployeeSalaryStructureService>();
+            services.AddScoped<IReportingManagerService, ReportingManagerService>();
+            services.AddScoped<ITaskItemService, TaskItemService>();
+            services.AddScoped<IHolidayCallenderService, HolidayCallenderService>();
+            services.AddScoped<IDocumentTypeService, DocumentTypeService>();
+            services.AddScoped<IEmployeeDocumentService, EmployeeDocumentService>();
+            services.AddScoped<ITaskCodeService, TaskCodeService>();
+            services.AddScoped<ITimesheetService, TimesheetService>();
+            services.AddScoped<IMessageTypeService, MessageTypeService>();
+            services.AddScoped<IMailBoxService, MailBoxService>();
+            services.AddScoped<IUserMailBoxService, UserMailBoxService>();
+            services.AddScoped<IEmployeePaymentService, EmployeePaymentService>();
+            services.AddScoped<IPaymentTypeService, PaymentTypeService>();
+            services.AddScoped<IPaymentMethodService, PaymentMethodService>();
+            services.AddScoped<ITutionFeeService, TutionFeeService>();
             services.AddSession(options =>
             {
                 options.IdleTimeout = TimeSpan.FromMinutes(30);
@@ -202,7 +215,6 @@ namespace Clarity.Web.UI
                     ctx.Context.Response.Headers["Cache-Control"] = "no-cache, no-store";
                     ctx.Context.Response.Headers["Pragma"] = "no-cache";
                     ctx.Context.Response.Headers["Expires"] = "-1";
-
                 }
             });
             app.UseRouting();

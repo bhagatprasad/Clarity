@@ -130,7 +130,7 @@
                 CreatedBy: self.ApplicationUser.Id,
                 ModifiedOn: new Date(),
                 ModifiedBy: self.ApplicationUser.Id,
-                IsActive: null
+                IsActive: true
             };
             $.ajax({
                 url: '/MonthlySalary/PublishMonthlySalary',

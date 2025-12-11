@@ -1,0 +1,27 @@
+﻿CREATE TABLE [dbo].[Timesheet]
+(
+	[Id]					bigint				NOT NULL PRIMARY KEY identity(1,1) ,
+	[FromDate]              datetimeoffset		NULL,
+	[ToDate]				datetimeoffset		NULL,
+	[Description]			varchar(max)		NULL,
+	[EmployeeId]			bigint				NULL,
+	[UserId]				bigint				NULL,
+	[Status]				varchar(max)		NULL,
+	[AssignedOn]			dateTimeoffset		NULL,
+    [AssignedTo]			bigint				NULL,
+	[ApprovedOn]			dateTimeoffset		NULL,
+    [ApprovedBy]			bigint				NULL,
+    [ApprovedComments]		varchar(max)		NULL,
+	[CancelledOn]			dateTimeoffset		NULL,
+    [CancelledBy]			bigint				NULL,
+    [CancelledComments]		varchar(max)		NULL,
+    [RejectedOn]			dateTimeoffset		NULL,
+    [RejectedBy]			bigint				NULL,
+    [RejectedComments]		varchar(max)		NULL,
+	[CreatedBy]				bigint				NULL,
+    [CreatedOn]				datetimeoffset		NULL,
+	[ModifiedBy]			bigint				NULL,
+	[ModifiedOn]			datetimeoffset		NULL,
+    [IsActive]				bit                 NULL,
+	FOREIGN KEY (EmployeeId) REFERENCES Employee(EmployeeId)
+)

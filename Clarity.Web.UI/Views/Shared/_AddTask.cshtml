@@ -1,0 +1,68 @@
+﻿<form id="AddTaskForm">
+    <div class="modal fade" id="AddTaskModal" tabindex="-1" aria-labelledby="AddTaskModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-sm" style="max-width: 50% !important;">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="AddTaskModalLabel">Add Task</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body" style="padding:10px !important">
+                    <div class="form-row">
+                        <div class="col-6 mb-3">
+                            <label for="dropdownTaskItems" class="form-label">Task Item</label>
+                            <select id="dropdownTaskItems" class="form-control custom-select" autofocus required></select>
+                        </div>
+                        <div class="col-6 mb-3">
+                            <label for="dropdownTaskCodes" class="form-label">Task Code</label>
+                            <select id="dropdownTaskCodes" class="form-control custom-select" autofocus required></select>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-6 mb-3">
+                            <label for="MondayHours" class="form-label">Monday</label>
+                            <input type="text" class="form-control" id="MondayHours" name="MondayHours" placeholder="9.0" autofocus />
+                        </div>
+                        <div class="col-6 mb-3">
+                            <label for="TuesdayHours" class="form-label">Tuesday</label>
+                            <input type="text" class="form-control" id="TuesdayHours" name="TuesdayHours" placeholder="9.0" autofocus />
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-6 mb-3">
+                            <label for="WednesdayHours" class="form-label">Wednesday</label>
+                            <input type="text" class="form-control" id="WednesdayHours" name="WednesdayHours" placeholder="9.0" autofocus />
+                        </div>
+                        <div class="col-6 mb-3">
+                            <label for="ThursdayHours" class="form-label">Thursday</label>
+                            <input type="text" class="form-control" id="ThursdayHours" name="ThursdayHours" placeholder="9.0" autofocus />
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-6 mb-3">
+                            <label for="FridayHours" class="form-label">Friday</label>
+                            <input type="text" class="form-control" id="FridayHours" name="FridayHours" placeholder="9.0" autofocus />
+                        </div>
+                        <div class="col-6 mb-3">
+                            <label for="SaturdayHours" class="form-label">Saturday</label>
+                            <input type="text" class="form-control" id="SaturdayHours" name="SaturdayHours" placeholder="9.0" autofocus />
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-6 mb-3">
+                            <label for="SundayHours" class="form-label">Sunday</label>
+                            <input type="text" class="form-control" id="SundayHours" name="SundayHours" placeholder="9.0" autofocus />
+                        </div>
+                        <div class="col-6 mb-3">
+                           
+                        </div>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-success" id="SaveTaskToGrid">Add</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

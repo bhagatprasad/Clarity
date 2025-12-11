@@ -1,26 +1,26 @@
 ﻿namespace Clarity.Web.Service.Helpers
 {
-    public class IndianSalaryConverter
+    public static class IndianSalaryConverter
     {
         private static string[] ones = {
         "", "One", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine", "Ten",
         "Eleven", "Twelve", "Thirteen", "Fourteen", "Fifteen", "Sixteen", "Seventeen", "Eighteen", "Nineteen"
-    };
+        };
 
         private static string[] tens = {
         "", "", "Twenty", "Thirty", "Forty", "Fifty", "Sixty", "Seventy", "Eighty", "Ninety"
     };
 
-        public static string ConvertToWords(double salary)
+        public static string ConvertToWords(decimal salary)
         {
             if (salary == 0)
                 return "Zero";
 
-            long intPart = (long)Math.Floor(salary);
-            int decPart = (int)Math.Round((salary - intPart) * 100);
+            long intPart = (long)Math.Floor(salary); // Integer part of the salary
+            int decPart = (int)((salary - intPart) * 100); // Decimal part (paise)
 
-            string intWords = ConvertToWords(intPart);
-            string decWords = ConvertToWords(decPart);
+            string intWords = ConvertToWordsIndian(intPart); // Convert integer part to words
+            string decWords = ConvertToWordsIndian(decPart); // Convert decimal part to words
 
             if (string.IsNullOrEmpty(intWords))
                 return $"{decWords} paise only";
@@ -31,98 +31,59 @@
             return $"{intWords} rupees and {decWords} paise only";
         }
 
-        private static string ConvertToWords(long number)
+        private static string ConvertToWordsIndian(decimal number)
         {
             if (number == 0)
                 return "";
 
-            if (number < 20)
-                return ones[number];
-
-            if (number < 100)
-            {
-                if (number % 10 == 0)
-                    return tens[number / 10 - 2]; // Adjusting index for zero-based array
-                else
-                    return $"{tens[number / 10 - 2]} {ones[number % 10]}".Trim();
-            }
-
-            // Handling hundreds
-            if (number < 1000)
-            {
-                string remainderWords = ConvertToWords(number % 100);
-                if (string.IsNullOrWhiteSpace(remainderWords))
-                    return $"{ones[number / 100]} Hundred"; // Return without appending remainder if it's empty
-                else
-                    return $"{ones[number / 100]} Hundred {remainderWords}".Trim();
-            }
-
-            // Handling thousands
-            if (number < 1000000)
-            {
-                string remainderWords = ConvertToWords(number % 1000);
-                if (string.IsNullOrWhiteSpace(remainderWords))
-                    return $"{ConvertToWords(number / 1000)} Thousand"; // Return without appending remainder if it's empty
-                else
-                    return $"{ConvertToWords(number / 1000)} Thousand {remainderWords}".Trim();
-            }
-
-            // Handle other cases here if needed
-
-            return "Number too large to convert"; // Handle unsupported cases
-        }
-
-        public static string ConvertDecimalToWords(decimal number)
-        {
-            if (number == 0)
-                return "zero";
-
-            if (number < 0)
-                return "minus " + ConvertDecimalToWords(Math.Abs(number));
-
+            long intPart = (long)Math.Floor(number); // Extract the integer part
             string words = "";
 
-            if ((number / 1000000) > 0)
+            // Handle Crores
+            if ((intPart / 10000000) > 0)
             {
-                words += ConvertDecimalToWords(number / 1000000) + " million ";
-                number %= 1000000;
+                words += ConvertToWordsIndian(intPart / 10000000) + " Crore ";
+                intPart %= 10000000;
             }
 
-            if ((number / 1000) > 0)
+            // Handle Lakhs
+            if ((intPart / 100000) > 0)
             {
-                words += ConvertDecimalToWords(number / 1000) + " thousand ";
-                number %= 1000;
+                words += ConvertToWordsIndian(intPart / 100000) + " Lakh ";
+                intPart %= 100000;
             }
 
-            if ((number / 100) > 0)
+            // Handle Thousands
+            if ((intPart / 1000) > 0)
             {
-                words += ConvertDecimalToWords(number / 100) + " hundred ";
-                number %= 100;
+                words += ConvertToWordsIndian(intPart / 1000) + " Thousand ";
+                intPart %= 1000;
             }
 
-            if (number > 0)
+            // Handle Hundreds
+            if ((intPart / 100) > 0)
+            {
+                words += ConvertToWordsIndian(intPart / 100) + " Hundred ";
+                intPart %= 100;
+            }
+
+            // Handle Tens and Ones
+            if (intPart > 0)
             {
                 if (words != "")
                     words += "and ";
 
-                var unitsMap = new[] { "zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten", "eleven", "twelve", "thirteen", "fourteen", "fifteen", "sixteen", "seventeen", "eighteen", "nineteen" };
-                var tensMap = new[] { "zero", "ten", "twenty", "thirty", "forty", "fifty", "sixty", "seventy", "eighty", "ninety" };
-
-                if (number < 20)
-                    words += unitsMap[(int)number];
+                if (intPart < 20)
+                    words += ones[intPart];
                 else
                 {
-                    words += tensMap[(int)(number / 10)];
-                    if ((number % 10) > 0)
-                        words += "-" + unitsMap[(int)(number % 10)];
+                    words += tens[intPart / 10];
+                    if ((intPart % 10) > 0)
+                        words += "-" + ones[intPart % 10];
                 }
             }
 
-            return words;
-
-
+            return words.Trim();
         }
-
-       
     }
 }

@@ -73,6 +73,11 @@ namespace Clarity.Web.UI.Controllers
             return Json(new { appUser = default(object), status = false });
 
         }
+        [HttpGet]
+        public IActionResult ForgotPassword()
+        {
+            return View();
+        }
         public async Task<IActionResult> Logout()
         {
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);

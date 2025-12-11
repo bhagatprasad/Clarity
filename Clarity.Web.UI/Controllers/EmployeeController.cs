@@ -54,6 +54,32 @@ namespace Clarity.Web.UI.Controllers
             }
 
         }
+        [HttpPost]
+        public async Task<IActionResult> EmployeeSalaryHike([FromBody] SalaryHike salaryHike)
+        {
+            try
+            {
+                if (salaryHike != null)
+                {
+                    var responce = await employeeService.SalaryHikeAsync(salaryHike);
+
+                    notyfService.Success("Employeesalary structes was changed and hike was issued");
+
+                    return Json(new { data = responce });
+                }
+
+                notyfService.Success("Somethingwent wrong");
+
+                return Json(false);
+            }
+            catch (Exception ex)
+            {
+                notyfService.Error(ex.Message);
+                log.Error("EmployeeSalaryHike.." + ex);
+                throw ex;
+            }
+
+        }
         [HttpGet]
         public async Task<IActionResult> fetchAllEmployess()
         {

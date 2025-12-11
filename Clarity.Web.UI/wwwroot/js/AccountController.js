@@ -81,12 +81,12 @@
         });
 
         $(document).on("click", "#btnForgotPassword", function () {
-            var email = $("#email").val();
-            var phone = $("#phone").val();
+            var email = $("#forgotPasswordUsername").val();
+            var phone = $("#fotgotPasswordPhone").val();
             $.ajax({
                 url: '/Password/ForgotPassword',
                 type: 'GET',
-                data: { email: JSON.stringify(email), phone: JSON.stringify(phone) },
+                data: { email: email, phone: phone },
                 success: function (responce) {
                     self.userResponceData = responce && responce.data ? responce.data : {};
                     $('#ForgotPasswordModal').modal("hide");
@@ -106,8 +106,8 @@
                 ConfirmPassword: confirmPassword
             };
             $.ajax({
-                url: '/Password/ForgotPassword',
-                type: 'GET',
+                url: '/Password/ResetPassword',
+                type: 'POST',
                 data: JSON.stringify(resetPassword),
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
@@ -117,6 +117,7 @@
                     self.userResponceData = {};
                     $('#ForgotPasswordModal').modal("hide");
                     $('#ResetpasswordModal').modal("hide");
+                    window.location.href = "/Account/Login";
                 },
                 error: function (xhr, status, error) {
                     console.error('Error:', error);

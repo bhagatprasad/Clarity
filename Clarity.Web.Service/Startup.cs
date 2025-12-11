@@ -54,6 +54,21 @@ namespace Clarity.Web.Service
             services.AddScoped<IMonthlySalaryService, MonthlySalaryService>();
             services.AddScoped<IEmployeeSalaryService, EmployeeSalaryService>();
             services.AddScoped<IEmployeeSalaryStructureService, EmployeeSalaryStructureService>();
+            services.AddScoped<ITaskItemService, TaskItemService>();
+            services.AddScoped<IReportingManager, ReportingManagerService>();
+            services.AddScoped<ITaskCodeService, TaskCodeService>();
+            services.AddScoped<IHolidayCallenderService, HolidayCallenderService>();
+            services.AddScoped<IDocumentTypeService, DocumentTypeService>();
+            services.AddScoped<IEmployeeDocumentService, EmployeeDocumentService>();
+            services.AddScoped<ITimesheetService, TimesheetService>();
+            services.AddScoped<IMessageTypeService, MessageTypeService>();
+            services.AddScoped<IMailBoxService, MailBoxService>();
+            services.AddScoped<IUserMailBoxService, UserMailBoxService>();
+            services.AddScoped<IPaymentMethodService, PaymentMethodRepository>();
+            services.AddScoped<IPaymentTypeService, PaymentTypeRepository>();
+            services.AddScoped<IEmployeePaymentService, EmployeePaymentRepository>();
+            services.AddScoped<ITutionFeeService, TutionFeeService>();
+
             services.AddCors(options =>
             {
                 options.AddPolicy("CorsPolicy",
@@ -67,12 +82,7 @@ namespace Clarity.Web.Service
 
             var usedGenaratesTokenKey = _configuration.GetValue<string>("UsedGenaratesTokenKey");
 
-
-
-            services.AddScoped<IAuthService>
-                (x => new AuthService
-                (usedGenaratesTokenKey, x.GetRequiredService<ApplicationDBContext>()));
-
+            services.AddScoped<IAuthService>(x => new AuthService (usedGenaratesTokenKey, x.GetRequiredService<ApplicationDBContext>()));
 
             var key = Encoding.ASCII.GetBytes(usedGenaratesTokenKey);
 
@@ -144,7 +154,6 @@ namespace Clarity.Web.Service
             app.UseAuthentication();
 
             app.UseAuthorization();
-
 
             app.UseCors("CorsPolicy");
 
