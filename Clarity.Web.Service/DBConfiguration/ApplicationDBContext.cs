@@ -1,5 +1,4 @@
 ﻿using Clarity.Web.Service.Models;
-using Clarity.Web.Service.Repository;
 using Microsoft.EntityFrameworkCore;
 
 namespace Clarity.Web.Service.DBConfiguration
